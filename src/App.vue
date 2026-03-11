@@ -23,6 +23,8 @@ const STATUS_LABELS: Record<CompanyStatus, string> = {
 }
 
 const THEME_STORAGE_KEY = 'apply-tracker.theme.v1'
+const COMPANY_STORAGE_KEY = 'apply-tracker.companies.v1'
+const SEED_URL = '/bewerbungstracker-import.json'
 
 const {
   companies,
@@ -84,7 +86,32 @@ const getFollowUpState = (company: Company): FollowUpFilter => {
 
 const isOverdue = (company: Company) => getFollowUpState(company) === 'Overdue'
 
-onMounted(() => {
+const seedInitialData = async () => {
+  // Only seed if the user has no data yet.
+  if (localStorage.getItem(COMPANY_STORAGE_KEY)) {
+    return
+  }
+
+  try {
+    const response = await fetch(SEED_URL)
+    if (!response.ok) {
+      return
+    }
+
+    const raw = await response.text()
+    const imported = importCompaniesFromJson(raw)
+    if (!imported.length) {
+      return
+    }
+
+    // This also writes to localStorage via the companies watcher.
+    mergeImportedCompanies(imported)
+  } catch {
+    // ignore
+  }
+}
+
+onMounted(async () => {
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
   systemTheme.value = mediaQuery.matches ? 'dark' : 'light'
 
@@ -99,6 +126,8 @@ onMounted(() => {
 
   mediaQuery.addEventListener('change', handleSystemThemeChange)
   removeThemeListener = () => mediaQuery.removeEventListener('change', handleSystemThemeChange)
+
+  await seedInitialData()
 })
 
 onUnmounted(() => {
