@@ -2,6 +2,7 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import CompanyDetailModal from './components/CompanyDetailModal.vue'
 import CompanyFormModal from './components/CompanyFormModal.vue'
+import CalendarTab from './components/CalendarTab.vue'
 import { useCompanies } from './composables/useCompanies'
 import { STATUSES, type Company, type CompanyInput, type CompanyStatus } from './types/company'
 
@@ -9,6 +10,17 @@ type Theme = 'light' | 'dark'
 type ViewMode = 'list' | 'kanban'
 type FollowUpFilter = 'All' | 'Due' | 'Overdue' | 'None'
 type SortOption = 'updated-desc' | 'follow-up-asc' | 'company-name'
+
+type Tab = 'tracker' | 'calendar'
+
+const STATUS_LABELS: Record<CompanyStatus, string> = {
+  Interested: 'Interessiert',
+  Applied: 'Beworben',
+  Interviewing: 'Im Gespräch',
+  Offer: 'Angebot',
+  Rejected: 'Absage',
+  Archived: 'Archiv',
+}
 
 const THEME_STORAGE_KEY = 'apply-tracker.theme.v1'
 
@@ -29,10 +41,12 @@ const selectedTag = ref<'All' | string>('All')
 const selectedFollowUp = ref<FollowUpFilter>('All')
 const sortBy = ref<SortOption>('updated-desc')
 const viewMode = ref<ViewMode>('list')
+const activeTab = ref<Tab>('tracker')
 
 const showFormModal = ref(false)
 const formMode = ref<'create' | 'edit'>('create')
 const editingCompany = ref<Company | undefined>(undefined)
+const formPreset = ref<Partial<CompanyInput> | undefined>(undefined)
 
 const showDetailModal = ref(false)
 const selectedCompany = ref<Company | undefined>(undefined)
@@ -162,12 +176,21 @@ const kanbanColumns = computed(() => {
 const openCreateModal = () => {
   formMode.value = 'create'
   editingCompany.value = undefined
+  formPreset.value = undefined
+  showFormModal.value = true
+}
+
+const openCreateModalWithPreset = (preset: Partial<CompanyInput>) => {
+  formMode.value = 'create'
+  editingCompany.value = undefined
+  formPreset.value = preset
   showFormModal.value = true
 }
 
 const openEditModal = (company: Company) => {
   formMode.value = 'edit'
   editingCompany.value = company
+  formPreset.value = undefined
   showFormModal.value = true
 }
 
@@ -194,7 +217,7 @@ const removeCompany = () => {
     return
   }
 
-  const confirmed = window.confirm(`Delete ${selectedCompany.value.name}?`)
+  const confirmed = window.confirm(`${selectedCompany.value.name} wirklich löschen?`)
   if (!confirmed) {
     return
   }
@@ -232,7 +255,7 @@ const importData = async (event: Event) => {
     const imported = importCompaniesFromJson(raw)
 
     if (!imported.length) {
-      window.alert('Import failed: no valid companies were found in the selected JSON file.')
+      window.alert('Import fehlgeschlagen: In der ausgewählten JSON-Datei wurden keine gültigen Einträge gefunden.')
       return
     }
 
@@ -241,10 +264,10 @@ const importData = async (event: Event) => {
     const newCount = imported.length - overwriteCount
 
     const confirmed = window.confirm(
-      `Import ${imported.length} companies?\n\n` +
-        `- New records: ${newCount}\n` +
-        `- Overwrite by matching id: ${overwriteCount}\n\n` +
-        'Imported entries will be merged by id and imported values will replace existing matches.',
+      `Import von ${imported.length} Einträgen starten?\n\n` +
+        `- Neu: ${newCount}\n` +
+        `- Überschreiben (gleiche ID): ${overwriteCount}\n\n` +
+        'Importierte Einträge werden per ID zusammengeführt. Import-Werte überschreiben vorhandene Daten.',
     )
 
     if (!confirmed) {
@@ -252,9 +275,9 @@ const importData = async (event: Event) => {
     }
 
     mergeImportedCompanies(imported)
-    window.alert(`Import complete. Added ${newCount}, overwritten ${overwriteCount}.`)
+    window.alert(`Import abgeschlossen. Neu: ${newCount}, überschrieben: ${overwriteCount}.`)
   } catch {
-    window.alert('Import failed: file could not be read.')
+    window.alert('Import fehlgeschlagen: Datei konnte nicht gelesen werden.')
   } finally {
     input.value = ''
   }
@@ -286,10 +309,28 @@ const clearDragged = () => {
   <main class="container">
     <header class="topbar">
       <div>
-        <h1>Company Application Tracker</h1>
-        <p>Track applications, interviews, and follow-ups in one place.</p>
+        <h1>Bewerbungs-Tracker</h1>
+        <p>Behalte Bewerbungen, Gespräche und Follow-ups an einem Ort im Blick.</p>
       </div>
       <div class="topbar-actions">
+        <div class="view-toggle" role="group" aria-label="Tabs">
+          <button
+            type="button"
+            class="toggle-btn"
+            :class="{ active: activeTab === 'tracker' }"
+            @click="activeTab = 'tracker'"
+          >
+            Tracker
+          </button>
+          <button
+            type="button"
+            class="toggle-btn"
+            :class="{ active: activeTab === 'calendar' }"
+            @click="activeTab = 'calendar'"
+          >
+            Kalender
+          </button>
+        </div>
         <div class="theme-toggle" role="group" aria-label="Theme selection">
           <button
             type="button"
@@ -297,7 +338,7 @@ const clearDragged = () => {
             :class="{ active: activeTheme === 'light' }"
             @click="setThemePreference('light')"
           >
-            Light
+            Hell
           </button>
           <button
             type="button"
@@ -305,40 +346,40 @@ const clearDragged = () => {
             :class="{ active: activeTheme === 'dark' }"
             @click="setThemePreference('dark')"
           >
-            Dark
+            Dunkel
           </button>
         </div>
         <button type="button" class="ghost" @click="exportData">Export</button>
         <button type="button" class="ghost" @click="openImport">Import</button>
         <input ref="importInput" type="file" accept="application/json" class="hidden-input" @change="importData" />
-        <button type="button" class="primary" @click="openCreateModal">+ Add Company</button>
+        <button type="button" class="primary" @click="openCreateModal">+ Bewerbung</button>
       </div>
     </header>
 
-    <section class="controls">
-      <input v-model="searchText" placeholder="Search by company, role, or location" />
+    <section v-if="activeTab === 'tracker'" class="controls">
+      <input v-model="searchText" placeholder="Suche nach Firma, Stelle oder Ort" />
       <select v-model="selectedStatus">
-        <option value="All">All statuses</option>
-        <option v-for="status in STATUSES" :key="status" :value="status">{{ status }}</option>
+        <option value="All">Alle Status</option>
+        <option v-for="status in STATUSES" :key="status" :value="status">{{ STATUS_LABELS[status] }}</option>
       </select>
       <select v-model="selectedTag">
-        <option value="All">All tags</option>
+        <option value="All">Alle Tags</option>
         <option v-for="tag in availableTags" :key="tag" :value="tag">{{ tag }}</option>
       </select>
       <select v-model="selectedFollowUp">
-        <option value="All">Follow-up: All</option>
-        <option value="Due">Follow-up: Due</option>
-        <option value="Overdue">Follow-up: Overdue</option>
-        <option value="None">Follow-up: None</option>
+        <option value="All">Follow-up: Alle</option>
+        <option value="Due">Follow-up: Fällig</option>
+        <option value="Overdue">Follow-up: Überfällig</option>
+        <option value="None">Follow-up: Keins</option>
       </select>
       <select v-model="sortBy">
-        <option value="updated-desc">Sort: Updated desc</option>
-        <option value="follow-up-asc">Sort: Follow-up date asc</option>
-        <option value="company-name">Sort: Company name</option>
+        <option value="updated-desc">Sortierung: Zuletzt aktualisiert</option>
+        <option value="follow-up-asc">Sortierung: Follow-up Datum</option>
+        <option value="company-name">Sortierung: Firmenname</option>
       </select>
       <div class="view-toggle" role="group" aria-label="View mode">
         <button type="button" class="toggle-btn" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">
-          List
+          Liste
         </button>
         <button
           type="button"
@@ -351,18 +392,18 @@ const clearDragged = () => {
       </div>
     </section>
 
-    <section v-if="filteredAndSortedCompanies.length && viewMode === 'list'" class="table-wrap">
+    <section v-if="activeTab === 'tracker' && filteredAndSortedCompanies.length && viewMode === 'list'" class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Company</th>
-            <th>Role</th>
-            <th>Location</th>
+            <th>Firma</th>
+            <th>Stelle</th>
+            <th>Ort</th>
             <th>Status</th>
             <th>Tags</th>
-            <th>Follow-Up</th>
-            <th>Updated</th>
-            <th>Actions</th>
+            <th>Follow-up</th>
+            <th>Aktualisiert</th>
+            <th>Aktionen</th>
           </tr>
         </thead>
         <tbody>
@@ -376,23 +417,23 @@ const clearDragged = () => {
             </td>
             <td>{{ company.role || '-' }}</td>
             <td>{{ company.location || '-' }}</td>
-            <td><span class="badge">{{ company.status }}</span></td>
+            <td><span class="badge">{{ STATUS_LABELS[company.status] }}</span></td>
             <td>
               <div class="tag-list">
                 <span v-for="tag in company.tags" :key="tag" class="tag">{{ tag }}</span>
               </div>
             </td>
             <td>{{ company.nextFollowUpDate || '-' }}</td>
-            <td>{{ new Date(company.updatedAt).toLocaleDateString() }}</td>
+            <td>{{ new Date(company.updatedAt).toLocaleDateString('de-DE') }}</td>
             <td>
-              <button type="button" class="ghost" @click="openEditModal(company)">Edit</button>
+              <button type="button" class="ghost" @click="openEditModal(company)">Bearbeiten</button>
             </td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <section v-else-if="filteredAndSortedCompanies.length" class="kanban-wrap">
+    <section v-else-if="activeTab === 'tracker' && filteredAndSortedCompanies.length" class="kanban-wrap">
       <article
         v-for="column in kanbanColumns"
         :key="column.status"
@@ -401,7 +442,7 @@ const clearDragged = () => {
         @drop="onDropToStatus(column.status)"
       >
         <header class="kanban-column-header">
-          <h3>{{ column.status }}</h3>
+          <h3>{{ STATUS_LABELS[column.status] }}</h3>
           <span>{{ column.items.length }}</span>
         </header>
         <div class="kanban-cards">
@@ -417,26 +458,31 @@ const clearDragged = () => {
             @click="openDetailModal(company)"
           >
             <strong>{{ company.name }}</strong>
-            <span>{{ company.role || 'No role set' }}</span>
-            <span class="kanban-follow-up">Follow-up: {{ company.nextFollowUpDate || 'None' }}</span>
+            <span>{{ company.role || '—' }}</span>
+            <span class="kanban-follow-up">Follow-up: {{ company.nextFollowUpDate || '—' }}</span>
             <div class="tag-list">
               <span v-for="tag in company.tags" :key="tag" class="tag">{{ tag }}</span>
             </div>
           </button>
-          <p v-if="!column.items.length" class="kanban-empty">No companies</p>
+          <p v-if="!column.items.length" class="kanban-empty">Keine Einträge</p>
         </div>
       </article>
     </section>
 
+    <section v-else-if="activeTab === 'calendar'">
+      <CalendarTab :companies="companies" @open="openDetailModal" />
+    </section>
+
     <section v-else class="empty">
-      <h2>No companies found</h2>
-      <p>Adjust your filters or add a new company to get started.</p>
+      <h2>Keine Einträge gefunden</h2>
+      <p>Filter anpassen oder eine neue Bewerbung hinzufügen.</p>
     </section>
 
     <CompanyFormModal
       v-model="showFormModal"
       :mode="formMode"
       :company="editingCompany"
+      :preset="formPreset"
       @save="saveCompany"
     />
 

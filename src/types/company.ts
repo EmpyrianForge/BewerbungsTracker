@@ -24,6 +24,7 @@ export interface Company {
   notes: string
   tags: string[]
   nextFollowUpDate?: string
+  interviewAt?: string
   lastActionAt?: string
   lastActionNote: string
 }
@@ -40,6 +41,7 @@ export interface CompanyInput {
   notes: string
   tags: string[]
   nextFollowUpDate?: string
+  interviewAt?: string
   lastActionAt?: string
   lastActionNote: string
 }

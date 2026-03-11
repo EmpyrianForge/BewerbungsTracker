@@ -62,6 +62,7 @@ const toCompany = (item: unknown): Company | null => {
     notes: normalizeString(item.notes),
     tags: [...new Set(tags)],
     nextFollowUpDate: normalizeDateField(item.nextFollowUpDate),
+    interviewAt: normalizeDateField(item.interviewAt),
     lastActionAt: normalizeDateField(item.lastActionAt),
     lastActionNote: normalizeString(item.lastActionNote),
   }
@@ -117,6 +118,7 @@ export const useCompanies = () => {
       updatedAt: now,
       tags: [...new Set(input.tags)],
       nextFollowUpDate: input.nextFollowUpDate || undefined,
+      interviewAt: input.interviewAt || undefined,
       lastActionAt: input.lastActionAt || undefined,
     })
   }
@@ -132,6 +134,7 @@ export const useCompanies = () => {
         ...input,
         tags: [...new Set(input.tags)],
         nextFollowUpDate: input.nextFollowUpDate || undefined,
+        interviewAt: input.interviewAt || undefined,
         lastActionAt: input.lastActionAt || undefined,
         updatedAt: new Date().toISOString(),
       }
