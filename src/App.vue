@@ -658,8 +658,8 @@ const clearDragged = () => {
             <th>Status</th>
             <th>Priorität</th>
             <th>Tags</th>
+            <th>Deadline</th>
             <th>Follow-up</th>
-            <th>Aktualisiert</th>
             <th>Aktionen</th>
           </tr>
         </thead>
@@ -683,17 +683,33 @@ const clearDragged = () => {
             </td>
             <td>{{ company.role || '-' }}</td>
             <td>{{ company.location || '-' }}</td>
-            <td><span class="badge">{{ STATUS_LABELS[company.status] }}</span></td>
+            <td>
+              <select
+                :value="company.status"
+                class="status-select"
+                :data-status="company.status"
+                :aria-label="`Status für ${company.name}`"
+                @change="updateCompanyStatus(company.id, ($event.target as HTMLSelectElement).value as CompanyStatus)"
+              >
+                <option v-for="s in STATUSES" :key="s" :value="s">{{ STATUS_LABELS[s] }}</option>
+              </select>
+            </td>
             <td><span :class="PRIORITY_CLASS[company.priority]">{{ PRIORITY_LABELS[company.priority] }}</span></td>
             <td>
               <div class="tag-list">
                 <span v-for="tag in company.tags" :key="tag" class="tag">{{ tag }}</span>
               </div>
             </td>
-            <td>{{ company.nextFollowUpDate || '-' }}</td>
-            <td>{{ new Date(company.updatedAt).toLocaleDateString('de-DE') }}</td>
             <td>
-              <button type="button" class="ghost" @click="openEditModal(company)">Bearbeiten</button>
+              <span
+                v-if="company.applicationDeadline"
+                :class="{ 'deadline-near': company.applicationDeadline <= new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10) }"
+              >{{ company.applicationDeadline }}</span>
+              <span v-else class="text-muted">—</span>
+            </td>
+            <td>{{ company.nextFollowUpDate || '—' }}</td>
+            <td>
+              <button type="button" class="ghost" @click="openDetailModal(company)">Details</button>
             </td>
           </tr>
         </tbody>
