@@ -225,6 +225,13 @@ export const useCompanies = () => {
     })
   }
 
+  const updateStatusAndPriority = (id: string, status: CompanyStatus, priority: Priority) => {
+    companies.value = companies.value.map((company) => {
+      if (company.id !== id) return company
+      return { ...company, status, priority, updatedAt: new Date().toISOString() }
+    })
+  }
+
   const deleteCompany = (id: string) => {
     companies.value = companies.value.filter((company) => company.id !== id)
   }
@@ -276,6 +283,7 @@ export const useCompanies = () => {
     addCompany,
     updateCompany,
     updateCompanyStatus,
+    updateStatusAndPriority,
     updateRating,
     deleteCompany,
     addActivityEntry,

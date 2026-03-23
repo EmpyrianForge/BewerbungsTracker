@@ -1206,6 +1206,22 @@ a {
   color: var(--text-muted);
 }
 
+/* Drag feedback */
+.swimlane-cell--drag-over {
+  background: var(--accent-soft);
+  outline: 2px dashed var(--accent);
+  outline-offset: -2px;
+}
+
+.swimlane-card--dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+}
+
+.swimlane-card {
+  cursor: grab;
+}
+
 /* Quick-add button */
 .swimlane-add-btn {
   align-self: flex-start;

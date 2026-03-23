@@ -54,6 +54,7 @@ const {
   addCompany,
   updateCompany,
   updateCompanyStatus,
+  updateStatusAndPriority,
   updateRating,
   deleteCompany,
   addActivityEntry,
@@ -613,6 +614,41 @@ const clearDragged = () => {
   draggedCompanyId.value = null
   dragOverStatus.value = null
 }
+
+// ── Swimlane drag-and-drop ───────────────────────────────────
+type SwimlaneCell = { status: CompanyStatus; priority: Priority }
+
+const swimlaneDraggedId = ref<string | null>(null)
+const swimlaneDragOver = ref<SwimlaneCell | null>(null)
+
+const onSwimlaneDragStart = (companyId: string) => {
+  swimlaneDraggedId.value = companyId
+}
+
+const onSwimlaneDragEnter = (cell: SwimlaneCell) => {
+  swimlaneDragOver.value = cell
+}
+
+const onSwimlaneDrop = (cell: SwimlaneCell) => {
+  swimlaneDragOver.value = null
+  if (!swimlaneDraggedId.value) return
+
+  const company = companies.value.find((c) => c.id === swimlaneDraggedId.value)
+  if (company && (company.status !== cell.status || company.priority !== cell.priority)) {
+    updateStatusAndPriority(company.id, cell.status, cell.priority)
+  }
+
+  swimlaneDraggedId.value = null
+}
+
+const onSwimlaneDragEnd = () => {
+  swimlaneDraggedId.value = null
+  swimlaneDragOver.value = null
+}
+
+const isSwimlaneOver = (cell: SwimlaneCell) =>
+  swimlaneDragOver.value?.status === cell.status &&
+  swimlaneDragOver.value?.priority === cell.priority
 </script>
 
 <template>
@@ -939,13 +975,20 @@ const clearDragged = () => {
           v-for="col in row.columns"
           :key="col.status"
           class="swimlane-cell"
+          :class="{ 'swimlane-cell--drag-over': isSwimlaneOver({ status: col.status, priority: row.priority }) }"
+          @dragover.prevent
+          @dragenter.prevent="onSwimlaneDragEnter({ status: col.status, priority: row.priority })"
+          @drop.prevent="onSwimlaneDrop({ status: col.status, priority: row.priority })"
         >
           <button
             v-for="company in col.items"
             :key="company.id"
             type="button"
             class="swimlane-card"
-            :class="{ 'swimlane-card--overdue': isOverdue(company) }"
+            :class="{ 'swimlane-card--overdue': isOverdue(company), 'swimlane-card--dragging': swimlaneDraggedId === company.id }"
+            draggable="true"
+            @dragstart="onSwimlaneDragStart(company.id)"
+            @dragend="onSwimlaneDragEnd"
             @click="openDetailModal(company)"
           >
             <span class="swimlane-card-name">{{ company.name }}</span>
