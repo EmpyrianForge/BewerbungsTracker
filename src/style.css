@@ -854,6 +854,154 @@ a {
   text-align: center;
 }
 
+/* Star rating */
+.rating-section {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border-soft);
+  padding-top: 1rem;
+}
+
+.rating-rows {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.6rem 0;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rating-label {
+  flex: 0 0 11rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.star-group {
+  display: flex;
+  gap: 0.15rem;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--border);
+  transition: color 0.1s, transform 0.1s;
+}
+
+.star-btn:hover,
+.star-btn.star-active {
+  color: #f59e0b;
+}
+
+.star-btn:hover {
+  transform: scale(1.15);
+}
+
+.rating-comment-label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* Compare bar */
+.compare-bar {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  z-index: 20;
+}
+
+.compare-bar-label {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Compare column in table */
+.compare-col {
+  width: 38px;
+  text-align: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.compare-col input[type="checkbox"] {
+  width: auto;
+  cursor: pointer;
+}
+
+/* Compare modal */
+.modal.compare-modal {
+  width: min(1000px, 100%);
+}
+
+.compare-table-wrap {
+  overflow-x: auto;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: top;
+}
+
+.compare-table th {
+  background: var(--surface-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.compare-field-col {
+  background: var(--surface-muted);
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+  min-width: 10rem;
+}
+
+.compare-stars {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: #f59e0b;
+}
+
+.compare-stars--empty {
+  color: var(--border);
+}
+
+.compare-notes {
+  max-width: 220px;
+  white-space: pre-wrap;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
 @media (max-width: 780px) {
   .topbar {
     flex-direction: column;

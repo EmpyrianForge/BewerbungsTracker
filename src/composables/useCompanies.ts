@@ -5,6 +5,7 @@ import {
   APPLICATION_TYPES,
   type Company,
   type CompanyInput,
+  type CompanyRating,
   type CompanyStatus,
   type Priority,
   type ApplicationType,
@@ -54,6 +55,21 @@ const normalizeDocuments = (value: unknown): DocumentChecklist => {
     coverLetter: typeof value['coverLetter'] === 'boolean' ? value['coverLetter'] : false,
     certificates: typeof value['certificates'] === 'boolean' ? value['certificates'] : false,
     portfolio: typeof value['portfolio'] === 'boolean' ? value['portfolio'] : false,
+  }
+}
+
+const normalizeRating = (value: unknown): CompanyRating | undefined => {
+  if (!isObject(value)) return undefined
+  const clamp = (v: unknown): number => {
+    const n = typeof v === 'number' ? v : 0
+    return Math.min(5, Math.max(0, Math.round(n)))
+  }
+  return {
+    culture: clamp(value['culture']),
+    salary: clamp(value['salary']),
+    flexibility: clamp(value['flexibility']),
+    overall: clamp(value['overall']),
+    comment: normalizeString(value['comment']),
   }
 }
 
@@ -114,6 +130,7 @@ const toCompany = (item: unknown): Company | null => {
     applicationType: isApplicationType(item['applicationType']) ? item['applicationType'] : 'Stellenanzeige',
     documents: normalizeDocuments(item['documents']),
     activityLog: normalizeActivityLog(item['activityLog']),
+    rating: normalizeRating(item['rating']),
   }
 }
 
@@ -212,6 +229,13 @@ export const useCompanies = () => {
     companies.value = companies.value.filter((company) => company.id !== id)
   }
 
+  const updateRating = (id: string, rating: CompanyRating) => {
+    companies.value = companies.value.map((company) => {
+      if (company.id !== id) return company
+      return { ...company, rating, updatedAt: new Date().toISOString() }
+    })
+  }
+
   const addActivityEntry = (id: string, note: string) => {
     companies.value = companies.value.map((company) => {
       if (company.id !== id) return company
@@ -252,6 +276,7 @@ export const useCompanies = () => {
     addCompany,
     updateCompany,
     updateCompanyStatus,
+    updateRating,
     deleteCompany,
     addActivityEntry,
     importCompaniesFromJson,

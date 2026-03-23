@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import type { CompanyStatus, Company, Priority } from '../types/company'
+import { ref, computed, watch, reactive } from 'vue'
+import type { CompanyStatus, Company, Priority, CompanyRating } from '../types/company'
 
 const STATUS_LABELS: Record<CompanyStatus, string> = {
   Interested: 'Interessiert',
@@ -33,7 +33,23 @@ const emit = defineEmits<{
   (event: 'edit'): void
   (event: 'delete'): void
   (event: 'add-activity', note: string): void
+  (event: 'update-rating', value: CompanyRating): void
 }>()
+
+const RATING_DIMENSIONS: { key: keyof Omit<CompanyRating, 'comment'>; label: string }[] = [
+  { key: 'culture', label: 'Unternehmenskultur' },
+  { key: 'salary', label: 'Gehalt' },
+  { key: 'flexibility', label: 'Remote / Flexibilität' },
+  { key: 'overall', label: 'Gesamteindruck' },
+]
+
+const emptyRating = (): CompanyRating => ({ culture: 0, salary: 0, flexibility: 0, overall: 0, comment: '' })
+
+const localRating = reactive<CompanyRating>(emptyRating())
+
+const saveRating = () => {
+  emit('update-rating', { ...localRating })
+}
 
 const newActivityNote = ref('')
 const copiedKey = ref<string | null>(null)
@@ -79,6 +95,19 @@ watch(
   (isOpen) => {
     if (!isOpen) newActivityNote.value = ''
   },
+)
+
+watch(
+  () => props.company,
+  (company) => {
+    const r = company?.rating
+    localRating.culture = r?.culture ?? 0
+    localRating.salary = r?.salary ?? 0
+    localRating.flexibility = r?.flexibility ?? 0
+    localRating.overall = r?.overall ?? 0
+    localRating.comment = r?.comment ?? ''
+  },
+  { immediate: true },
 )
 
 const close = () => emit('update:modelValue', false)
@@ -148,6 +177,32 @@ const close = () => emit('update:modelValue', false)
             <span>{{ company.documents.portfolio ? '✓' : '✗' }}</span> Portfolio
           </span>
         </div>
+      </div>
+
+      <!-- Star rating -->
+      <div class="rating-section">
+        <strong>Bewertung</strong>
+        <div class="rating-rows">
+          <div v-for="dim in RATING_DIMENSIONS" :key="dim.key" class="rating-row">
+            <span class="rating-label">{{ dim.label }}</span>
+            <div class="star-group" role="group" :aria-label="dim.label">
+              <button
+                v-for="i in 5"
+                :key="i"
+                type="button"
+                class="star-btn"
+                :class="{ 'star-active': localRating[dim.key] >= i }"
+                :aria-label="`${i} Stern${i > 1 ? 'e' : ''}`"
+                @click="localRating[dim.key] = i"
+              >★</button>
+            </div>
+          </div>
+        </div>
+        <label class="rating-comment-label">
+          Kommentar
+          <textarea v-model="localRating.comment" rows="2" placeholder="Eigene Einschätzung …" />
+        </label>
+        <button type="button" class="ghost" style="margin-top: 0.4rem" @click="saveRating">Bewertung speichern</button>
       </div>
 
       <p class="notes"><strong>Notizen:</strong> {{ company.notes || '—' }}</p>

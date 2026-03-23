@@ -28,6 +28,14 @@ export interface ActivityEntry {
   note: string
 }
 
+export interface CompanyRating {
+  culture: number
+  salary: number
+  flexibility: number
+  overall: number
+  comment: string
+}
+
 export interface Company {
   id: string
   name: string
@@ -51,6 +59,7 @@ export interface Company {
   applicationType: ApplicationType
   documents: DocumentChecklist
   activityLog: ActivityEntry[]
+  rating?: CompanyRating
 }
 
 export interface CompanyInput {

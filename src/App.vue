@@ -2,11 +2,12 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import CompanyDetailModal from './components/CompanyDetailModal.vue'
 import CompanyFormModal from './components/CompanyFormModal.vue'
+import CompareModal from './components/CompareModal.vue'
 import CalendarTab from './components/CalendarTab.vue'
 import StatsDashboard from './components/StatsDashboard.vue'
 import JobSearchTab from './components/JobSearchTab.vue'
 import { useCompanies } from './composables/useCompanies'
-import { STATUSES, PRIORITIES, type Company, type CompanyInput, type CompanyStatus, type Priority } from './types/company'
+import { STATUSES, PRIORITIES, type Company, type CompanyInput, type CompanyRating, type CompanyStatus, type Priority } from './types/company'
 
 type Theme = 'light' | 'dark'
 type ViewMode = 'list' | 'kanban'
@@ -47,6 +48,7 @@ const {
   addCompany,
   updateCompany,
   updateCompanyStatus,
+  updateRating,
   deleteCompany,
   addActivityEntry,
   importCompaniesFromJson,
@@ -74,6 +76,23 @@ const selectedCompany = ref<Company | undefined>(undefined)
 const draggedCompanyId = ref<string | null>(null)
 const dragOverStatus = ref<CompanyStatus | null>(null)
 const importInput = ref<HTMLInputElement | null>(null)
+
+const compareSelection = ref<string[]>([])
+const showCompareModal = ref(false)
+const compareList = computed(() =>
+  compareSelection.value
+    .map((id) => companies.value.find((c) => c.id === id))
+    .filter((c): c is Company => c !== undefined),
+)
+
+const toggleCompare = (id: string) => {
+  const idx = compareSelection.value.indexOf(id)
+  if (idx === -1) {
+    if (compareSelection.value.length < 3) compareSelection.value = [...compareSelection.value, id]
+  } else {
+    compareSelection.value = compareSelection.value.filter((x) => x !== id)
+  }
+}
 
 const systemTheme = ref<Theme>('light')
 const themePreference = ref<Theme | null>(null)
@@ -342,6 +361,11 @@ const removeCompany = () => {
 const handleAddActivity = (note: string) => {
   if (!selectedCompany.value) return
   addActivityEntry(selectedCompany.value.id, note)
+}
+
+const handleUpdateRating = (rating: CompanyRating) => {
+  if (!selectedCompany.value) return
+  updateRating(selectedCompany.value.id, rating)
 }
 
 const escapeHtml = (str: string): string =>
@@ -627,6 +651,7 @@ const clearDragged = () => {
       <table>
         <thead>
           <tr>
+            <th class="compare-col" title="Für Vergleich auswählen">Vgl.</th>
             <th>Firma</th>
             <th>Stelle</th>
             <th>Ort</th>
@@ -644,6 +669,15 @@ const clearDragged = () => {
             :key="company.id"
             :class="{ 'row-overdue': isOverdue(company) }"
           >
+            <td class="compare-col">
+              <input
+                type="checkbox"
+                :checked="compareSelection.includes(company.id)"
+                :disabled="!compareSelection.includes(company.id) && compareSelection.length >= 3"
+                :aria-label="`${company.name} für Vergleich auswählen`"
+                @change="toggleCompare(company.id)"
+              />
+            </td>
             <td>
               <button type="button" class="link-btn" @click="openDetailModal(company)">{{ company.name }}</button>
             </td>
@@ -735,6 +769,15 @@ const clearDragged = () => {
       <p>Filter anpassen oder eine neue Bewerbung hinzufügen.</p>
     </section>
 
+    <!-- Compare bar -->
+    <Transition name="fade-slide">
+      <div v-if="compareSelection.length >= 2" class="compare-bar">
+        <span class="compare-bar-label">{{ compareSelection.length }} ausgewählt</span>
+        <button type="button" class="primary" @click="showCompareModal = true">Vergleichen</button>
+        <button type="button" class="ghost" @click="compareSelection = []">Auswahl aufheben</button>
+      </div>
+    </Transition>
+
     <CompanyFormModal
       v-model="showFormModal"
       :mode="formMode"
@@ -749,6 +792,12 @@ const clearDragged = () => {
       @edit="selectedCompany && openEditModal(selectedCompany)"
       @delete="removeCompany"
       @add-activity="handleAddActivity"
+      @update-rating="handleUpdateRating"
+    />
+
+    <CompareModal
+      v-model="showCompareModal"
+      :companies="compareList"
     />
   </main>
 </template>
