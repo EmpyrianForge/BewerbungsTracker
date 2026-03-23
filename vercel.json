@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/api/jobs", "destination": "/api/jobs" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

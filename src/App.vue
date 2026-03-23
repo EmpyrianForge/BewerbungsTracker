@@ -344,6 +344,74 @@ const handleAddActivity = (note: string) => {
   addActivityEntry(selectedCompany.value.id, note)
 }
 
+const escapeHtml = (str: string): string =>
+  str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+const generatePrintHtml = (list: Company[]): string => {
+  const date = new Date().toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })
+
+  const statusColors: Record<CompanyStatus, string> = {
+    Interested: '#dbeafe', Applied: '#ede9fe', Interviewing: '#fef3c7',
+    Offer: '#d1fae5', Rejected: '#fee2e2', Archived: '#f3f4f6',
+  }
+  const priorityColors: Record<Priority, string> = {
+    High: '#fee2e2', Medium: '#fef3c7', Low: '#d1fae5',
+  }
+
+  const statsLine = STATUSES
+    .map((s) => ({ label: STATUS_LABELS[s], count: list.filter((c) => c.status === s).length }))
+    .filter((s) => s.count > 0)
+    .map((s) => `<span class="stat">${s.label}: <strong>${s.count}</strong></span>`)
+    .join('')
+
+  const rows = list.map((c) => `
+    <tr>
+      <td><strong>${escapeHtml(c.name)}</strong>${c.url ? `<br><a href="${escapeHtml(c.url)}">${escapeHtml(c.url)}</a>` : ''}</td>
+      <td>${escapeHtml(c.role || '—')}</td>
+      <td>${escapeHtml(c.location || '—')}</td>
+      <td><span class="badge" style="background:${statusColors[c.status]}">${STATUS_LABELS[c.status]}</span></td>
+      <td><span class="badge" style="background:${priorityColors[c.priority]}">${PRIORITY_LABELS[c.priority]}</span></td>
+      <td>${escapeHtml(c.applicationDeadline || '—')}</td>
+      <td>${escapeHtml(c.nextFollowUpDate || '—')}</td>
+      <td>${escapeHtml(c.notes ? c.notes.slice(0, 80) + (c.notes.length > 80 ? '…' : '') : '—')}</td>
+    </tr>`).join('')
+
+  return `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<title>Bewerbungsübersicht</title>
+<style>
+  *{box-sizing:border-box}
+  body{font-family:"Segoe UI",Arial,sans-serif;font-size:11px;color:#1f2a37;margin:0;padding:20px}
+  h1{font-size:18px;margin:0 0 3px}
+  .sub{color:#6b7280;font-size:10px;margin-bottom:14px}
+  .stats{display:flex;flex-wrap:wrap;gap:8px 16px;margin-bottom:16px;padding:10px 14px;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0}
+  .stat{font-size:10px;color:#374151}
+  table{width:100%;border-collapse:collapse}
+  th{background:#f1f5f9;text-align:left;padding:7px 9px;font-size:10px;font-weight:600;border-bottom:2px solid #e2e8f0}
+  td{padding:6px 9px;border-bottom:1px solid #f1f5f9;vertical-align:top;font-size:10px}
+  tr:nth-child(even) td{background:#fafbfc}
+  .badge{padding:2px 7px;border-radius:999px;font-size:9px;font-weight:600;display:inline-block}
+  a{color:#0f5cc0;font-size:9px}
+  @media print{body{padding:0}@page{margin:12mm;size:A4 landscape}}
+</style></head><body>
+  <h1>Bewerbungsübersicht</h1>
+  <p class="sub">Exportiert am ${date} &middot; ${list.length} Eintr&auml;ge</p>
+  <div class="stats">${statsLine}</div>
+  <table><thead><tr>
+    <th>Firma</th><th>Stelle</th><th>Ort</th><th>Status</th>
+    <th>Priorit&auml;t</th><th>Deadline</th><th>Follow-up</th><th>Notizen</th>
+  </tr></thead><tbody>${rows}</tbody></table>
+</body></html>`
+}
+
+const exportPdf = () => {
+  const win = window.open('', '_blank')
+  if (!win) return
+  win.document.write(generatePrintHtml(companies.value))
+  win.document.close()
+  win.focus()
+  setTimeout(() => win.print(), 300)
+}
+
 const exportData = () => {
   const content = exportCompaniesJson()
   const blob = new Blob([content], { type: 'application/json' })
@@ -501,6 +569,7 @@ const clearDragged = () => {
           🔔
           <span v-if="urgentCount > 0" class="notification-badge">{{ urgentCount }}</span>
         </button>
+        <button type="button" class="ghost" @click="exportPdf">PDF</button>
         <button type="button" class="ghost" @click="exportData">Export</button>
         <button type="button" class="ghost" @click="openImport">Import</button>
         <input ref="importInput" type="file" accept="application/json" class="hidden-input" @change="importData" />
