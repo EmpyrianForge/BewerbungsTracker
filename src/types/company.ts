@@ -9,6 +9,25 @@ export const STATUSES = [
 
 export type CompanyStatus = (typeof STATUSES)[number]
 
+export const PRIORITIES = ['High', 'Medium', 'Low'] as const
+export type Priority = (typeof PRIORITIES)[number]
+
+export const APPLICATION_TYPES = ['Stellenanzeige', 'Initiativbewerbung', 'Empfehlung', 'Sonstiges'] as const
+export type ApplicationType = (typeof APPLICATION_TYPES)[number]
+
+export interface DocumentChecklist {
+  cv: boolean
+  coverLetter: boolean
+  certificates: boolean
+  portfolio: boolean
+}
+
+export interface ActivityEntry {
+  id: string
+  date: string
+  note: string
+}
+
 export interface Company {
   id: string
   name: string
@@ -27,6 +46,11 @@ export interface Company {
   interviewAt?: string
   lastActionAt?: string
   lastActionNote: string
+  applicationDeadline?: string
+  priority: Priority
+  applicationType: ApplicationType
+  documents: DocumentChecklist
+  activityLog: ActivityEntry[]
 }
 
 export interface CompanyInput {
@@ -44,4 +68,8 @@ export interface CompanyInput {
   interviewAt?: string
   lastActionAt?: string
   lastActionNote: string
+  applicationDeadline?: string
+  priority: Priority
+  applicationType: ApplicationType
+  documents: DocumentChecklist
 }

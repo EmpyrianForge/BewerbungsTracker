@@ -3,15 +3,17 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import CompanyDetailModal from './components/CompanyDetailModal.vue'
 import CompanyFormModal from './components/CompanyFormModal.vue'
 import CalendarTab from './components/CalendarTab.vue'
+import StatsDashboard from './components/StatsDashboard.vue'
+import JobSearchTab from './components/JobSearchTab.vue'
 import { useCompanies } from './composables/useCompanies'
-import { STATUSES, type Company, type CompanyInput, type CompanyStatus } from './types/company'
+import { STATUSES, PRIORITIES, type Company, type CompanyInput, type CompanyStatus, type Priority } from './types/company'
 
 type Theme = 'light' | 'dark'
 type ViewMode = 'list' | 'kanban'
 type FollowUpFilter = 'All' | 'Due' | 'Overdue' | 'None'
-type SortOption = 'updated-desc' | 'follow-up-asc' | 'company-name'
+type SortOption = 'updated-desc' | 'follow-up-asc' | 'company-name' | 'priority' | 'deadline-asc'
 
-type Tab = 'tracker' | 'calendar'
+type Tab = 'tracker' | 'stats' | 'jobs' | 'calendar'
 
 const STATUS_LABELS: Record<CompanyStatus, string> = {
   Interested: 'Interessiert',
@@ -21,6 +23,20 @@ const STATUS_LABELS: Record<CompanyStatus, string> = {
   Rejected: 'Absage',
   Archived: 'Archiv',
 }
+
+const PRIORITY_LABELS: Record<Priority, string> = {
+  High: 'Hoch',
+  Medium: 'Mittel',
+  Low: 'Niedrig',
+}
+
+const PRIORITY_CLASS: Record<Priority, string> = {
+  High: 'priority-badge priority-high',
+  Medium: 'priority-badge priority-medium',
+  Low: 'priority-badge priority-low',
+}
+
+const PRIORITY_ORDER: Record<Priority, number> = { High: 0, Medium: 1, Low: 2 }
 
 const THEME_STORAGE_KEY = 'apply-tracker.theme.v1'
 const COMPANY_STORAGE_KEY = 'apply-tracker.companies.v1'
@@ -32,6 +48,7 @@ const {
   updateCompany,
   updateCompanyStatus,
   deleteCompany,
+  addActivityEntry,
   importCompaniesFromJson,
   mergeImportedCompanies,
   exportCompaniesJson,
@@ -41,6 +58,7 @@ const searchText = ref('')
 const selectedStatus = ref<CompanyStatus | 'All'>('All')
 const selectedTag = ref<'All' | string>('All')
 const selectedFollowUp = ref<FollowUpFilter>('All')
+const selectedPriority = ref<Priority | 'All'>('All')
 const sortBy = ref<SortOption>('updated-desc')
 const viewMode = ref<ViewMode>('list')
 const activeTab = ref<Tab>('tracker')
@@ -54,12 +72,17 @@ const showDetailModal = ref(false)
 const selectedCompany = ref<Company | undefined>(undefined)
 
 const draggedCompanyId = ref<string | null>(null)
+const dragOverStatus = ref<CompanyStatus | null>(null)
 const importInput = ref<HTMLInputElement | null>(null)
 
 const systemTheme = ref<Theme>('light')
 const themePreference = ref<Theme | null>(null)
 const activeTheme = computed<Theme>(() => themePreference.value ?? systemTheme.value)
 let removeThemeListener: (() => void) | undefined
+
+const notificationPermission = ref<NotificationPermission>(
+  typeof Notification !== 'undefined' ? Notification.permission : 'default',
+)
 
 const setThemePreference = (theme: Theme) => {
   themePreference.value = theme
@@ -86,8 +109,51 @@ const getFollowUpState = (company: Company): FollowUpFilter => {
 
 const isOverdue = (company: Company) => getFollowUpState(company) === 'Overdue'
 
+const urgentCount = computed(() => {
+  const today = getTodayLocalIsoDate()
+  const in3 = new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10)
+  let count = 0
+  for (const c of companies.value) {
+    if (c.nextFollowUpDate && c.nextFollowUpDate < today) count++
+    else if (c.applicationDeadline && c.applicationDeadline >= today && c.applicationDeadline <= in3) count++
+  }
+  return count
+})
+
+const triggerNotifications = () => {
+  if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return
+  const today = getTodayLocalIsoDate()
+  const in3 = new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10)
+
+  const overdueItems = companies.value.filter((c) => c.nextFollowUpDate && c.nextFollowUpDate < today)
+  const deadlineItems = companies.value.filter(
+    (c) => c.applicationDeadline && c.applicationDeadline >= today && c.applicationDeadline <= in3,
+  )
+
+  if (overdueItems.length > 0) {
+    new Notification('Bewerbungs-Tracker', {
+      body: `${overdueItems.length} überfällige Follow-up(s)`,
+      icon: '/favicon.ico',
+    })
+  }
+  if (deadlineItems.length > 0) {
+    new Notification('Bewerbungs-Tracker', {
+      body: `${deadlineItems.length} Deadline(s) in den nächsten 3 Tagen`,
+      icon: '/favicon.ico',
+    })
+  }
+}
+
+const enableNotifications = async () => {
+  if (typeof Notification === 'undefined') return
+  const result = await Notification.requestPermission()
+  notificationPermission.value = result
+  if (result === 'granted') {
+    triggerNotifications()
+  }
+}
+
 const seedInitialData = async () => {
-  // Only seed if the user has no data yet.
   if (localStorage.getItem(COMPANY_STORAGE_KEY)) {
     return
   }
@@ -104,7 +170,6 @@ const seedInitialData = async () => {
       return
     }
 
-    // This also writes to localStorage via the companies watcher.
     mergeImportedCompanies(imported)
   } catch {
     // ignore
@@ -126,6 +191,10 @@ onMounted(async () => {
 
   mediaQuery.addEventListener('change', handleSystemThemeChange)
   removeThemeListener = () => mediaQuery.removeEventListener('change', handleSystemThemeChange)
+
+  if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+    triggerNotifications()
+  }
 
   await seedInitialData()
 })
@@ -173,8 +242,9 @@ const filteredAndSortedCompanies = computed(() => {
     const matchesTag = selectedTag.value === 'All' || company.tags.includes(selectedTag.value)
     const followUpState = getFollowUpState(company)
     const matchesFollowUp = selectedFollowUp.value === 'All' || followUpState === selectedFollowUp.value
+    const matchesPriority = selectedPriority.value === 'All' || company.priority === selectedPriority.value
 
-    return matchesSearch && matchesStatus && matchesTag && matchesFollowUp
+    return matchesSearch && matchesStatus && matchesTag && matchesFollowUp && matchesPriority
   })
 
   return [...filtered].sort((a, b) => {
@@ -189,6 +259,19 @@ const filteredAndSortedCompanies = computed(() => {
         return a.name.localeCompare(b.name)
       }
       return aDate.localeCompare(bDate)
+    }
+
+    if (sortBy.value === 'priority') {
+      const diff = (PRIORITY_ORDER[a.priority] ?? 1) - (PRIORITY_ORDER[b.priority] ?? 1)
+      if (diff !== 0) return diff
+      return a.name.localeCompare(b.name)
+    }
+
+    if (sortBy.value === 'deadline-asc') {
+      const aD = a.applicationDeadline ?? '9999-12-31'
+      const bD = b.applicationDeadline ?? '9999-12-31'
+      if (aD === bD) return a.name.localeCompare(b.name)
+      return aD.localeCompare(bD)
     }
 
     return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
@@ -256,6 +339,11 @@ const removeCompany = () => {
   selectedCompany.value = undefined
 }
 
+const handleAddActivity = (note: string) => {
+  if (!selectedCompany.value) return
+  addActivityEntry(selectedCompany.value.id, note)
+}
+
 const exportData = () => {
   const content = exportCompaniesJson()
   const blob = new Blob([content], { type: 'application/json' })
@@ -316,7 +404,16 @@ const onDragStart = (companyId: string) => {
   draggedCompanyId.value = companyId
 }
 
+const onDragOver = (status: CompanyStatus) => {
+  dragOverStatus.value = status
+}
+
+const onDragLeave = () => {
+  dragOverStatus.value = null
+}
+
 const onDropToStatus = (status: CompanyStatus) => {
+  dragOverStatus.value = null
   if (!draggedCompanyId.value) {
     return
   }
@@ -331,6 +428,7 @@ const onDropToStatus = (status: CompanyStatus) => {
 
 const clearDragged = () => {
   draggedCompanyId.value = null
+  dragOverStatus.value = null
 }
 </script>
 
@@ -350,6 +448,22 @@ const clearDragged = () => {
             @click="activeTab = 'tracker'"
           >
             Tracker
+          </button>
+          <button
+            type="button"
+            class="toggle-btn"
+            :class="{ active: activeTab === 'stats' }"
+            @click="activeTab = 'stats'"
+          >
+            Statistiken
+          </button>
+          <button
+            type="button"
+            class="toggle-btn"
+            :class="{ active: activeTab === 'jobs' }"
+            @click="activeTab = 'jobs'"
+          >
+            Stellen
           </button>
           <button
             type="button"
@@ -378,6 +492,15 @@ const clearDragged = () => {
             Dunkel
           </button>
         </div>
+        <button
+          type="button"
+          class="ghost notification-btn"
+          :title="notificationPermission === 'granted' ? 'Benachrichtigungen aktiv' : 'Benachrichtigungen aktivieren'"
+          @click="notificationPermission === 'granted' ? triggerNotifications() : enableNotifications()"
+        >
+          🔔
+          <span v-if="urgentCount > 0" class="notification-badge">{{ urgentCount }}</span>
+        </button>
         <button type="button" class="ghost" @click="exportData">Export</button>
         <button type="button" class="ghost" @click="openImport">Import</button>
         <input ref="importInput" type="file" accept="application/json" class="hidden-input" @change="importData" />
@@ -386,7 +509,7 @@ const clearDragged = () => {
     </header>
 
     <section v-if="activeTab === 'tracker'" class="controls">
-      <input v-model="searchText" placeholder="Suche nach Firma, Stelle oder Ort" />
+      <input v-model="searchText" placeholder="Suche nach Firma, Stelle oder Ort" aria-label="Suche" />
       <select v-model="selectedStatus">
         <option value="All">Alle Status</option>
         <option v-for="status in STATUSES" :key="status" :value="status">{{ STATUS_LABELS[status] }}</option>
@@ -401,10 +524,16 @@ const clearDragged = () => {
         <option value="Overdue">Follow-up: Überfällig</option>
         <option value="None">Follow-up: Keins</option>
       </select>
+      <select v-model="selectedPriority">
+        <option value="All">Priorität: Alle</option>
+        <option v-for="p in PRIORITIES" :key="p" :value="p">{{ PRIORITY_LABELS[p] }}</option>
+      </select>
       <select v-model="sortBy">
         <option value="updated-desc">Sortierung: Zuletzt aktualisiert</option>
         <option value="follow-up-asc">Sortierung: Follow-up Datum</option>
         <option value="company-name">Sortierung: Firmenname</option>
+        <option value="priority">Sortierung: Priorität</option>
+        <option value="deadline-asc">Sortierung: Deadline</option>
       </select>
       <div class="view-toggle" role="group" aria-label="View mode">
         <button type="button" class="toggle-btn" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">
@@ -421,7 +550,11 @@ const clearDragged = () => {
       </div>
     </section>
 
-    <section v-if="activeTab === 'tracker' && filteredAndSortedCompanies.length && viewMode === 'list'" class="table-wrap">
+    <section v-if="activeTab === 'stats'">
+      <StatsDashboard :companies="companies" />
+    </section>
+
+    <section v-else-if="activeTab === 'tracker' && filteredAndSortedCompanies.length && viewMode === 'list'" class="table-wrap">
       <table>
         <thead>
           <tr>
@@ -429,6 +562,7 @@ const clearDragged = () => {
             <th>Stelle</th>
             <th>Ort</th>
             <th>Status</th>
+            <th>Priorität</th>
             <th>Tags</th>
             <th>Follow-up</th>
             <th>Aktualisiert</th>
@@ -447,6 +581,7 @@ const clearDragged = () => {
             <td>{{ company.role || '-' }}</td>
             <td>{{ company.location || '-' }}</td>
             <td><span class="badge">{{ STATUS_LABELS[company.status] }}</span></td>
+            <td><span :class="PRIORITY_CLASS[company.priority]">{{ PRIORITY_LABELS[company.priority] }}</span></td>
             <td>
               <div class="tag-list">
                 <span v-for="tag in company.tags" :key="tag" class="tag">{{ tag }}</span>
@@ -467,12 +602,23 @@ const clearDragged = () => {
         v-for="column in kanbanColumns"
         :key="column.status"
         class="kanban-column"
-        @dragover.prevent
+        :data-status="column.status"
+        :class="{ 'kanban-column--drag-over': dragOverStatus === column.status }"
+        @dragover.prevent="onDragOver(column.status)"
+        @dragleave="onDragLeave"
         @drop="onDropToStatus(column.status)"
       >
         <header class="kanban-column-header">
           <h3>{{ STATUS_LABELS[column.status] }}</h3>
-          <span>{{ column.items.length }}</span>
+          <div class="kanban-column-header-right">
+            <span class="kanban-count">{{ column.items.length }}</span>
+            <button
+              type="button"
+              class="kanban-add-btn"
+              :aria-label="`${STATUS_LABELS[column.status]} hinzufügen`"
+              @click.stop="openCreateModalWithPreset({ status: column.status })"
+            >+</button>
+          </div>
         </header>
         <div class="kanban-cards">
           <button
@@ -486,23 +632,36 @@ const clearDragged = () => {
             @dragend="clearDragged"
             @click="openDetailModal(company)"
           >
-            <strong>{{ company.name }}</strong>
-            <span>{{ company.role || '—' }}</span>
+            <div class="kanban-card-top">
+              <strong>{{ company.name }}</strong>
+              <span :class="PRIORITY_CLASS[company.priority]">{{ PRIORITY_LABELS[company.priority] }}</span>
+            </div>
+            <span class="kanban-card-role">{{ company.role || '—' }}</span>
+            <span v-if="company.location" class="kanban-card-location">{{ company.location }}</span>
             <span class="kanban-follow-up">Follow-up: {{ company.nextFollowUpDate || '—' }}</span>
-            <div class="tag-list">
+            <div v-if="company.tags.length" class="tag-list">
               <span v-for="tag in company.tags" :key="tag" class="tag">{{ tag }}</span>
             </div>
           </button>
-          <p v-if="!column.items.length" class="kanban-empty">Keine Einträge</p>
+          <div v-if="!column.items.length" class="kanban-empty">
+            <p>Keine Einträge</p>
+            <button type="button" class="ghost kanban-empty-add" @click="openCreateModalWithPreset({ status: column.status })">
+              + Hinzufügen
+            </button>
+          </div>
         </div>
       </article>
+    </section>
+
+    <section v-else-if="activeTab === 'jobs'">
+      <JobSearchTab @add-to-tracker="openCreateModalWithPreset" />
     </section>
 
     <section v-else-if="activeTab === 'calendar'">
       <CalendarTab :companies="companies" @open="openDetailModal" />
     </section>
 
-    <section v-else class="empty">
+    <section v-else-if="activeTab === 'tracker'" class="empty">
       <h2>Keine Einträge gefunden</h2>
       <p>Filter anpassen oder eine neue Bewerbung hinzufügen.</p>
     </section>
@@ -520,6 +679,7 @@ const clearDragged = () => {
       :company="selectedCompany"
       @edit="selectedCompany && openEditModal(selectedCompany)"
       @delete="removeCompany"
+      @add-activity="handleAddActivity"
     />
   </main>
 </template>
