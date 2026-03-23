@@ -246,32 +246,45 @@ th {
   padding: 2rem 1rem;
 }
 
-.kanban-wrap {
-  display: flex;
-  gap: 0.9rem;
+/* Top scrollbar mirror for kanban */
+.kanban-top-scrollbar {
   overflow-x: auto;
-  padding-bottom: 0.75rem;
-  align-items: start;
-  /* prevent flex from shrinking columns — scroll instead */
-  min-width: 0;
+  overflow-y: hidden;
+  height: 12px;
+  margin-bottom: 0.4rem;
 }
 
-.kanban-wrap::-webkit-scrollbar {
+.kanban-top-scrollbar::-webkit-scrollbar {
   height: 8px;
 }
 
-.kanban-wrap::-webkit-scrollbar-track {
+.kanban-top-scrollbar::-webkit-scrollbar-track {
   background: var(--surface-elevated);
   border-radius: 4px;
 }
 
-.kanban-wrap::-webkit-scrollbar-thumb {
+.kanban-top-scrollbar::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 4px;
 }
 
-.kanban-wrap::-webkit-scrollbar-thumb:hover {
+.kanban-top-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+.kanban-wrap {
+  display: flex;
+  gap: 0.9rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  align-items: start;
+  min-width: 0;
+  /* hide bottom scrollbar — top mirror handles scrolling */
+  scrollbar-width: none;
+}
+
+.kanban-wrap::-webkit-scrollbar {
+  display: none;
 }
 
 .kanban-column {
@@ -1206,9 +1219,18 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .kanban-top-scrollbar {
+    display: none;
+  }
+
   .kanban-wrap {
     flex-direction: column;
     overflow-x: visible;
+    scrollbar-width: auto;
+  }
+
+  .kanban-wrap::-webkit-scrollbar {
+    display: unset;
   }
 
   .kanban-column {

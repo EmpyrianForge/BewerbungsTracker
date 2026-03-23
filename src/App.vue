@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import CompanyDetailModal from './components/CompanyDetailModal.vue'
 import CompanyFormModal from './components/CompanyFormModal.vue'
 import CompareModal from './components/CompareModal.vue'
@@ -77,6 +77,33 @@ const selectedCompany = ref<Company | undefined>(undefined)
 const draggedCompanyId = ref<string | null>(null)
 const dragOverStatus = ref<CompanyStatus | null>(null)
 const importInput = ref<HTMLInputElement | null>(null)
+
+// Kanban top scrollbar mirror
+const kanbanWrapEl = ref<HTMLElement | null>(null)
+const kanbanTopBarEl = ref<HTMLElement | null>(null)
+const kanbanScrollWidth = ref(0)
+let scrollSyncing = false
+
+const syncTop = () => {
+  if (scrollSyncing || !kanbanTopBarEl.value || !kanbanWrapEl.value) return
+  scrollSyncing = true
+  kanbanTopBarEl.value.scrollLeft = kanbanWrapEl.value.scrollLeft
+  scrollSyncing = false
+}
+
+const syncWrap = () => {
+  if (scrollSyncing || !kanbanWrapEl.value || !kanbanTopBarEl.value) return
+  scrollSyncing = true
+  kanbanWrapEl.value.scrollLeft = kanbanTopBarEl.value.scrollLeft
+  scrollSyncing = false
+}
+
+const refreshKanbanScrollWidth = async () => {
+  await nextTick()
+  if (kanbanWrapEl.value) {
+    kanbanScrollWidth.value = kanbanWrapEl.value.scrollWidth
+  }
+}
 
 const storedCollapsed = localStorage.getItem(COLLAPSED_COLUMNS_KEY)
 const collapsedColumns = ref<Set<CompanyStatus>>(
@@ -253,6 +280,12 @@ watch(companies, (list) => {
   }
   const latest = list.find((company) => company.id === selectedCompany.value?.id)
   selectedCompany.value = latest
+})
+
+watch([viewMode, activeTab, collapsedColumns], () => {
+  if (viewMode.value === 'kanban' && activeTab.value === 'tracker') {
+    refreshKanbanScrollWidth()
+  }
 })
 
 const availableTags = computed(() => {
@@ -733,7 +766,15 @@ const clearDragged = () => {
       </table>
     </section>
 
-    <section v-else-if="activeTab === 'tracker' && filteredAndSortedCompanies.length" class="kanban-wrap">
+    <template v-else-if="activeTab === 'tracker' && filteredAndSortedCompanies.length">
+    <div
+      ref="kanbanTopBarEl"
+      class="kanban-top-scrollbar"
+      @scroll.passive="syncWrap"
+    >
+      <div :style="{ width: kanbanScrollWidth + 'px', height: '1px' }"></div>
+    </div>
+    <section ref="kanbanWrapEl" class="kanban-wrap" @scroll.passive="syncTop">
       <article
         v-for="column in kanbanColumns"
         :key="column.status"
@@ -816,6 +857,7 @@ const clearDragged = () => {
         </div>
       </article>
     </section>
+    </template>
 
     <section v-else-if="activeTab === 'jobs'">
       <JobSearchTab @add-to-tracker="openCreateModalWithPreset" />
