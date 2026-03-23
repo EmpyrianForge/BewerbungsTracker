@@ -9,6 +9,11 @@ import JobSearchTab from './components/JobSearchTab.vue'
 import { useCompanies } from './composables/useCompanies'
 import { STATUSES, PRIORITIES, type Company, type CompanyInput, type CompanyRating, type CompanyStatus, type Priority } from './types/company'
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
+}
+
 type Theme = 'light' | 'dark'
 type ViewMode = 'list' | 'kanban'
 type FollowUpFilter = 'All' | 'Due' | 'Overdue' | 'None'
@@ -147,6 +152,19 @@ const notificationPermission = ref<NotificationPermission>(
   typeof Notification !== 'undefined' ? Notification.permission : 'default',
 )
 
+const installPrompt = ref<BeforeInstallPromptEvent | null>(null)
+const isInstalled = ref(window.matchMedia('(display-mode: standalone)').matches)
+
+const installApp = async () => {
+  if (!installPrompt.value) return
+  await installPrompt.value.prompt()
+  const { outcome } = await installPrompt.value.userChoice
+  if (outcome === 'accepted') {
+    installPrompt.value = null
+    isInstalled.value = true
+  }
+}
+
 const setThemePreference = (theme: Theme) => {
   themePreference.value = theme
   localStorage.setItem(THEME_STORAGE_KEY, theme)
@@ -240,6 +258,16 @@ const seedInitialData = async () => {
 }
 
 onMounted(async () => {
+  const handleInstallPrompt = (e: Event) => {
+    e.preventDefault()
+    installPrompt.value = e as BeforeInstallPromptEvent
+  }
+  window.addEventListener('beforeinstallprompt', handleInstallPrompt)
+  window.addEventListener('appinstalled', () => {
+    installPrompt.value = null
+    isInstalled.value = true
+  })
+
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
   systemTheme.value = mediaQuery.matches ? 'dark' : 'light'
 
@@ -643,6 +671,13 @@ const clearDragged = () => {
           🔔
           <span v-if="urgentCount > 0" class="notification-badge">{{ urgentCount }}</span>
         </button>
+        <button
+          v-if="installPrompt && !isInstalled"
+          type="button"
+          class="ghost install-btn"
+          title="App installieren – funktioniert auch offline"
+          @click="installApp"
+        >⬇ Installieren</button>
         <button type="button" class="ghost" @click="exportPdf">PDF</button>
         <button type="button" class="ghost" @click="exportData">Export</button>
         <button type="button" class="ghost" @click="openImport">Import</button>

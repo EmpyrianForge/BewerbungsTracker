@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import type { CompanyInput } from '../types/company'
 import type { JobListing, JobSearchResponse } from '../types/jobListing'
 
@@ -35,6 +35,20 @@ const totalResults = ref(0)
 const loading = ref(false)
 const error = ref<string | null>(null)
 const hasSearched = ref(false)
+const isOffline = ref(!navigator.onLine)
+
+const handleOnline = () => { isOffline.value = false }
+const handleOffline = () => { isOffline.value = true }
+
+onMounted(() => {
+  window.addEventListener('online', handleOnline)
+  window.addEventListener('offline', handleOffline)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('online', handleOnline)
+  window.removeEventListener('offline', handleOffline)
+})
 
 const totalPages = computed(() => Math.ceil(totalResults.value / PAGE_SIZE))
 
@@ -115,6 +129,9 @@ const jobUrl = (job: JobListing) => `https://www.arbeitsagentur.de/jobsuche/jobd
 
 <template>
   <div class="job-search">
+    <div v-if="isOffline" class="job-state-box job-offline-banner">
+      Du bist gerade offline — die Stellensuche ist nicht verfügbar. Deine gespeicherten Bewerbungen sind weiterhin zugänglich.
+    </div>
     <form class="job-search-form" @submit.prevent="search(true)">
       <label>
         Stichwort
@@ -142,7 +159,7 @@ const jobUrl = (job: JobListing) => `https://www.arbeitsagentur.de/jobsuche/jobd
           <option v-for="opt in DAYS_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
         </select>
       </label>
-      <button type="submit" class="primary" :disabled="loading">
+      <button type="submit" class="primary" :disabled="loading || isOffline">
         {{ loading ? 'Läuft…' : 'Suchen' }}
       </button>
     </form>

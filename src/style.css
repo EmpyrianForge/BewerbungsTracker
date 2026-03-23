@@ -766,6 +766,18 @@ a {
   margin-top: 0.4rem;
 }
 
+/* PWA install button */
+.install-btn {
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-elevated));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.install-btn:hover {
+  background: var(--accent-soft);
+}
+
 /* Notification button */
 .notification-btn {
   position: relative;
@@ -909,6 +921,12 @@ a {
   color: var(--danger);
   border-color: color-mix(in srgb, var(--danger) 40%, transparent);
   background: color-mix(in srgb, var(--danger) 8%, var(--surface));
+}
+
+.job-offline-banner {
+  background: color-mix(in srgb, #f59e0b 10%, var(--surface));
+  border-color: color-mix(in srgb, #f59e0b 40%, transparent);
+  color: var(--text);
 }
 
 .job-empty-state {
