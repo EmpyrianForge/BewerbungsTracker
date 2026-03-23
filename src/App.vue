@@ -15,7 +15,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 type Theme = 'light' | 'dark'
-type ViewMode = 'list' | 'kanban'
+type ViewMode = 'list' | 'kanban' | 'swimlane'
 type FollowUpFilter = 'All' | 'Due' | 'Overdue' | 'None'
 type SortOption = 'updated-desc' | 'follow-up-asc' | 'company-name' | 'priority' | 'deadline-asc'
 
@@ -311,7 +311,7 @@ watch(companies, (list) => {
 })
 
 watch([viewMode, activeTab, collapsedColumns], () => {
-  if (viewMode.value === 'kanban' && activeTab.value === 'tracker') {
+  if (activeTab.value === 'tracker' && viewMode.value !== 'list') {
     refreshKanbanScrollWidth()
   }
 })
@@ -381,6 +381,19 @@ const kanbanColumns = computed(() => {
     items: filteredAndSortedCompanies.value.filter((company) => company.status === status),
   }))
 })
+
+const swimlaneRows = computed(() =>
+  PRIORITIES.map((priority) => ({
+    priority,
+    total: filteredAndSortedCompanies.value.filter((c) => c.priority === priority).length,
+    columns: STATUSES.map((status) => ({
+      status,
+      items: filteredAndSortedCompanies.value.filter(
+        (c) => c.priority === priority && c.status === status,
+      ),
+    })),
+  })),
+)
 
 const openCreateModal = () => {
   formMode.value = 'create'
@@ -725,6 +738,14 @@ const clearDragged = () => {
         >
           Kanban
         </button>
+        <button
+          type="button"
+          class="toggle-btn"
+          :class="{ active: viewMode === 'swimlane' }"
+          @click="viewMode = 'swimlane'"
+        >
+          Swimlane
+        </button>
       </div>
     </section>
 
@@ -801,7 +822,7 @@ const clearDragged = () => {
       </table>
     </section>
 
-    <template v-else-if="activeTab === 'tracker' && filteredAndSortedCompanies.length">
+    <template v-else-if="activeTab === 'tracker' && filteredAndSortedCompanies.length && viewMode !== 'list'">
     <div
       ref="kanbanTopBarEl"
       class="kanban-top-scrollbar"
@@ -809,7 +830,9 @@ const clearDragged = () => {
     >
       <div :style="{ width: kanbanScrollWidth + 'px', height: '1px' }"></div>
     </div>
-    <section ref="kanbanWrapEl" class="kanban-wrap" @scroll.passive="syncTop">
+
+    <!-- Kanban -->
+    <section v-if="viewMode === 'kanban'" ref="kanbanWrapEl" class="kanban-wrap" @scroll.passive="syncTop">
       <article
         v-for="column in kanbanColumns"
         :key="column.status"
@@ -891,6 +914,59 @@ const clearDragged = () => {
           </div>
         </div>
       </article>
+    </section>
+
+    <!-- Swimlane -->
+    <section v-else ref="kanbanWrapEl" class="swimlane-wrap" @scroll.passive="syncTop">
+      <!-- Header row -->
+      <div class="swimlane-header-row">
+        <div class="swimlane-label-col"></div>
+        <div
+          v-for="status in STATUSES"
+          :key="status"
+          class="swimlane-status-header"
+          :data-status="status"
+        >{{ STATUS_LABELS[status] }}</div>
+      </div>
+
+      <!-- Priority rows -->
+      <div v-for="row in swimlaneRows" :key="row.priority" class="swimlane-row">
+        <div class="swimlane-label-col" :data-priority="row.priority">
+          <span class="swimlane-label-text">{{ PRIORITY_LABELS[row.priority] }}</span>
+          <span class="kanban-count">{{ row.total }}</span>
+        </div>
+        <div
+          v-for="col in row.columns"
+          :key="col.status"
+          class="swimlane-cell"
+        >
+          <button
+            v-for="company in col.items"
+            :key="company.id"
+            type="button"
+            class="swimlane-card"
+            :class="{ 'swimlane-card--overdue': isOverdue(company) }"
+            @click="openDetailModal(company)"
+          >
+            <span class="swimlane-card-name">{{ company.name }}</span>
+            <span v-if="company.role" class="swimlane-card-role">{{ company.role }}</span>
+            <span
+              v-if="company.applicationDeadline"
+              class="swimlane-card-date"
+              :class="{ 'deadline-near': company.applicationDeadline <= new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10) }"
+            >⏰ {{ company.applicationDeadline }}</span>
+            <span v-else-if="company.nextFollowUpDate" class="swimlane-card-date">
+              ↩ {{ company.nextFollowUpDate }}
+            </span>
+          </button>
+          <button
+            type="button"
+            class="swimlane-add-btn"
+            :aria-label="`${PRIORITY_LABELS[row.priority]} / ${STATUS_LABELS[col.status]} hinzufügen`"
+            @click="openCreateModalWithPreset({ priority: row.priority, status: col.status })"
+          >+</button>
+        </div>
+      </div>
     </section>
     </template>
 

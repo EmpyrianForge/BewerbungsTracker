@@ -1070,6 +1070,181 @@ a {
   min-width: 2.5rem;
 }
 
+/* ── Swimlane ───────────────────────────────────────────────── */
+.swimlane-wrap {
+  overflow-x: auto;
+  scrollbar-width: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.swimlane-wrap::-webkit-scrollbar { display: none; }
+
+/* shared column grid: label + 6 status columns */
+.swimlane-header-row,
+.swimlane-row {
+  display: grid;
+  grid-template-columns: 72px repeat(6, 200px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.swimlane-row:last-child { border-bottom: none; }
+
+/* Header */
+.swimlane-header-row {
+  background: var(--surface-muted);
+  border-radius: 9px 9px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.swimlane-status-header {
+  padding: 0.55rem 0.75rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  border-right: 1px solid var(--border-soft);
+  border-top: 3px solid transparent;
+  text-align: center;
+}
+
+.swimlane-status-header:last-child { border-right: none; }
+
+.swimlane-status-header[data-status="Interested"]   { border-top-color: #3b82f6; }
+.swimlane-status-header[data-status="Applied"]      { border-top-color: #8b5cf6; }
+.swimlane-status-header[data-status="Interviewing"] { border-top-color: #f59e0b; }
+.swimlane-status-header[data-status="Offer"]        { border-top-color: #10b981; }
+.swimlane-status-header[data-status="Rejected"]     { border-top-color: #ef4444; }
+.swimlane-status-header[data-status="Archived"]     { border-top-color: #9ca3af; }
+
+/* Priority label column */
+.swimlane-label-col {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface-muted);
+  border-right: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.25rem;
+  border-left: 3px solid transparent;
+}
+
+.swimlane-label-col[data-priority="High"]   { border-left-color: var(--danger); }
+.swimlane-label-col[data-priority="Medium"] { border-left-color: #f59e0b; }
+.swimlane-label-col[data-priority="Low"]    { border-left-color: #10b981; }
+
+.swimlane-label-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Cells */
+.swimlane-cell {
+  border-right: 1px solid var(--border-soft);
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-height: 72px;
+}
+
+.swimlane-cell:last-child { border-right: none; }
+
+/* Cards */
+.swimlane-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text);
+  width: 100%;
+  transition: box-shadow 0.12s, transform 0.1s;
+}
+
+.swimlane-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+.swimlane-card--overdue {
+  border-left: 3px solid var(--danger);
+}
+
+.swimlane-card-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.swimlane-card-role {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.swimlane-card-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Quick-add button */
+.swimlane-add-btn {
+  align-self: flex-start;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.swimlane-cell:hover .swimlane-add-btn {
+  opacity: 1;
+}
+
+.swimlane-add-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  border-style: solid;
+}
+
+@media (max-width: 780px) {
+  .swimlane-wrap {
+    overflow-x: auto;
+    scrollbar-width: auto;
+  }
+  .swimlane-wrap::-webkit-scrollbar { display: unset; }
+}
+
 /* Star rating */
 .rating-section {
   margin-top: 1rem;
