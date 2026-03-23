@@ -41,6 +41,7 @@ const PRIORITY_ORDER: Record<Priority, number> = { High: 0, Medium: 1, Low: 2 }
 
 const THEME_STORAGE_KEY = 'apply-tracker.theme.v1'
 const COMPANY_STORAGE_KEY = 'apply-tracker.companies.v1'
+const COLLAPSED_COLUMNS_KEY = 'apply-tracker.collapsed-columns.v1'
 const SEED_URL = '/bewerbungstracker-import.json'
 
 const {
@@ -76,6 +77,22 @@ const selectedCompany = ref<Company | undefined>(undefined)
 const draggedCompanyId = ref<string | null>(null)
 const dragOverStatus = ref<CompanyStatus | null>(null)
 const importInput = ref<HTMLInputElement | null>(null)
+
+const storedCollapsed = localStorage.getItem(COLLAPSED_COLUMNS_KEY)
+const collapsedColumns = ref<Set<CompanyStatus>>(
+  new Set(storedCollapsed ? (JSON.parse(storedCollapsed) as CompanyStatus[]) : []),
+)
+
+const toggleColumn = (status: CompanyStatus) => {
+  const next = new Set(collapsedColumns.value)
+  if (next.has(status)) {
+    next.delete(status)
+  } else {
+    next.add(status)
+  }
+  collapsedColumns.value = next
+  localStorage.setItem(COLLAPSED_COLUMNS_KEY, JSON.stringify([...next]))
+}
 
 const compareSelection = ref<string[]>([])
 const showCompareModal = ref(false)
@@ -722,15 +739,25 @@ const clearDragged = () => {
         :key="column.status"
         class="kanban-column"
         :data-status="column.status"
-        :class="{ 'kanban-column--drag-over': dragOverStatus === column.status }"
+        :class="{
+          'kanban-column--drag-over': dragOverStatus === column.status,
+          'kanban-column--collapsed': collapsedColumns.has(column.status),
+        }"
         @dragover.prevent="onDragOver(column.status)"
         @dragleave="onDragLeave"
         @drop="onDropToStatus(column.status)"
       >
-        <header class="kanban-column-header">
+        <!-- Expanded header -->
+        <header v-if="!collapsedColumns.has(column.status)" class="kanban-column-header">
           <h3>{{ STATUS_LABELS[column.status] }}</h3>
           <div class="kanban-column-header-right">
             <span class="kanban-count">{{ column.items.length }}</span>
+            <button
+              type="button"
+              class="kanban-collapse-btn"
+              :aria-label="`${STATUS_LABELS[column.status]} einklappen`"
+              @click.stop="toggleColumn(column.status)"
+            >‹</button>
             <button
               type="button"
               class="kanban-add-btn"
@@ -739,7 +766,25 @@ const clearDragged = () => {
             >+</button>
           </div>
         </header>
-        <div class="kanban-cards">
+
+        <!-- Collapsed header -->
+        <header
+          v-else
+          class="kanban-column-header kanban-column-header--collapsed"
+          :title="`${STATUS_LABELS[column.status]} ausklappen`"
+          @click="toggleColumn(column.status)"
+        >
+          <button
+            type="button"
+            class="kanban-collapse-btn"
+            :aria-label="`${STATUS_LABELS[column.status]} ausklappen`"
+            @click.stop="toggleColumn(column.status)"
+          >›</button>
+          <span class="kanban-collapsed-title">{{ STATUS_LABELS[column.status] }}</span>
+          <span class="kanban-count">{{ column.items.length }}</span>
+        </header>
+
+        <div v-show="!collapsedColumns.has(column.status)" class="kanban-cards">
           <button
             v-for="company in column.items"
             :key="company.id"
