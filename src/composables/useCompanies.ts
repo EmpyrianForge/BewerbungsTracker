@@ -48,13 +48,15 @@ const normalizeDateField = (value: unknown): string | undefined => {
 }
 
 const normalizeDocuments = (value: unknown): DocumentChecklist => {
-  const defaults: DocumentChecklist = { cv: false, coverLetter: false, certificates: false, portfolio: false }
+  const defaults: DocumentChecklist = { cv: false, coverLetter: false, motivationLetter: false, certificates: false, portfolio: false, github: false }
   if (!isObject(value)) return defaults
   return {
     cv: typeof value['cv'] === 'boolean' ? value['cv'] : false,
     coverLetter: typeof value['coverLetter'] === 'boolean' ? value['coverLetter'] : false,
+    motivationLetter: typeof value['motivationLetter'] === 'boolean' ? value['motivationLetter'] : false,
     certificates: typeof value['certificates'] === 'boolean' ? value['certificates'] : false,
     portfolio: typeof value['portfolio'] === 'boolean' ? value['portfolio'] : false,
+    github: typeof value['github'] === 'boolean' ? value['github'] : false,
   }
 }
 

@@ -49,8 +49,10 @@ const emit = defineEmits<{
 const emptyDocuments = (): DocumentChecklist => ({
   cv: false,
   coverLetter: false,
+  motivationLetter: false,
   certificates: false,
   portfolio: false,
+  github: false,
 });
 
 const emptyForm = (): CompanyInput => ({
@@ -289,12 +291,20 @@ const submit = () => {
                 Anschreiben
               </label>
               <label class="doc-item">
+                <input type="checkbox" v-model="form.documents.motivationLetter" />
+                Motivationsschreiben
+              </label>
+              <label class="doc-item">
                 <input type="checkbox" v-model="form.documents.certificates" />
                 Zeugnisse
               </label>
               <label class="doc-item">
                 <input type="checkbox" v-model="form.documents.portfolio" />
                 Portfolio
+              </label>
+              <label class="doc-item">
+                <input type="checkbox" v-model="form.documents.github" />
+                GitHub
               </label>
             </div>
           </fieldset>

@@ -228,8 +228,10 @@ const close = () => emit('update:modelValue', false)
           <div class="docs-checklist" style="margin-top: 0.4rem;">
             <span class="doc-item"><span>{{ company.documents.cv ? '✓' : '✗' }}</span> Lebenslauf</span>
             <span class="doc-item"><span>{{ company.documents.coverLetter ? '✓' : '✗' }}</span> Anschreiben</span>
+            <span class="doc-item"><span>{{ company.documents.motivationLetter ? '✓' : '✗' }}</span> Motivationsschreiben</span>
             <span class="doc-item"><span>{{ company.documents.certificates ? '✓' : '✗' }}</span> Zeugnisse</span>
             <span class="doc-item"><span>{{ company.documents.portfolio ? '✓' : '✗' }}</span> Portfolio</span>
+            <span class="doc-item"><span>{{ company.documents.github ? '✓' : '✗' }}</span> GitHub</span>
           </div>
         </div>
 

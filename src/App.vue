@@ -411,6 +411,7 @@ const openCreateModalWithPreset = (preset: Partial<CompanyInput>) => {
 }
 
 const openEditModal = (company: Company) => {
+  showDetailModal.value = false
   formMode.value = 'edit'
   editingCompany.value = company
   formPreset.value = undefined

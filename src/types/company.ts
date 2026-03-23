@@ -18,8 +18,10 @@ export type ApplicationType = (typeof APPLICATION_TYPES)[number]
 export interface DocumentChecklist {
   cv: boolean
   coverLetter: boolean
+  motivationLetter: boolean
   certificates: boolean
   portfolio: boolean
+  github: boolean
 }
 
 export interface ActivityEntry {
