@@ -162,8 +162,20 @@ const parseCompaniesFromJson = (raw: string | null): Company[] => {
   }
 }
 
+// One-time migration: remove generic seed tags that carry no user value
+const SEED_TAGS_TO_REMOVE = new Set(['interessant', 'vielleicht'])
+
+const migrateCompanies = (list: Company[]): Company[] => {
+  return list.map((c) => {
+    const cleaned = c.tags.filter((t) => !SEED_TAGS_TO_REMOVE.has(t))
+    if (cleaned.length === c.tags.length) return c
+    return { ...c, tags: cleaned }
+  })
+}
+
 export const useCompanies = () => {
-  const companies = ref<Company[]>(parseCompaniesFromJson(localStorage.getItem(STORAGE_KEY)))
+  const raw = parseCompaniesFromJson(localStorage.getItem(STORAGE_KEY))
+  const companies = ref<Company[]>(migrateCompanies(raw))
 
   watch(
     companies,
