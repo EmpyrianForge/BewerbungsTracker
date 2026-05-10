@@ -133,6 +133,9 @@ const toCompany = (item: unknown): Company | null => {
     documents: normalizeDocuments(item['documents']),
     activityLog: normalizeActivityLog(item['activityLog']),
     rating: normalizeRating(item['rating']),
+    proofSentAt: normalizeDateField(item['proofSentAt']),
+    proofUrl: normalizeString(item['proofUrl']),
+    proofNote: normalizeString(item['proofNote']),
   }
 }
 

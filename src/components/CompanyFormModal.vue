@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import {
   STATUSES,
   PRIORITIES,
@@ -16,9 +16,9 @@ const STATUS_LABELS: Record<CompanyStatus, string> = {
   Interested: "Interessiert",
   Applied: "Beworben",
   Interviewing: "Im Gespräch",
-  Offer: "Angebot",
+  Offer: "Angebot erhalten",
   Rejected: "Absage",
-  Archived: "Archiv",
+  Archived: "Archiviert",
 };
 
 const PRIORITY_LABELS: Record<Priority, string> = {
@@ -74,27 +74,33 @@ const emptyForm = (): CompanyInput => ({
   priority: "Medium",
   applicationType: "Stellenanzeige",
   documents: emptyDocuments(),
+  proofSentAt: undefined,
+  proofUrl: "",
+  proofNote: "",
 });
 
 const form = reactive<CompanyInput>(emptyForm());
+const showDetails = ref(false);
+const nameError = ref(false);
+const roleError = ref(false);
+
 const tagInput = computed({
   get: () => form.tags.join(", "),
   set: (value: string) => {
     form.tags = value
       .split(",")
       .map((item) => item.trim())
-      .filter(
-        (item, index, arr) => item.length > 0 && arr.indexOf(item) === index,
-      );
+      .filter((item, index, arr) => item.length > 0 && arr.indexOf(item) === index);
   },
 });
 
 watch(
   () => props.modelValue,
   (isOpen) => {
-    if (!isOpen) {
-      return;
-    }
+    if (!isOpen) return;
+    nameError.value = false;
+    roleError.value = false;
+    showDetails.value = false;
 
     const source = props.company;
     if (!source) {
@@ -121,6 +127,9 @@ watch(
       priority: source.priority,
       applicationType: source.applicationType,
       documents: { ...source.documents },
+      proofSentAt: source.proofSentAt,
+      proofUrl: source.proofUrl ?? "",
+      proofNote: source.proofNote ?? "",
     });
   },
 );
@@ -128,9 +137,9 @@ watch(
 const close = () => emit("update:modelValue", false);
 
 const submit = () => {
-  if (!form.name.trim()) {
-    return;
-  }
+  nameError.value = !form.name.trim();
+  roleError.value = !form.role.trim();
+  if (nameError.value || roleError.value) return;
 
   emit("save", {
     ...form,
@@ -147,6 +156,9 @@ const submit = () => {
     lastActionAt: form.lastActionAt || undefined,
     lastActionNote: form.lastActionNote.trim(),
     applicationDeadline: form.applicationDeadline || undefined,
+    proofSentAt: form.proofSentAt || undefined,
+    proofUrl: form.proofUrl?.trim() || undefined,
+    proofNote: form.proofNote?.trim() || undefined,
   });
   close();
 };
@@ -155,64 +167,36 @@ const submit = () => {
 <template>
   <Transition name="fade-slide">
     <div v-if="modelValue" class="overlay" @click.self="close">
-      <div
-        class="modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="form-modal-title"
-      >
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="form-modal-title">
         <header class="modal-header">
           <h2 id="form-modal-title">
-            {{
-              mode === "create"
-                ? "Bewerbung hinzufügen"
-                : "Bewerbung bearbeiten"
-            }}
+            {{ mode === "create" ? "Bewerbung hinzufügen" : "Bewerbung bearbeiten" }}
           </h2>
           <button type="button" class="ghost" @click="close">Schließen</button>
         </header>
 
         <form class="form" @submit.prevent="submit">
-          <label>
-            Firma
-            <input v-model="form.name" required maxlength="120" />
+
+          <!-- ── Pflichtangaben ── -->
+          <div class="form-section-label">Pflichtangaben</div>
+
+          <label :class="{ 'has-error': nameError }">
+            Firma <span class="required-star">*</span>
+            <input v-model="form.name" maxlength="120" @input="nameError = false" />
+            <span v-if="nameError" class="field-error-msg">Bitte Firma angeben</span>
           </label>
-          <label>
-            Stelle / Position
-            <input v-model="form.role" maxlength="120" />
+
+          <label :class="{ 'has-error': roleError }">
+            Stelle / Position <span class="required-star">*</span>
+            <input v-model="form.role" maxlength="120" @input="roleError = false" />
+            <span v-if="roleError" class="field-error-msg">Bitte Stelle angeben</span>
           </label>
+
           <label>
             Ort
             <input v-model="form.location" maxlength="120" />
           </label>
-          <label>
-            URL
-            <input v-model="form.url" type="url" placeholder="https://..." />
-          </label>
-          <label>
-            Kontakt
-            <input
-              v-model="form.contact"
-              maxlength="120"
-              placeholder="Name, E-Mail, LinkedIn, …"
-            />
-          </label>
-          <label>
-            Gehaltsspanne
-            <input
-              v-model="form.salaryRange"
-              maxlength="120"
-              placeholder="z.B. 50.000–60.000€"
-            />
-          </label>
-          <label>
-            Quelle
-            <input
-              v-model="form.source"
-              maxlength="120"
-              placeholder="z.B. LinkedIn, Empfehlung, Karriereseite"
-            />
-          </label>
+
           <label>
             Status
             <select v-model="form.status">
@@ -221,10 +205,7 @@ const submit = () => {
               </option>
             </select>
           </label>
-          <label>
-            Bewerbungsdeadline
-            <input v-model="form.applicationDeadline" type="date" />
-          </label>
+
           <label>
             Priorität
             <select v-model="form.priority">
@@ -233,91 +214,230 @@ const submit = () => {
               </option>
             </select>
           </label>
+
           <label>
-            Bewerbungstyp
-            <select v-model="form.applicationType">
-              <option v-for="t in APPLICATION_TYPES" :key="t" :value="t">
-                {{ APPLICATION_TYPE_LABELS[t] }}
-              </option>
-            </select>
+            Bewerbungsdeadline
+            <input v-model="form.applicationDeadline" type="date" />
           </label>
+
+          <!-- ── Nachweis ── -->
+          <div class="form-section-label" style="grid-column: 1 / -1; margin-top: 0.5rem;">
+            Nachweis
+            <span class="form-section-hint">Zum Belegen der tatsächlich abgeschickten Bewerbung</span>
+          </div>
+
           <label>
-            Nächstes Follow-up
-            <input v-model="form.nextFollowUpDate" type="date" />
+            Abgeschickt am
+            <input v-model="form.proofSentAt" type="date" />
           </label>
+
           <label>
-            Vorstellungsgespräch (Datum/Uhrzeit)
-            <input v-model="form.interviewAt" type="datetime-local" />
+            Bestätigungslink
+            <input v-model="form.proofUrl" type="url" placeholder="https://portal.firma.de/bestätigung…" />
           </label>
-          <label>
-            Tags (durch Komma getrennt)
-            <input
-              v-model="tagInput"
-              placeholder="remote, startup, empfehlung"
-            />
+
+          <label style="grid-column: 1 / -1;">
+            Bestätigungsnotiz
+            <input v-model="form.proofNote" maxlength="200" placeholder="z. B. Bestätigung per E-Mail erhalten, Referenznr. 12345" />
           </label>
-          <label>
-            Letzte Aktion (Datum)
-            <input v-model="form.lastActionAt" type="date" />
-          </label>
-          <label>
-            Letzte Aktion (Notiz)
-            <textarea v-model="form.lastActionNote" rows="2" />
-          </label>
-          <label>
-            Notizen
-            <textarea v-model="form.notes" rows="4" />
-          </label>
-          <fieldset
-            style="
-              grid-column: 1 / -1;
-              border: 1px solid var(--border);
-              border-radius: 8px;
-              padding: 0.75rem;
-            "
-          >
-            <legend
-              style="font-weight: 600; color: var(--text); padding: 0 0.4rem"
+
+          <!-- ── Weitere Details (einklappbar) ── -->
+          <div style="grid-column: 1 / -1;">
+            <button
+              type="button"
+              class="details-toggle"
+              @click="showDetails = !showDetails"
             >
-              Dokumente
-            </legend>
-            <div class="docs-checklist">
-              <label class="doc-item">
-                <input type="checkbox" v-model="form.documents.cv" />
-                Lebenslauf
-              </label>
-              <label class="doc-item">
-                <input type="checkbox" v-model="form.documents.coverLetter" />
-                Anschreiben
-              </label>
-              <label class="doc-item">
-                <input type="checkbox" v-model="form.documents.motivationLetter" />
-                Motivationsschreiben
-              </label>
-              <label class="doc-item">
-                <input type="checkbox" v-model="form.documents.certificates" />
-                Zeugnisse
-              </label>
-              <label class="doc-item">
-                <input type="checkbox" v-model="form.documents.portfolio" />
-                Portfolio
-              </label>
-              <label class="doc-item">
-                <input type="checkbox" v-model="form.documents.github" />
-                GitHub
-              </label>
-            </div>
-          </fieldset>
-          <div class="actions">
-            <button type="button" class="ghost" @click="close">
-              Abbrechen
-            </button>
-            <button type="submit" class="primary">
-              {{ mode === "create" ? "Anlegen" : "Speichern" }}
+              {{ showDetails ? '▲ Weitere Details ausblenden' : '▼ Weitere Details anzeigen' }}
             </button>
           </div>
+
+          <template v-if="showDetails">
+            <label>
+              Stellenlink (URL)
+              <input v-model="form.url" type="url" placeholder="https://…" />
+            </label>
+
+            <label>
+              Kontakt
+              <input v-model="form.contact" maxlength="120" placeholder="Name, E-Mail, LinkedIn, …" />
+            </label>
+
+            <label>
+              Gehaltsspanne
+              <input v-model="form.salaryRange" maxlength="120" placeholder="z. B. 50.000–60.000 €" />
+            </label>
+
+            <label>
+              Quelle
+              <input v-model="form.source" maxlength="120" placeholder="z. B. LinkedIn, Empfehlung, Karriereseite" />
+            </label>
+
+            <label>
+              Bewerbungstyp
+              <select v-model="form.applicationType">
+                <option v-for="t in APPLICATION_TYPES" :key="t" :value="t">
+                  {{ APPLICATION_TYPE_LABELS[t] }}
+                </option>
+              </select>
+            </label>
+
+            <label>
+              Nächstes Follow-up
+              <input v-model="form.nextFollowUpDate" type="date" />
+            </label>
+
+            <label style="grid-column: 1 / -1;">
+              Vorstellungsgespräch (Datum / Uhrzeit)
+              <input v-model="form.interviewAt" type="datetime-local" />
+            </label>
+
+            <label style="grid-column: 1 / -1;">
+              Tags <span class="form-section-hint">(kommagetrennt, z. B. remote, startup)</span>
+              <input v-model="tagInput" placeholder="remote, startup, empfehlung" />
+            </label>
+
+            <label>
+              Letzte Aktion (Datum)
+              <input v-model="form.lastActionAt" type="date" />
+            </label>
+
+            <label>
+              Letzte Aktion (Notiz)
+              <textarea v-model="form.lastActionNote" rows="2" />
+            </label>
+
+            <label style="grid-column: 1 / -1;">
+              Notizen
+              <textarea v-model="form.notes" rows="3" />
+            </label>
+
+            <fieldset class="docs-fieldset">
+              <legend>Dokumente</legend>
+              <div class="docs-checklist">
+                <label class="doc-item">
+                  <input type="checkbox" v-model="form.documents.cv" /> Lebenslauf
+                </label>
+                <label class="doc-item">
+                  <input type="checkbox" v-model="form.documents.coverLetter" /> Anschreiben
+                </label>
+                <label class="doc-item">
+                  <input type="checkbox" v-model="form.documents.motivationLetter" /> Motivationsschreiben
+                </label>
+                <label class="doc-item">
+                  <input type="checkbox" v-model="form.documents.certificates" /> Zeugnisse
+                </label>
+                <label class="doc-item">
+                  <input type="checkbox" v-model="form.documents.portfolio" /> Portfolio
+                </label>
+                <label class="doc-item">
+                  <input type="checkbox" v-model="form.documents.github" /> GitHub
+                </label>
+              </div>
+            </fieldset>
+          </template>
+
+          <!-- ── Footer ── -->
+          <div class="actions" style="grid-column: 1 / -1;">
+            <span class="required-hint">* Pflichtfelder</span>
+            <div class="actions-right">
+              <button type="button" class="ghost" @click="close">Abbrechen</button>
+              <button type="submit" class="primary">
+                {{ mode === "create" ? "Anlegen" : "Speichern" }}
+              </button>
+            </div>
+          </div>
+
         </form>
       </div>
     </div>
   </Transition>
 </template>
+
+<style scoped>
+.form-section-label {
+  grid-column: 1 / -1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3rem;
+  margin-top: 0.25rem;
+}
+
+.form-section-hint {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+
+.required-star {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+.required-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.has-error input,
+.has-error select,
+.has-error textarea {
+  border-color: #ef4444;
+}
+
+.field-error-msg {
+  display: block;
+  font-size: 0.76rem;
+  color: #ef4444;
+  margin-top: 0.15rem;
+}
+
+.details-toggle {
+  background: none;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.9rem;
+  width: 100%;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.details-toggle:hover {
+  background: var(--surface-hover, rgba(0,0,0,0.04));
+}
+
+.docs-fieldset {
+  grid-column: 1 / -1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.docs-fieldset legend {
+  font-weight: 600;
+  color: var(--text);
+  padding: 0 0.4rem;
+  font-size: 0.88rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+}
+
+.actions-right {
+  display: flex;
+  gap: 0.5rem;
+}
+</style>

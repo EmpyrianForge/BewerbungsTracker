@@ -62,6 +62,9 @@ export interface Company {
   documents: DocumentChecklist
   activityLog: ActivityEntry[]
   rating?: CompanyRating
+  proofSentAt?: string
+  proofUrl?: string
+  proofNote?: string
 }
 
 export interface CompanyInput {
@@ -83,4 +86,7 @@ export interface CompanyInput {
   priority: Priority
   applicationType: ApplicationType
   documents: DocumentChecklist
+  proofSentAt?: string
+  proofUrl?: string
+  proofNote?: string
 }

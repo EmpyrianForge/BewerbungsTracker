@@ -6,9 +6,9 @@ const STATUS_LABELS: Record<CompanyStatus, string> = {
   Interested: 'Interessiert',
   Applied: 'Beworben',
   Interviewing: 'Im Gespräch',
-  Offer: 'Angebot',
+  Offer: 'Angebot erhalten',
   Rejected: 'Absage',
-  Archived: 'Archiv',
+  Archived: 'Archiviert',
 }
 
 const PRIORITY_LABELS: Record<Priority, string> = {
@@ -232,6 +232,19 @@ const close = () => emit('update:modelValue', false)
             <span class="doc-item"><span>{{ company.documents.certificates ? '✓' : '✗' }}</span> Zeugnisse</span>
             <span class="doc-item"><span>{{ company.documents.portfolio ? '✓' : '✗' }}</span> Portfolio</span>
             <span class="doc-item"><span>{{ company.documents.github ? '✓' : '✗' }}</span> GitHub</span>
+          </div>
+        </div>
+
+        <!-- Nachweis -->
+        <div v-if="company.proofSentAt || company.proofUrl || company.proofNote" style="margin-top: 0.75rem; padding: 0.65rem 0.85rem; background: var(--surface-alt, rgba(16,185,129,0.07)); border: 1px solid rgba(16,185,129,0.25); border-radius: 8px;">
+          <strong style="font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: #059669;">Nachweis</strong>
+          <div style="display: grid; gap: 0.25rem; margin-top: 0.35rem; font-size: 0.88rem;">
+            <p v-if="company.proofSentAt"><strong>Abgeschickt am:</strong> {{ company.proofSentAt }}</p>
+            <p v-if="company.proofUrl">
+              <strong>Bestätigungslink:</strong>
+              <a :href="company.proofUrl" target="_blank" rel="noreferrer">{{ company.proofUrl }}</a>
+            </p>
+            <p v-if="company.proofNote"><strong>Notiz:</strong> {{ company.proofNote }}</p>
           </div>
         </div>
 

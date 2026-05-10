@@ -6,6 +6,9 @@ import CompareModal from './components/CompareModal.vue'
 import CalendarTab from './components/CalendarTab.vue'
 import StatsDashboard from './components/StatsDashboard.vue'
 import JobSearchTab from './components/JobSearchTab.vue'
+import HilfeTab from './components/HilfeTab.vue'
+import ShareModal from './components/ShareModal.vue'
+import { decodeSharePayload, type SharePayload } from './utils/share'
 import { useCompanies } from './composables/useCompanies'
 import { STATUSES, PRIORITIES, type Company, type CompanyInput, type CompanyRating, type CompanyStatus, type Priority } from './types/company'
 
@@ -19,15 +22,15 @@ type ViewMode = 'list' | 'kanban' | 'swimlane'
 type FollowUpFilter = 'All' | 'Due' | 'Overdue' | 'None'
 type SortOption = 'updated-desc' | 'follow-up-asc' | 'company-name' | 'priority' | 'deadline-asc'
 
-type Tab = 'tracker' | 'stats' | 'jobs' | 'calendar'
+type Tab = 'tracker' | 'stats' | 'jobs' | 'calendar' | 'hilfe'
 
 const STATUS_LABELS: Record<CompanyStatus, string> = {
   Interested: 'Interessiert',
   Applied: 'Beworben',
   Interviewing: 'Im Gespräch',
-  Offer: 'Angebot',
+  Offer: 'Angebot erhalten',
   Rejected: 'Absage',
-  Archived: 'Archiv',
+  Archived: 'Archiviert',
 }
 
 const PRIORITY_LABELS: Record<Priority, string> = {
@@ -129,6 +132,9 @@ const toggleColumn = (status: CompanyStatus) => {
 
 const compareSelection = ref<string[]>([])
 const showCompareModal = ref(false)
+const showShareModal = ref(false)
+const isShareView = ref(false)
+const sharePayload = ref<SharePayload | null>(null)
 const compareList = computed(() =>
   compareSelection.value
     .map((id) => companies.value.find((c) => c.id === id))
@@ -289,6 +295,18 @@ onMounted(async () => {
   }
 
   await seedInitialData()
+
+  const hash = window.location.hash
+  if (hash.startsWith('#share=')) {
+    try {
+      const encoded = hash.slice('#share='.length)
+      sharePayload.value = await decodeSharePayload(encoded)
+      isShareView.value = true
+      activeTab.value = 'tracker'
+    } catch {
+      /* invalid share link, ignore */
+    }
+  }
 })
 
 onUnmounted(() => {
@@ -466,6 +484,7 @@ const escapeHtml = (str: string): string =>
 
 const generatePrintHtml = (list: Company[]): string => {
   const date = new Date().toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })
+  const today = getTodayLocalIsoDate()
 
   const statusColors: Record<CompanyStatus, string> = {
     Interested: '#dbeafe', Applied: '#ede9fe', Interviewing: '#fef3c7',
@@ -481,41 +500,62 @@ const generatePrintHtml = (list: Company[]): string => {
     .map((s) => `<span class="stat">${s.label}: <strong>${s.count}</strong></span>`)
     .join('')
 
-  const rows = list.map((c) => `
-    <tr>
-      <td><strong>${escapeHtml(c.name)}</strong>${c.url ? `<br><a href="${escapeHtml(c.url)}">${escapeHtml(c.url)}</a>` : ''}</td>
+  const bewerbenCount = list.filter((c) => c.status !== 'Interested' && c.status !== 'Archived').length
+  const nachweisCount = list.filter((c) => c.proofSentAt).length
+  const overdueCount = list.filter((c) => c.nextFollowUpDate && c.nextFollowUpDate < today).length
+
+  const rows = list.map((c) => {
+    const isOverdueRow = c.nextFollowUpDate && c.nextFollowUpDate < today
+    const hasProof = c.proofSentAt || c.proofUrl
+    const proofCell = hasProof
+      ? `${c.proofSentAt ? `<span style="color:#059669;font-weight:600">${escapeHtml(c.proofSentAt)}</span>` : ''}${c.proofUrl ? `<br><a href="${escapeHtml(c.proofUrl)}">${escapeHtml(c.proofUrl.replace(/^https?:\/\//, '').slice(0, 40))}${c.proofUrl.length > 47 ? '…' : ''}</a>` : ''}`
+      : '<span style="color:#9ca3af">—</span>'
+    return `
+    <tr${isOverdueRow ? ' style="background:#fff1f2"' : ''}>
+      <td><strong>${escapeHtml(c.name)}</strong></td>
       <td>${escapeHtml(c.role || '—')}</td>
       <td>${escapeHtml(c.location || '—')}</td>
       <td><span class="badge" style="background:${statusColors[c.status]}">${STATUS_LABELS[c.status]}</span></td>
       <td><span class="badge" style="background:${priorityColors[c.priority]}">${PRIORITY_LABELS[c.priority]}</span></td>
-      <td>${escapeHtml(c.applicationDeadline || '—')}</td>
-      <td>${escapeHtml(c.nextFollowUpDate || '—')}</td>
-      <td>${escapeHtml(c.notes ? c.notes.slice(0, 80) + (c.notes.length > 80 ? '…' : '') : '—')}</td>
-    </tr>`).join('')
+      <td${c.applicationDeadline && c.applicationDeadline <= new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10) ? ' style="color:#dc2626;font-weight:600"' : ''}>${escapeHtml(c.applicationDeadline || '—')}</td>
+      <td${isOverdueRow ? ' style="color:#dc2626;font-weight:600"' : ''}>${escapeHtml(c.nextFollowUpDate || '—')}</td>
+      <td>${proofCell}</td>
+    </tr>`
+  }).join('')
 
   return `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
-<title>Bewerbungsübersicht</title>
+<title>WBS Bewerbungsnachweis</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:"Segoe UI",Arial,sans-serif;font-size:11px;color:#1f2a37;margin:0;padding:20px}
-  h1{font-size:18px;margin:0 0 3px}
-  .sub{color:#6b7280;font-size:10px;margin-bottom:14px}
-  .stats{display:flex;flex-wrap:wrap;gap:8px 16px;margin-bottom:16px;padding:10px 14px;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0}
+  h1{font-size:17px;margin:0 0 2px;color:#1e293b}
+  .sub{color:#6b7280;font-size:10px;margin-bottom:10px}
+  .kpi-row{display:flex;gap:12px;margin-bottom:12px}
+  .kpi{padding:8px 14px;border-radius:6px;border:1px solid #e2e8f0;background:#f8fafc;text-align:center;flex:1}
+  .kpi-num{font-size:18px;font-weight:700;color:#1e293b}
+  .kpi-label{font-size:9px;color:#6b7280;margin-top:1px}
+  .stats{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:12px;padding:8px 12px;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0}
   .stat{font-size:10px;color:#374151}
   table{width:100%;border-collapse:collapse}
-  th{background:#f1f5f9;text-align:left;padding:7px 9px;font-size:10px;font-weight:600;border-bottom:2px solid #e2e8f0}
-  td{padding:6px 9px;border-bottom:1px solid #f1f5f9;vertical-align:top;font-size:10px}
+  th{background:#f1f5f9;text-align:left;padding:6px 8px;font-size:10px;font-weight:600;border-bottom:2px solid #e2e8f0}
+  td{padding:5px 8px;border-bottom:1px solid #f1f5f9;vertical-align:top;font-size:10px}
   tr:nth-child(even) td{background:#fafbfc}
-  .badge{padding:2px 7px;border-radius:999px;font-size:9px;font-weight:600;display:inline-block}
-  a{color:#0f5cc0;font-size:9px}
-  @media print{body{padding:0}@page{margin:12mm;size:A4 landscape}}
+  .badge{padding:2px 6px;border-radius:999px;font-size:9px;font-weight:600;display:inline-block}
+  a{color:#0f5cc0;font-size:9px;word-break:break-all}
+  @media print{body{padding:0}@page{margin:10mm;size:A4 landscape}}
 </style></head><body>
-  <h1>Bewerbungsübersicht</h1>
-  <p class="sub">Exportiert am ${date} &middot; ${list.length} Eintr&auml;ge</p>
+  <h1>WBS Bewerbungsnachweis</h1>
+  <p class="sub">Erstellt am ${date}</p>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-num">${list.length}</div><div class="kpi-label">Firmen gesamt</div></div>
+    <div class="kpi"><div class="kpi-num">${bewerbenCount}</div><div class="kpi-label">Bewerbungen aktiv</div></div>
+    <div class="kpi"><div class="kpi-num">${nachweisCount}</div><div class="kpi-label">Mit Nachweis</div></div>
+    <div class="kpi" style="${overdueCount > 0 ? 'border-color:#fca5a5;background:#fff1f2' : ''}"><div class="kpi-num" style="${overdueCount > 0 ? 'color:#dc2626' : ''}">${overdueCount}</div><div class="kpi-label">Überfällige Follow-ups</div></div>
+  </div>
   <div class="stats">${statsLine}</div>
   <table><thead><tr>
     <th>Firma</th><th>Stelle</th><th>Ort</th><th>Status</th>
-    <th>Priorit&auml;t</th><th>Deadline</th><th>Follow-up</th><th>Notizen</th>
+    <th>Priorit&auml;t</th><th>Deadline</th><th>Follow-up</th><th>Nachweis (Datum / Link)</th>
   </tr></thead><tbody>${rows}</tbody></table>
 </body></html>`
 }
@@ -693,6 +733,14 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
           >
             Kalender
           </button>
+          <button
+            type="button"
+            class="toggle-btn"
+            :class="{ active: activeTab === 'hilfe' }"
+            @click="activeTab = 'hilfe'"
+          >
+            Hilfe
+          </button>
         </div>
         <div class="theme-toggle" role="group" aria-label="Theme selection">
           <button
@@ -728,6 +776,7 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
           title="App installieren – funktioniert auch offline"
           @click="installApp"
         >⬇ Installieren</button>
+        <button type="button" class="ghost" @click="showShareModal = true">Teilen</button>
         <button type="button" class="ghost" @click="exportPdf">PDF</button>
         <button type="button" class="ghost" @click="exportData">Export</button>
         <button type="button" class="ghost" @click="openImport">Import</button>
@@ -735,6 +784,75 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
         <button type="button" class="primary" @click="openCreateModal">+ Bewerbung</button>
       </div>
     </header>
+
+    <!-- ── Share-View (read-only) ── -->
+    <template v-if="isShareView && sharePayload">
+      <section class="share-readonly-wrap">
+        <div class="share-readonly-stats">
+          <div class="share-stat-card">
+            <span class="share-stat-num">{{ sharePayload.entries.length }}</span>
+            <span class="share-stat-label">Firmen gesamt</span>
+          </div>
+          <div class="share-stat-card">
+            <span class="share-stat-num">{{ sharePayload.entries.filter(e => e.s !== 'Interested' && e.s !== 'Archived').length }}</span>
+            <span class="share-stat-label">Aktive Bewerbungen</span>
+          </div>
+          <div class="share-stat-card">
+            <span class="share-stat-num">{{ sharePayload.entries.filter(e => e.ps).length }}</span>
+            <span class="share-stat-label">Mit Nachweis</span>
+          </div>
+          <div class="share-stat-card" :class="{ 'share-stat-card--warn': sharePayload.entries.filter(e => e.f && e.f < getTodayLocalIsoDate()).length > 0 }">
+            <span class="share-stat-num">{{ sharePayload.entries.filter(e => e.f && e.f < getTodayLocalIsoDate()).length }}</span>
+            <span class="share-stat-label">Überfällige Follow-ups</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Firma</th>
+                <th>Stelle</th>
+                <th>Ort</th>
+                <th>Status</th>
+                <th>Priorität</th>
+                <th>Deadline</th>
+                <th>Abgeschickt am</th>
+                <th>Nachweis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(e, idx) in sharePayload.entries"
+                :key="idx"
+                :class="{ 'row-overdue': e.f && e.f < getTodayLocalIsoDate() }"
+              >
+                <td><strong>{{ e.n }}</strong></td>
+                <td>{{ e.r || '—' }}</td>
+                <td>{{ e.l || '—' }}</td>
+                <td>
+                  <select class="status-select" :data-status="e.s" disabled>
+                    <option>{{ STATUS_LABELS[e.s] }}</option>
+                  </select>
+                </td>
+                <td><span :class="PRIORITY_CLASS[e.p]">{{ PRIORITY_LABELS[e.p] }}</span></td>
+                <td>{{ e.d || '—' }}</td>
+                <td>
+                  <span v-if="e.ps" style="color:#059669;font-weight:600;">{{ e.ps }}</span>
+                  <span v-else class="text-muted">—</span>
+                </td>
+                <td>
+                  <a v-if="e.pu" :href="e.pu" target="_blank" rel="noreferrer" style="font-size:0.82rem;">Link</a>
+                  <span v-else-if="e.pn" style="font-size:0.82rem;">{{ e.pn }}</span>
+                  <span v-else class="text-muted">—</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </template>
+
+    <template v-else>
 
     <section v-if="activeTab === 'tracker'" class="controls">
       <input v-model="searchText" placeholder="Suche nach Firma, Stelle oder Ort" aria-label="Suche" />
@@ -1022,10 +1140,16 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
       <CalendarTab :companies="companies" @open="openDetailModal" />
     </section>
 
+    <section v-else-if="activeTab === 'hilfe'">
+      <HilfeTab />
+    </section>
+
     <section v-else-if="activeTab === 'tracker'" class="empty">
       <h2>Keine Einträge gefunden</h2>
       <p>Filter anpassen oder eine neue Bewerbung hinzufügen.</p>
     </section>
+
+    </template><!-- end share-view else -->
 
     <!-- Compare bar -->
     <Transition name="fade-slide">
@@ -1057,5 +1181,21 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
       v-model="showCompareModal"
       :companies="compareList"
     />
+
+    <ShareModal
+      v-model="showShareModal"
+      :companies="companies"
+    />
+
+    <!-- Share-View Banner -->
+    <Transition name="fade-slide">
+      <div v-if="isShareView && sharePayload" class="share-view-banner">
+        <span>
+          Geteilte Ansicht &mdash; {{ sharePayload.entries.length }} Einträge &middot;
+          Stand {{ new Date(sharePayload.ts).toLocaleString('de-DE') }}
+        </span>
+        <button type="button" class="ghost" style="font-size:0.78rem;" @click="isShareView = false">Schließen</button>
+      </div>
+    </Transition>
   </main>
 </template>
