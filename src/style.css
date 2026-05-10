@@ -59,7 +59,7 @@ body {
 .topbar {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -1774,4 +1774,295 @@ a {
 
 .share-view-banner .ghost:hover {
   background: rgba(255,255,255,0.08);
+}
+
+/* ── New topbar components ─────────────────────────────────── */
+.topbar-brand {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: -0.01em;
+}
+
+.topbar-nav {
+  display: flex;
+  gap: 0.1rem;
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+}
+
+.nav-tab {
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 0.38rem 0.7rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+
+.nav-tab:hover {
+  background: var(--surface-elevated);
+  color: var(--text);
+}
+
+.nav-tab.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.topbar-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.topbar-divider {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 0.2rem;
+  flex-shrink: 0;
+}
+
+/* ── Icon button ───────────────────────────────────────────── */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.icon-btn:hover {
+  background: var(--surface-elevated);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.icon-btn.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* ── Dropdown menu ─────────────────────────────────────────── */
+.dropdown-wrap {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+  padding: 0.3rem;
+  min-width: 186px;
+  z-index: 50;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 0.48rem 0.65rem;
+  font-size: 0.88rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.dropdown-item:hover {
+  background: var(--surface-elevated);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--border-soft);
+  margin: 0.25rem 0.3rem;
+}
+
+/* Dropdown/filter-panel open/close animation */
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+.dropdown-enter-from,
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+/* ── Controls bar (replaces .controls grid) ────────────────── */
+.controls-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.controls-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controls-search {
+  flex: 1;
+  min-width: 0;
+}
+
+.controls-status {
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Filter toggle button */
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.48rem 0.75rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.filter-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.filter-btn.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.filter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0 4px;
+}
+
+/* View-mode icon group */
+.view-icon-group {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.15rem;
+  flex-shrink: 0;
+}
+
+/* Collapsible filter panel */
+.filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+
+.filter-panel label {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  min-width: 130px;
+}
+
+.filter-panel select {
+  width: auto;
+}
+
+/* ── Responsive overrides for new layout ───────────────────── */
+@media (max-width: 780px) {
+  .topbar {
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .topbar-brand {
+    flex: 1;
+  }
+
+  .topbar-nav {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.15rem;
+    scrollbar-width: none;
+  }
+
+  .topbar-nav::-webkit-scrollbar { display: none; }
+
+  .controls-primary {
+    flex-wrap: wrap;
+  }
+
+  .controls-search {
+    flex-basis: 100%;
+  }
+
+  .controls-status {
+    flex: 1;
+  }
+
+  .filter-panel {
+    flex-direction: column;
+  }
+
+  .filter-panel label {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .filter-panel select {
+    width: 100%;
+  }
 }

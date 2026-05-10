@@ -135,6 +135,42 @@ const showCompareModal = ref(false)
 const showShareModal = ref(false)
 const isShareView = ref(false)
 const sharePayload = ref<SharePayload | null>(null)
+
+const showMoreMenu = ref(false)
+const moreMenuEl = ref<HTMLElement | null>(null)
+const showFilterPanel = ref(false)
+const showCompareMode = ref(false)
+
+const activeFilterCount = computed(() => {
+  let n = 0
+  if (selectedTag.value !== 'All') n++
+  if (selectedFollowUp.value !== 'All') n++
+  if (selectedPriority.value !== 'All') n++
+  if (sortBy.value !== 'updated-desc') n++
+  return n
+})
+
+const clearFilters = () => {
+  selectedTag.value = 'All'
+  selectedFollowUp.value = 'All'
+  selectedPriority.value = 'All'
+  sortBy.value = 'updated-desc'
+}
+
+const handleMoreMenuOutside = (e: MouseEvent) => {
+  if (moreMenuEl.value && !moreMenuEl.value.contains(e.target as Node)) {
+    showMoreMenu.value = false
+  }
+}
+
+watch(showMoreMenu, (val) => {
+  if (val) document.addEventListener('click', handleMoreMenuOutside)
+  else document.removeEventListener('click', handleMoreMenuOutside)
+})
+
+watch(showCompareMode, (val) => {
+  if (!val) compareSelection.value = []
+})
 const compareList = computed(() =>
   compareSelection.value
     .map((id) => companies.value.find((c) => c.id === id))
@@ -311,6 +347,7 @@ onMounted(async () => {
 
 onUnmounted(() => {
   removeThemeListener?.()
+  document.removeEventListener('click', handleMoreMenuOutside)
 })
 
 watch(
@@ -695,92 +732,83 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
 <template>
   <main class="container">
     <header class="topbar">
-      <div>
-        <h1>Bewerbungs-Tracker</h1>
-        <p>Behalte Bewerbungen, Gespräche und Follow-ups an einem Ort im Blick.</p>
-      </div>
-      <div class="topbar-actions">
-        <div class="view-toggle" role="group" aria-label="Tabs">
-          <button
-            type="button"
-            class="toggle-btn"
-            :class="{ active: activeTab === 'tracker' }"
-            @click="activeTab = 'tracker'"
-          >
-            Tracker
-          </button>
-          <button
-            type="button"
-            class="toggle-btn"
-            :class="{ active: activeTab === 'stats' }"
-            @click="activeTab = 'stats'"
-          >
-            Statistiken
-          </button>
-          <button
-            type="button"
-            class="toggle-btn"
-            :class="{ active: activeTab === 'jobs' }"
-            @click="activeTab = 'jobs'"
-          >
-            Stellen
-          </button>
-          <button
-            type="button"
-            class="toggle-btn"
-            :class="{ active: activeTab === 'calendar' }"
-            @click="activeTab = 'calendar'"
-          >
-            Kalender
-          </button>
-          <button
-            type="button"
-            class="toggle-btn"
-            :class="{ active: activeTab === 'hilfe' }"
-            @click="activeTab = 'hilfe'"
-          >
-            Hilfe
-          </button>
-        </div>
-        <div class="theme-toggle" role="group" aria-label="Theme selection">
-          <button
-            type="button"
-            class="toggle-btn"
-            :class="{ active: activeTheme === 'light' }"
-            @click="setThemePreference('light')"
-          >
-            Hell
-          </button>
-          <button
-            type="button"
-            class="toggle-btn"
-            :class="{ active: activeTheme === 'dark' }"
-            @click="setThemePreference('dark')"
-          >
-            Dunkel
-          </button>
-        </div>
+      <span class="topbar-brand">Bewerbungs-Tracker</span>
+
+      <nav class="topbar-nav" role="tablist" aria-label="Hauptnavigation">
+        <button role="tab" type="button" class="nav-tab" :class="{ active: activeTab === 'tracker' }" :aria-selected="activeTab === 'tracker'" @click="activeTab = 'tracker'">Tracker</button>
+        <button role="tab" type="button" class="nav-tab" :class="{ active: activeTab === 'stats' }"   :aria-selected="activeTab === 'stats'"   @click="activeTab = 'stats'">Statistiken</button>
+        <button role="tab" type="button" class="nav-tab" :class="{ active: activeTab === 'jobs' }"    :aria-selected="activeTab === 'jobs'"    @click="activeTab = 'jobs'">Stellen</button>
+        <button role="tab" type="button" class="nav-tab" :class="{ active: activeTab === 'calendar' }":aria-selected="activeTab === 'calendar'" @click="activeTab = 'calendar'">Kalender</button>
+      </nav>
+
+      <div class="topbar-tools">
+        <!-- Theme -->
         <button
           type="button"
-          class="ghost notification-btn"
+          class="icon-btn"
+          :title="activeTheme === 'dark' ? 'Helles Design aktivieren' : 'Dunkles Design aktivieren'"
+          @click="setThemePreference(activeTheme === 'dark' ? 'light' : 'dark')"
+        >
+          <svg v-if="activeTheme === 'dark'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+
+        <!-- Notifications -->
+        <button
+          type="button"
+          class="icon-btn notification-btn"
           :title="notificationPermission === 'granted' ? 'Benachrichtigungen aktiv' : 'Benachrichtigungen aktivieren'"
           @click="notificationPermission === 'granted' ? triggerNotifications() : enableNotifications()"
         >
-          🔔
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span v-if="urgentCount > 0" class="notification-badge">{{ urgentCount }}</span>
         </button>
+
+        <!-- Help -->
         <button
-          v-if="installPrompt && !isInstalled"
           type="button"
-          class="ghost install-btn"
-          title="App installieren – funktioniert auch offline"
-          @click="installApp"
-        >⬇ Installieren</button>
-        <button type="button" class="ghost" @click="showShareModal = true">Teilen</button>
-        <button type="button" class="ghost" @click="exportPdf">PDF</button>
-        <button type="button" class="ghost" @click="exportData">Export</button>
-        <button type="button" class="ghost" @click="openImport">Import</button>
+          class="icon-btn"
+          :class="{ active: activeTab === 'hilfe' }"
+          title="Hilfe & Erklärungen"
+          @click="activeTab = 'hilfe'"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
+        </button>
+
+        <span class="topbar-divider" aria-hidden="true" />
+
+        <!-- More menu -->
+        <div class="dropdown-wrap" ref="moreMenuEl">
+          <button type="button" class="icon-btn" :class="{ active: showMoreMenu }" title="Weitere Optionen" @click.stop="showMoreMenu = !showMoreMenu">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+          </button>
+          <Transition name="dropdown">
+            <div v-if="showMoreMenu" class="dropdown-menu" role="menu">
+              <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; showShareModal = true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                Ansicht teilen
+              </button>
+              <div class="dropdown-divider" />
+              <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; exportPdf()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                PDF exportieren
+              </button>
+              <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; exportData()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Daten exportieren
+              </button>
+              <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; openImport()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Daten importieren
+              </button>
+            </div>
+          </Transition>
+        </div>
+
         <input ref="importInput" type="file" accept="application/json" class="hidden-input" @change="importData" />
+
+        <button v-if="installPrompt && !isInstalled" type="button" class="ghost" style="font-size:0.82rem;white-space:nowrap" title="App installieren" @click="installApp">⬇ Installieren</button>
+
         <button type="button" class="primary" @click="openCreateModal">+ Bewerbung</button>
       </div>
     </header>
@@ -854,54 +882,72 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
 
     <template v-else>
 
-    <section v-if="activeTab === 'tracker'" class="controls">
-      <input v-model="searchText" placeholder="Suche nach Firma, Stelle oder Ort" aria-label="Suche" />
-      <select v-model="selectedStatus">
-        <option value="All">Alle Status</option>
-        <option v-for="status in STATUSES" :key="status" :value="status">{{ STATUS_LABELS[status] }}</option>
-      </select>
-      <select v-model="selectedTag">
-        <option value="All">Alle Tags</option>
-        <option v-for="tag in availableTags" :key="tag" :value="tag">{{ tag }}</option>
-      </select>
-      <select v-model="selectedFollowUp">
-        <option value="All">Follow-up: Alle</option>
-        <option value="Due">Follow-up: Fällig</option>
-        <option value="Overdue">Follow-up: Überfällig</option>
-        <option value="None">Follow-up: Keins</option>
-      </select>
-      <select v-model="selectedPriority">
-        <option value="All">Priorität: Alle</option>
-        <option v-for="p in PRIORITIES" :key="p" :value="p">{{ PRIORITY_LABELS[p] }}</option>
-      </select>
-      <select v-model="sortBy">
-        <option value="updated-desc">Sortierung: Zuletzt aktualisiert</option>
-        <option value="follow-up-asc">Sortierung: Follow-up Datum</option>
-        <option value="company-name">Sortierung: Firmenname</option>
-        <option value="priority">Sortierung: Priorität</option>
-        <option value="deadline-asc">Sortierung: Deadline</option>
-      </select>
-      <div class="view-toggle" role="group" aria-label="View mode">
-        <button type="button" class="toggle-btn" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">
-          Liste
+    <section v-if="activeTab === 'tracker'" class="controls-bar">
+      <div class="controls-primary">
+        <input v-model="searchText" class="controls-search" placeholder="Suche nach Firma, Stelle oder Ort" aria-label="Suche" />
+        <select v-model="selectedStatus" class="controls-status">
+          <option value="All">Alle Status</option>
+          <option v-for="status in STATUSES" :key="status" :value="status">{{ STATUS_LABELS[status] }}</option>
+        </select>
+        <button type="button" class="filter-btn" :class="{ active: showFilterPanel || activeFilterCount > 0 }" @click="showFilterPanel = !showFilterPanel">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          Filter
+          <span v-if="activeFilterCount > 0" class="filter-badge">{{ activeFilterCount }}</span>
         </button>
-        <button
-          type="button"
-          class="toggle-btn"
-          :class="{ active: viewMode === 'kanban' }"
-          @click="viewMode = 'kanban'"
-        >
-          Kanban
-        </button>
-        <button
-          type="button"
-          class="toggle-btn"
-          :class="{ active: viewMode === 'swimlane' }"
-          @click="viewMode = 'swimlane'"
-        >
-          Swimlane
-        </button>
+        <div class="view-icon-group" role="group" aria-label="Ansicht wechseln">
+          <button type="button" class="icon-btn" :class="{ active: viewMode === 'list' }" title="Listenansicht" @click="viewMode = 'list'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6" stroke-width="3"/><line x1="3" y1="12" x2="3.01" y2="12" stroke-width="3"/><line x1="3" y1="18" x2="3.01" y2="18" stroke-width="3"/></svg>
+          </button>
+          <button type="button" class="icon-btn" :class="{ active: viewMode === 'kanban' }" title="Kanban-Ansicht" @click="viewMode = 'kanban'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="12" rx="1"/><rect x="17" y="3" width="5" height="15" rx="1"/></svg>
+          </button>
+          <button type="button" class="icon-btn" :class="{ active: viewMode === 'swimlane' }" title="Swimlane-Ansicht" @click="viewMode = 'swimlane'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+          </button>
+          <span class="topbar-divider" aria-hidden="true" style="height:16px;margin:0 0.1rem" />
+          <button type="button" class="icon-btn" :class="{ active: showCompareMode }" title="Vergleichsmodus ein/aus" @click="showCompareMode = !showCompareMode">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          </button>
+        </div>
       </div>
+      <Transition name="dropdown">
+        <div v-if="showFilterPanel" class="filter-panel">
+          <label>
+            Tags
+            <select v-model="selectedTag">
+              <option value="All">Alle</option>
+              <option v-for="tag in availableTags" :key="tag" :value="tag">{{ tag }}</option>
+            </select>
+          </label>
+          <label>
+            Follow-up
+            <select v-model="selectedFollowUp">
+              <option value="All">Alle</option>
+              <option value="Due">Fällig</option>
+              <option value="Overdue">Überfällig</option>
+              <option value="None">Keins</option>
+            </select>
+          </label>
+          <label>
+            Priorität
+            <select v-model="selectedPriority">
+              <option value="All">Alle</option>
+              <option v-for="p in PRIORITIES" :key="p" :value="p">{{ PRIORITY_LABELS[p] }}</option>
+            </select>
+          </label>
+          <label>
+            Sortierung
+            <select v-model="sortBy">
+              <option value="updated-desc">Zuletzt aktualisiert</option>
+              <option value="follow-up-asc">Follow-up Datum</option>
+              <option value="company-name">Firmenname</option>
+              <option value="priority">Priorität</option>
+              <option value="deadline-asc">Deadline</option>
+            </select>
+          </label>
+          <button v-if="activeFilterCount > 0" type="button" class="ghost" style="align-self:flex-end;font-size:0.82rem" @click="clearFilters">Zurücksetzen</button>
+        </div>
+      </Transition>
     </section>
 
     <section v-if="activeTab === 'stats'">
@@ -912,7 +958,7 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
       <table>
         <thead>
           <tr>
-            <th class="compare-col" title="Für Vergleich auswählen">Vgl.</th>
+            <th v-if="showCompareMode" class="compare-col" title="Für Vergleich auswählen">Vgl.</th>
             <th>Firma</th>
             <th>Stelle</th>
             <th>Ort</th>
@@ -930,7 +976,7 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
             :key="company.id"
             :class="{ 'row-overdue': isOverdue(company) }"
           >
-            <td class="compare-col">
+            <td v-if="showCompareMode" class="compare-col">
               <input
                 type="checkbox"
                 :checked="compareSelection.includes(company.id)"
