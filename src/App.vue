@@ -10,6 +10,7 @@ import HilfeTab from './components/HilfeTab.vue'
 import ShareModal from './components/ShareModal.vue'
 import { decodeSharePayload, type SharePayload } from './utils/share'
 import { useCompanies } from './composables/useCompanies'
+import { useFileSave } from './composables/useFileSave'
 import { STATUSES, PRIORITIES, type Company, type CompanyInput, type CompanyRating, type CompanyStatus, type Priority } from './types/company'
 
 interface BeforeInstallPromptEvent extends Event {
@@ -74,6 +75,49 @@ const selectedPriority = ref<Priority | 'All'>('All')
 const sortBy = ref<SortOption>('updated-desc')
 const viewMode = ref<ViewMode>('list')
 const activeTab = ref<Tab>('tracker')
+
+const {
+  isSupported: fsSupported,
+  activeFileName,
+  hasPermission: fsHasPermission,
+  isSaving: fsIsSaving,
+  init: fsInit,
+  chooseSaveLocation,
+  saveNow,
+  loadFromFile,
+} = useFileSave()
+
+// Auto-save: debounced 1 s after each data change
+let autoSaveTimer: ReturnType<typeof setTimeout> | null = null
+
+watch(
+  companies,
+  () => {
+    if (!fsHasPermission.value) return
+    if (autoSaveTimer !== null) clearTimeout(autoSaveTimer)
+    autoSaveTimer = setTimeout(() => {
+      autoSaveTimer = null
+      void saveNow(exportCompaniesJson())
+    }, 1000)
+  },
+  { deep: true },
+)
+
+const handleLoadFromFile = async () => {
+  const raw = await loadFromFile()
+  if (!raw) return
+  const imported = importCompaniesFromJson(raw)
+  if (!imported.length) {
+    window.alert('Laden fehlgeschlagen: Keine gültigen Einträge in der Datei gefunden.')
+    return
+  }
+  const confirmed = window.confirm(
+    `${imported.length} Einträge aus der Speicherdatei laden?\n\n` +
+      'Einträge werden mit den aktuellen Daten zusammengeführt (gleiche IDs werden überschrieben).',
+  )
+  if (!confirmed) return
+  mergeImportedCompanies(imported)
+}
 
 const showFormModal = ref(false)
 const formMode = ref<'create' | 'edit'>('create')
@@ -331,6 +375,7 @@ onMounted(async () => {
   }
 
   await seedInitialData()
+  await fsInit()
 
   const hash = window.location.hash
   if (hash.startsWith('#share=')) {
@@ -348,6 +393,7 @@ onMounted(async () => {
 onUnmounted(() => {
   removeThemeListener?.()
   document.removeEventListener('click', handleMoreMenuOutside)
+  if (autoSaveTimer !== null) clearTimeout(autoSaveTimer)
 })
 
 watch(
@@ -789,6 +835,21 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
                 Ansicht teilen
               </button>
               <div class="dropdown-divider" />
+              <template v-if="fsSupported">
+                <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; chooseSaveLocation()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  Speicherort wählen
+                </button>
+                <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; handleLoadFromFile()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><polyline points="12 11 12 17"/><polyline points="9 14 12 17 15 14"/></svg>
+                  Laden
+                </button>
+                <p v-if="fsHasPermission" class="dropdown-save-status">
+                  <span class="save-dot" :class="{ 'save-dot--saving': fsIsSaving }" />
+                  {{ fsIsSaving ? 'Speichert…' : activeFileName }}
+                </p>
+                <div class="dropdown-divider" />
+              </template>
               <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; exportPdf()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                 PDF exportieren

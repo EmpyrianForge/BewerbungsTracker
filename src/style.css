@@ -1776,6 +1776,39 @@ a {
   background: rgba(255,255,255,0.08);
 }
 
+/* ── File auto-save status in dropdown ─────────────────────── */
+.dropdown-save-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.1rem 0.65rem 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.save-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.save-dot--saving {
+  background: #f59e0b;
+  animation: dot-pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
 /* ── New topbar components ─────────────────────────────────── */
 .topbar-brand {
   font-size: 1.1rem;
