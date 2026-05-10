@@ -7,6 +7,7 @@ import CalendarTab from './components/CalendarTab.vue'
 import StatsDashboard from './components/StatsDashboard.vue'
 import JobSearchTab from './components/JobSearchTab.vue'
 import HilfeTab from './components/HilfeTab.vue'
+import OnboardingModal from './components/OnboardingModal.vue'
 import ShareModal from './components/ShareModal.vue'
 import { decodeSharePayload, type SharePayload } from './utils/share'
 import { useCompanies } from './composables/useCompanies'
@@ -51,7 +52,13 @@ const PRIORITY_ORDER: Record<Priority, number> = { High: 0, Medium: 1, Low: 2 }
 const THEME_STORAGE_KEY = 'apply-tracker.theme.v1'
 const COMPANY_STORAGE_KEY = 'apply-tracker.companies.v1'
 const COLLAPSED_COLUMNS_KEY = 'apply-tracker.collapsed-columns.v1'
-const SEED_URL = '/bewerbungstracker-import.json'
+const TRAINING_TYPE_KEY = 'apply-tracker.training-type.v1'
+
+const SEED_URLS: Record<string, string> = {
+  FIAE: '/bewerbungstracker-import.json',
+  FISI: '/seed-fisi.json',
+  BUMA: '/seed-buma.json',
+}
 
 const {
   companies,
@@ -321,27 +328,25 @@ const enableNotifications = async () => {
   }
 }
 
-const seedInitialData = async () => {
-  if (localStorage.getItem(COMPANY_STORAGE_KEY)) {
-    return
-  }
+const showOnboarding = ref(false)
 
+const seedForType = async (type: string) => {
+  const url = SEED_URLS[type]
+  if (!url) return
   try {
-    const response = await fetch(SEED_URL)
-    if (!response.ok) {
-      return
-    }
-
-    const raw = await response.text()
-    const imported = importCompaniesFromJson(raw)
-    if (!imported.length) {
-      return
-    }
-
-    mergeImportedCompanies(imported)
+    const resp = await fetch(url)
+    if (!resp.ok) return
+    const imported = importCompaniesFromJson(await resp.text())
+    if (imported.length) mergeImportedCompanies(imported)
   } catch {
     // ignore
   }
+}
+
+const selectTrainingType = async (type: string) => {
+  localStorage.setItem(TRAINING_TYPE_KEY, type)
+  showOnboarding.value = false
+  if (type !== 'NONE') await seedForType(type)
 }
 
 onMounted(async () => {
@@ -374,7 +379,11 @@ onMounted(async () => {
     triggerNotifications()
   }
 
-  await seedInitialData()
+  // Show onboarding only on a genuine first launch (no data and no type chosen yet)
+  if (!localStorage.getItem(COMPANY_STORAGE_KEY) && !localStorage.getItem(TRAINING_TYPE_KEY)) {
+    showOnboarding.value = true
+  }
+
   await fsInit()
 
   const hash = window.location.hash
@@ -1293,6 +1302,8 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
       v-model="showShareModal"
       :companies="companies"
     />
+
+    <OnboardingModal v-if="showOnboarding" @select="selectTrainingType" />
 
     <!-- Share-View Banner -->
     <Transition name="fade-slide">
