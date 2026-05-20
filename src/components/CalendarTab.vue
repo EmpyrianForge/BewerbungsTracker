@@ -31,10 +31,9 @@ const events = computed<CalendarEvent[]>(() => {
     }
 
     if (company.nextFollowUpDate) {
-      // Treat follow-up as local date.
       result.push({
         kind: 'followup',
-        at: `${company.nextFollowUpDate}T09:00:00`,
+        at: `${company.nextFollowUpDate}T00:00:00`,
         label: 'Follow-up',
         company,
       })
@@ -71,7 +70,7 @@ const upcoming = computed(() => {
         <div>
           <strong>{{ event.label }}</strong>
           <div class="muted">
-            {{ new Date(event.at).toLocaleString('de-DE') }} · {{ event.company.name }}
+            {{ event.kind === 'followup' ? new Date(event.at).toLocaleDateString('de-DE') : new Date(event.at).toLocaleString('de-DE') }} · {{ event.company.name }}
             <span v-if="event.company.role"> — {{ event.company.role }}</span>
           </div>
         </div>

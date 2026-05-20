@@ -16,17 +16,21 @@ export interface ShareEntry {
 export interface SharePayload {
   v: 1
   ts: string
+  tt?: string
   entries: ShareEntry[]
 }
 
 async function compress(str: string): Promise<string> {
-  const bytes = new TextEncoder().encode(str)
+  const input = new TextEncoder().encode(str)
   const cs = new CompressionStream('deflate-raw')
   const writer = cs.writable.getWriter()
-  writer.write(bytes)
+  writer.write(input)
   writer.close()
   const buffer = await new Response(cs.readable).arrayBuffer()
-  return btoa(String.fromCharCode(...new Uint8Array(buffer)))
+  const compressed = new Uint8Array(buffer)
+  let binary = ''
+  for (let i = 0; i < compressed.length; i++) binary += String.fromCharCode(compressed[i])
+  return btoa(binary)
 }
 
 async function decompress(encoded: string): Promise<string> {
@@ -40,10 +44,11 @@ async function decompress(encoded: string): Promise<string> {
   return new TextDecoder().decode(buffer)
 }
 
-export async function encodeSharePayload(companies: Company[]): Promise<string> {
+export async function encodeSharePayload(companies: Company[], trainingType?: string): Promise<string> {
   const payload: SharePayload = {
     v: 1,
     ts: new Date().toISOString(),
+    tt: trainingType || undefined,
     entries: companies.map((c) => ({
       n: c.name,
       r: c.role || undefined,

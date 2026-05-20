@@ -125,6 +125,16 @@ watch(
   { immediate: true },
 )
 
+const safeUrl = (url: string | undefined): string => {
+  if (!url) return ''
+  try {
+    const parsed = new URL(url)
+    return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? url : ''
+  } catch {
+    return ''
+  }
+}
+
 const close = () => emit('update:modelValue', false)
 </script>
 
@@ -209,7 +219,7 @@ const close = () => emit('update:modelValue', false)
           <p><strong>Quelle:</strong> {{ company.source || '—' }}</p>
           <p>
             <strong>Link:</strong>
-            <a v-if="company.url" :href="company.url" target="_blank" rel="noreferrer">{{ company.url }}</a>
+            <a v-if="safeUrl(company.url)" :href="safeUrl(company.url)" target="_blank" rel="noreferrer">{{ company.url }}</a>
             <span v-else>—</span>
           </p>
           <p><strong>Follow-up:</strong> {{ company.nextFollowUpDate || '—' }}</p>
@@ -242,7 +252,7 @@ const close = () => emit('update:modelValue', false)
             <p v-if="company.proofSentAt"><strong>Abgeschickt am:</strong> {{ company.proofSentAt }}</p>
             <p v-if="company.proofUrl">
               <strong>Bestätigungslink:</strong>
-              <a :href="company.proofUrl" target="_blank" rel="noreferrer">{{ company.proofUrl }}</a>
+              <a :href="safeUrl(company.proofUrl)" target="_blank" rel="noreferrer">{{ company.proofUrl }}</a>
             </p>
             <p v-if="company.proofNote"><strong>Notiz:</strong> {{ company.proofNote }}</p>
           </div>

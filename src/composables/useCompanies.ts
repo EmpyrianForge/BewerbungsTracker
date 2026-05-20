@@ -176,11 +176,17 @@ const migrateCompanies = (list: Company[]): Company[] => {
 export const useCompanies = () => {
   const raw = parseCompaniesFromJson(localStorage.getItem(STORAGE_KEY))
   const companies = ref<Company[]>(migrateCompanies(raw))
+  const storageError = ref<string | null>(null)
 
   watch(
     companies,
     (value) => {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
+        storageError.value = null
+      } catch {
+        storageError.value = 'Lokaler Speicher ist voll — Änderungen wurden nicht gespeichert. Bitte exportiere deine Daten und lösche ältere Einträge.'
+      }
     },
     { deep: true },
   )
@@ -297,6 +303,7 @@ export const useCompanies = () => {
 
   return {
     companies: sortedCompanies,
+    storageError,
     addCompany,
     updateCompany,
     updateCompanyStatus,

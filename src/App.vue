@@ -62,6 +62,7 @@ const SEED_URLS: Record<string, string> = {
 
 const {
   companies,
+  storageError,
   addCompany,
   updateCompany,
   updateCompanyStatus,
@@ -329,27 +330,53 @@ const enableNotifications = async () => {
 }
 
 const showOnboarding = ref(false)
+const seedError = ref<string | null>(null)
+const trainingType = ref<string>(localStorage.getItem(TRAINING_TYPE_KEY) ?? '')
 
 const seedForType = async (type: string) => {
   const url = SEED_URLS[type]
   if (!url) return
   try {
     const resp = await fetch(url)
-    if (!resp.ok) return
+    if (!resp.ok) {
+      seedError.value = 'Beispieldaten konnten nicht geladen werden (Verbindungsfehler). Du kannst trotzdem loslegen und Firmen manuell eintragen.'
+      return
+    }
     const imported = importCompaniesFromJson(await resp.text())
-    if (imported.length) mergeImportedCompanies(imported)
+    const now = new Date().toISOString()
+    const normalized = imported.map((c) => ({ ...c, createdAt: now, updatedAt: now }))
+    if (normalized.length) mergeImportedCompanies(normalized)
   } catch {
-    // ignore
+    seedError.value = 'Beispieldaten konnten nicht geladen werden. Du kannst trotzdem loslegen und Firmen manuell eintragen.'
   }
 }
 
 const selectTrainingType = async (type: string) => {
   localStorage.setItem(TRAINING_TYPE_KEY, type)
+  trainingType.value = type
   showOnboarding.value = false
   if (type !== 'NONE') await seedForType(type)
 }
 
+const handleResetTrainingType = () => {
+  const confirmed = window.confirm(
+    'Beruf-Auswahl zurücksetzen?\n\nDeine bestehenden Einträge bleiben erhalten. Du kannst danach einen neuen Beruf wählen und neue Beispieldaten laden.',
+  )
+  if (!confirmed) return
+  localStorage.removeItem(TRAINING_TYPE_KEY)
+  showOnboarding.value = true
+}
+
+const handleOnboardingKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && showOnboarding.value) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+}
+
 onMounted(async () => {
+  window.addEventListener('keydown', handleOnboardingKeydown, true)
+
   const handleInstallPrompt = (e: Event) => {
     e.preventDefault()
     installPrompt.value = e as BeforeInstallPromptEvent
@@ -400,6 +427,7 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
+  window.removeEventListener('keydown', handleOnboardingKeydown, true)
   removeThemeListener?.()
   document.removeEventListener('click', handleMoreMenuOutside)
   if (autoSaveTimer !== null) clearTimeout(autoSaveTimer)
@@ -574,6 +602,15 @@ const handleUpdateRating = (rating: CompanyRating) => {
 const escapeHtml = (str: string): string =>
   str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
+const safePrintUrl = (url: string): string => {
+  try {
+    const p = new URL(url)
+    return p.protocol === 'https:' || p.protocol === 'http:' ? escapeHtml(url) : ''
+  } catch {
+    return ''
+  }
+}
+
 const generatePrintHtml = (list: Company[]): string => {
   const date = new Date().toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })
   const today = getTodayLocalIsoDate()
@@ -600,7 +637,7 @@ const generatePrintHtml = (list: Company[]): string => {
     const isOverdueRow = c.nextFollowUpDate && c.nextFollowUpDate < today
     const hasProof = c.proofSentAt || c.proofUrl
     const proofCell = hasProof
-      ? `${c.proofSentAt ? `<span style="color:#059669;font-weight:600">${escapeHtml(c.proofSentAt)}</span>` : ''}${c.proofUrl ? `<br><a href="${escapeHtml(c.proofUrl)}">${escapeHtml(c.proofUrl.replace(/^https?:\/\//, '').slice(0, 40))}${c.proofUrl.length > 47 ? '…' : ''}</a>` : ''}`
+      ? `${c.proofSentAt ? `<span style="color:#059669;font-weight:600">${escapeHtml(c.proofSentAt)}</span>` : ''}${c.proofUrl && safePrintUrl(c.proofUrl) ? `<br><a href="${safePrintUrl(c.proofUrl)}">${escapeHtml(c.proofUrl.replace(/^https?:\/\//, '').slice(0, 40))}${c.proofUrl.length > 47 ? '…' : ''}</a>` : ''}`
       : '<span style="color:#9ca3af">—</span>'
     return `
     <tr${isOverdueRow ? ' style="background:#fff1f2"' : ''}>
@@ -654,7 +691,13 @@ const generatePrintHtml = (list: Company[]): string => {
 
 const exportPdf = () => {
   const win = window.open('', '_blank')
-  if (!win) return
+  if (!win) {
+    window.alert(
+      'Das PDF-Fenster wurde vom Browser blockiert.\n\n' +
+      'Bitte erlaube Pop-ups für diese Seite in den Browser-Einstellungen und versuche es erneut.',
+    )
+    return
+  }
   win.document.write(generatePrintHtml(companies.value))
   win.document.close()
   win.focus()
@@ -786,6 +829,19 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
 
 <template>
   <main class="container">
+    <Transition name="fade-slide">
+      <div v-if="storageError" class="app-error-banner" role="alert">
+        <span>⚠ {{ storageError }}</span>
+        <button type="button" class="banner-close" @click="storageError = null" aria-label="Schließen">✕</button>
+      </div>
+    </Transition>
+    <Transition name="fade-slide">
+      <div v-if="seedError" class="app-error-banner app-error-banner--info" role="alert">
+        <span>ℹ {{ seedError }}</span>
+        <button type="button" class="banner-close" @click="seedError = null" aria-label="Schließen">✕</button>
+      </div>
+    </Transition>
+
     <header class="topbar">
       <span class="topbar-brand">Bewerbungs-Tracker</span>
 
@@ -1257,7 +1313,7 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
     </section>
 
     <section v-else-if="activeTab === 'hilfe'">
-      <HilfeTab />
+      <HilfeTab @reset-training-type="handleResetTrainingType" />
     </section>
 
     <section v-else-if="activeTab === 'tracker'" class="empty">
@@ -1301,6 +1357,7 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
     <ShareModal
       v-model="showShareModal"
       :companies="companies"
+      :training-type="trainingType || undefined"
     />
 
     <OnboardingModal v-if="showOnboarding" @select="selectTrainingType" />
@@ -1309,8 +1366,9 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
     <Transition name="fade-slide">
       <div v-if="isShareView && sharePayload" class="share-view-banner">
         <span>
-          Geteilte Ansicht &mdash; {{ sharePayload.entries.length }} Einträge &middot;
-          Stand {{ new Date(sharePayload.ts).toLocaleString('de-DE') }}
+          Geteilte Ansicht &mdash; {{ sharePayload.entries.length }} Einträge
+          <template v-if="sharePayload.tt"> &middot; {{ sharePayload.tt }}</template>
+          &middot; Stand {{ new Date(sharePayload.ts).toLocaleString('de-DE') }}
         </span>
         <button type="button" class="ghost" style="font-size:0.78rem;" @click="isShareView = false">Schließen</button>
       </div>

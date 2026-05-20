@@ -64,10 +64,14 @@ const deadlinesThisWeek = computed(() => {
 })
 
 const responseRate = computed(() => {
-  const applied = countByStatus.value['Applied']
+  const base =
+    countByStatus.value['Applied'] +
+    countByStatus.value['Interviewing'] +
+    countByStatus.value['Offer'] +
+    countByStatus.value['Rejected']
+  if (base === 0) return null
   const responded = countByStatus.value['Interviewing'] + countByStatus.value['Offer'] + countByStatus.value['Rejected']
-  if (applied === 0) return null
-  return Math.round((responded / applied) * 100)
+  return Math.round((responded / base) * 100)
 })
 
 // ── Status bar chart ─────────────────────────────────────────

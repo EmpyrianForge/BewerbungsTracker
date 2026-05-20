@@ -1,3 +1,7 @@
+<script setup lang="ts">
+defineEmits<{ 'reset-training-type': [] }>()
+</script>
+
 <template>
   <div class="hilfe-wrap">
     <h2 class="hilfe-title">Hilfe &amp; Erklärungen</h2>
@@ -63,8 +67,8 @@
           <span>Name des Unternehmens. Pflichtfeld – ohne Firma kann kein Eintrag gespeichert werden.</span>
         </div>
         <div class="field-row">
-          <span class="field-name">Stelle / Position</span>
-          <span>Die ausgeschriebene Stelle, auf die du dich bewirbst.</span>
+          <span class="field-name">Stelle / Position <span class="req">*</span></span>
+          <span>Die ausgeschriebene Stelle, auf die du dich bewirbst. Pflichtfeld.</span>
         </div>
         <div class="field-row">
           <span class="field-name">Ort</span>
@@ -210,6 +214,23 @@
         <li><strong>Daten bleiben lokal:</strong> Alle deine Einträge werden nur in deinem Browser gespeichert (localStorage). Es gibt keinen Server und keine Cloud-Synchronisation – nur du hast Zugriff.</li>
         <li><strong>Backup:</strong> Über <strong>⋯ → Daten exportieren</strong> kannst du jederzeit alle Einträge als JSON-Datei sichern und auf einem anderen Gerät wieder importieren.</li>
       </ul>
+    </section>
+
+    <!-- Beruf wechseln -->
+    <section class="hilfe-section">
+      <h3>Umschulungsberuf wechseln</h3>
+      <p class="hilfe-note" style="margin-bottom: 0.9rem;">
+        Beim ersten Start hast du einen Beruf ausgewählt, für den Beispieldaten geladen wurden (FIAE, FISI oder BÜMA).
+        Falls du die Auswahl ändern möchtest, kannst du die Auswahl unten zurücksetzen.
+        Deine bestehenden Einträge bleiben erhalten – es werden nur neue Beispieldaten des gewählten Berufs hinzugefügt.
+      </p>
+      <button
+        type="button"
+        class="reset-btn"
+        @click="$emit('reset-training-type')"
+      >
+        Beruf-Auswahl zurücksetzen
+      </button>
     </section>
   </div>
 </template>
@@ -439,6 +460,23 @@
 .allowed-box li {
   line-height: 1.4;
   color: var(--text-muted);
+}
+
+/* Reset training type */
+.reset-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.reset-btn:hover {
+  border-color: #ef4444;
+  color: #ef4444;
 }
 
 /* Tips */

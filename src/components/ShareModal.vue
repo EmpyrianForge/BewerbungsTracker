@@ -6,6 +6,7 @@ import { encodeSharePayload } from '../utils/share'
 const props = defineProps<{
   modelValue: boolean
   companies: Company[]
+  trainingType?: string
 }>()
 
 const emit = defineEmits<{
@@ -19,11 +20,15 @@ const copied = ref(false)
 const generate = async () => {
   generating.value = true
   try {
-    const encoded = await encodeSharePayload(props.companies)
+    const encoded = await encodeSharePayload(props.companies, props.trainingType)
     shareUrl.value = `${window.location.origin}${window.location.pathname}#share=${encoded}`
   } finally {
     generating.value = false
   }
+}
+
+const openLink = () => {
+  window.open(shareUrl.value, '_blank', 'noopener,noreferrer')
 }
 
 const copy = async () => {
@@ -72,6 +77,9 @@ const close = () => emit('update:modelValue', false)
               />
               <button type="button" class="primary" @click="copy">
                 {{ copied ? 'Kopiert!' : 'Kopieren' }}
+              </button>
+              <button type="button" class="ghost" @click="openLink" title="Im Browser öffnen">
+                ↗
               </button>
             </div>
 
