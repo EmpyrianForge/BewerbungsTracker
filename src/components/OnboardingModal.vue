@@ -1,5 +1,14 @@
 <script setup lang="ts">
-defineEmits<{ select: [type: string] }>()
+import { ref, computed } from 'vue'
+
+const emit = defineEmits<{
+  select: [track: string, locations: string[]]
+}>()
+
+const locationOptions = [
+  { key: 'WÜRZBURG', label: 'Würzburg' },
+  { key: 'SCHWEINFURT', label: 'Schweinfurt' },
+]
 
 const tracks = [
   {
@@ -30,6 +39,25 @@ const tracks = [
     color: '#10b981',
   },
 ]
+
+const selectedLocations = ref<string[]>([])
+const selectedTrack = ref<string | null>(null)
+
+const isValid = computed(() => selectedLocations.value.length > 0 && selectedTrack.value !== null)
+
+const toggleLocation = (key: string) => {
+  const idx = selectedLocations.value.indexOf(key)
+  if (idx === -1) {
+    selectedLocations.value = [...selectedLocations.value, key]
+  } else {
+    selectedLocations.value = selectedLocations.value.filter((l) => l !== key)
+  }
+}
+
+const confirm = () => {
+  if (!isValid.value || !selectedTrack.value) return
+  emit('select', selectedTrack.value, [...selectedLocations.value])
+}
 </script>
 
 <template>
@@ -37,30 +65,65 @@ const tracks = [
     <div class="onboarding-modal">
       <div class="onboarding-header">
         <h1 class="onboarding-title">Willkommen beim Bewerbungs-Tracker</h1>
-        <p class="onboarding-lead">Wähle deinen Umschulungsberuf — wir laden passende Beispielfirmen für deinen Einstieg.</p>
+        <p class="onboarding-lead">Wähle deinen Standort und Ausbildungsberuf — wir laden passende Beispielfirmen für deinen Einstieg.</p>
       </div>
 
-      <div class="onboarding-cards">
-        <button
-          v-for="track in tracks"
-          :key="track.key"
-          type="button"
-          class="onboarding-card"
-          :style="{ '--track-color': track.color }"
-          @click="$emit('select', track.key)"
-        >
-          <span class="onboarding-card-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path :d="track.icon" />
+      <!-- Standortauswahl -->
+      <div class="onboarding-section">
+        <p class="onboarding-section-label">Standort <span class="onboarding-required">(mind. 1)</span></p>
+        <div class="onboarding-location-row">
+          <button
+            v-for="loc in locationOptions"
+            :key="loc.key"
+            type="button"
+            class="onboarding-location-pill"
+            :class="{ 'onboarding-location-pill--active': selectedLocations.includes(loc.key) }"
+            @click="toggleLocation(loc.key)"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
             </svg>
-          </span>
-          <strong class="onboarding-card-abbr">{{ track.short }}</strong>
-          <span class="onboarding-card-name">{{ track.title }}<br>{{ track.subtitle }}</span>
-          <span class="onboarding-card-desc">{{ track.desc }}</span>
-        </button>
+            {{ loc.label }}
+          </button>
+        </div>
       </div>
 
-      <button type="button" class="onboarding-skip" @click="$emit('select', 'NONE')">
+      <!-- Berufsauswahl -->
+      <div class="onboarding-section">
+        <p class="onboarding-section-label">Ausbildungsberuf <span class="onboarding-required">(genau 1)</span></p>
+        <div class="onboarding-cards">
+          <button
+            v-for="track in tracks"
+            :key="track.key"
+            type="button"
+            class="onboarding-card"
+            :class="{ 'onboarding-card--selected': selectedTrack === track.key }"
+            :style="{ '--track-color': track.color }"
+            @click="selectedTrack = track.key"
+          >
+            <span class="onboarding-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path :d="track.icon" />
+              </svg>
+            </span>
+            <strong class="onboarding-card-abbr">{{ track.short }}</strong>
+            <span class="onboarding-card-name">{{ track.title }}<br>{{ track.subtitle }}</span>
+            <span class="onboarding-card-desc">{{ track.desc }}</span>
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="onboarding-confirm"
+        :disabled="!isValid"
+        @click="confirm"
+      >
+        Weiter
+      </button>
+
+      <button type="button" class="onboarding-skip" @click="emit('select', 'NONE', [])">
         Ohne Beispieldaten starten
       </button>
     </div>
@@ -180,6 +243,86 @@ const tracks = [
 
 .onboarding-skip:hover {
   color: var(--text);
+}
+
+.onboarding-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.onboarding-section-label {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.onboarding-required {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.onboarding-location-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.onboarding-location-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: var(--surface-muted);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.onboarding-location-pill:hover {
+  border-color: var(--accent);
+}
+
+.onboarding-location-pill--active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+
+.onboarding-card--selected {
+  border-color: var(--track-color, var(--accent));
+  background: color-mix(in srgb, var(--track-color, var(--accent)) 8%, var(--surface));
+}
+
+.onboarding-confirm {
+  width: 100%;
+  padding: 0.7rem 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.onboarding-confirm:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.onboarding-confirm:not(:disabled):hover {
+  opacity: 0.88;
 }
 
 @media (max-width: 520px) {
