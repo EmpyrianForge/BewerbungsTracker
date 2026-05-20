@@ -54,11 +54,19 @@ const COMPANY_STORAGE_KEY = 'apply-tracker.companies.v1'
 const COLLAPSED_COLUMNS_KEY = 'apply-tracker.collapsed-columns.v1'
 const TRAINING_TYPE_KEY = 'apply-tracker.training-type.v1'
 const SEED_IDS_KEY = 'apply-tracker.seed-ids.v1'
+const LOCATION_KEY = 'apply-tracker.location.v1'
 
-const SEED_URLS: Record<string, string> = {
-  FIAE: '/bewerbungstracker-import.json',
-  FISI: '/seed-fisi.json',
-  BUMA: '/seed-buma.json',
+const SEED_URLS: Record<string, Record<string, string>> = {
+  WÜRZBURG: {
+    FIAE: '/bewerbungstracker-import.json',
+    FISI: '/seed-fisi.json',
+    BUMA: '/seed-buma.json',
+  },
+  SCHWEINFURT: {
+    FIAE: '/seed-schweinfurt-fiae.json',
+    FISI: '/seed-schweinfurt-fisi.json',
+    BUMA: '/seed-schweinfurt-buma.json',
+  },
 }
 
 const {
@@ -334,38 +342,50 @@ const enableNotifications = async () => {
 const showOnboarding = ref(false)
 const seedError = ref<string | null>(null)
 const trainingType = ref<string>(localStorage.getItem(TRAINING_TYPE_KEY) ?? '')
+const selectedLocations = ref<string[]>(
+  JSON.parse(localStorage.getItem(LOCATION_KEY) ?? '[]')
+)
 
-const seedForType = async (type: string) => {
-  const url = SEED_URLS[type]
-  if (!url) return
-  try {
-    const resp = await fetch(url)
-    if (!resp.ok) {
-      seedError.value = 'Beispieldaten konnten nicht geladen werden (Verbindungsfehler). Du kannst trotzdem loslegen und Firmen manuell eintragen.'
-      return
+const seedForLocationsAndType = async (locs: string[], track: string) => {
+  const now = new Date().toISOString()
+
+  const prevSeedIds: string[] = JSON.parse(localStorage.getItem(SEED_IDS_KEY) ?? '[]')
+  if (prevSeedIds.length) removeCompaniesById(prevSeedIds)
+
+  const allNewIds: string[] = []
+
+  for (const loc of locs) {
+    const url = SEED_URLS[loc]?.[track]
+    if (!url) continue
+    try {
+      const resp = await fetch(url)
+      if (!resp.ok) {
+        seedError.value = 'Beispieldaten konnten nicht geladen werden (Verbindungsfehler). Du kannst trotzdem loslegen und Firmen manuell eintragen.'
+        continue
+      }
+      const imported = importCompaniesFromJson(await resp.text())
+      const normalized = imported.map((c) => ({ ...c, createdAt: now, updatedAt: now }))
+      if (normalized.length) {
+        mergeImportedCompanies(normalized)
+        allNewIds.push(...normalized.map((c) => c.id))
+      }
+    } catch {
+      seedError.value = 'Beispieldaten konnten nicht geladen werden. Du kannst trotzdem loslegen und Firmen manuell eintragen.'
     }
-    const imported = importCompaniesFromJson(await resp.text())
-    const now = new Date().toISOString()
-    const normalized = imported.map((c) => ({ ...c, createdAt: now, updatedAt: now }))
+  }
 
-    // Remove previously seeded companies before adding the new ones
-    const prevSeedIds: string[] = JSON.parse(localStorage.getItem(SEED_IDS_KEY) ?? '[]')
-    if (prevSeedIds.length) removeCompaniesById(prevSeedIds)
-
-    if (normalized.length) {
-      mergeImportedCompanies(normalized)
-      localStorage.setItem(SEED_IDS_KEY, JSON.stringify(normalized.map((c) => c.id)))
-    }
-  } catch {
-    seedError.value = 'Beispieldaten konnten nicht geladen werden. Du kannst trotzdem loslegen und Firmen manuell eintragen.'
+  if (allNewIds.length) {
+    localStorage.setItem(SEED_IDS_KEY, JSON.stringify(allNewIds))
   }
 }
 
-const selectTrainingType = async (type: string) => {
-  localStorage.setItem(TRAINING_TYPE_KEY, type)
-  trainingType.value = type
+const selectOnboarding = async (track: string, locations: string[]) => {
+  localStorage.setItem(TRAINING_TYPE_KEY, track)
+  localStorage.setItem(LOCATION_KEY, JSON.stringify(locations))
+  trainingType.value = track
+  selectedLocations.value = locations
   showOnboarding.value = false
-  if (type !== 'NONE') await seedForType(type)
+  if (track !== 'NONE') await seedForLocationsAndType(locations, track)
 }
 
 const handleResetTrainingType = () => {
@@ -374,6 +394,7 @@ const handleResetTrainingType = () => {
   )
   if (!confirmed) return
   localStorage.removeItem(TRAINING_TYPE_KEY)
+  localStorage.removeItem(LOCATION_KEY)
   showOnboarding.value = true
 }
 
@@ -418,6 +439,12 @@ onMounted(async () => {
 
   // Show onboarding only on a genuine first launch (no data and no type chosen yet).
   // Skip when a share link is present — the visitor just wants to view shared data.
+  // Backwards compat: existing users with training type but no location default to Würzburg
+  if (localStorage.getItem(TRAINING_TYPE_KEY) && !localStorage.getItem(LOCATION_KEY)) {
+    localStorage.setItem(LOCATION_KEY, JSON.stringify(['WÜRZBURG']))
+    selectedLocations.value = ['WÜRZBURG']
+  }
+
   const isShareLink = window.location.hash.startsWith('#share=')
   if (!isShareLink && !localStorage.getItem(COMPANY_STORAGE_KEY) && !localStorage.getItem(TRAINING_TYPE_KEY)) {
     showOnboarding.value = true
@@ -1372,7 +1399,7 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
       :training-type="trainingType || undefined"
     />
 
-    <OnboardingModal v-if="showOnboarding" @select="selectTrainingType" />
+    <OnboardingModal v-if="showOnboarding" @select="selectOnboarding" />
 
     <!-- Share-View Banner -->
     <Transition name="fade-slide">
