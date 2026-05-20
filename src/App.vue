@@ -53,6 +53,7 @@ const THEME_STORAGE_KEY = 'apply-tracker.theme.v1'
 const COMPANY_STORAGE_KEY = 'apply-tracker.companies.v1'
 const COLLAPSED_COLUMNS_KEY = 'apply-tracker.collapsed-columns.v1'
 const TRAINING_TYPE_KEY = 'apply-tracker.training-type.v1'
+const SEED_IDS_KEY = 'apply-tracker.seed-ids.v1'
 
 const SEED_URLS: Record<string, string> = {
   FIAE: '/bewerbungstracker-import.json',
@@ -69,6 +70,7 @@ const {
   updateStatusAndPriority,
   updateRating,
   deleteCompany,
+  removeCompaniesById,
   addActivityEntry,
   importCompaniesFromJson,
   mergeImportedCompanies,
@@ -345,7 +347,15 @@ const seedForType = async (type: string) => {
     const imported = importCompaniesFromJson(await resp.text())
     const now = new Date().toISOString()
     const normalized = imported.map((c) => ({ ...c, createdAt: now, updatedAt: now }))
-    if (normalized.length) mergeImportedCompanies(normalized)
+
+    // Remove previously seeded companies before adding the new ones
+    const prevSeedIds: string[] = JSON.parse(localStorage.getItem(SEED_IDS_KEY) ?? '[]')
+    if (prevSeedIds.length) removeCompaniesById(prevSeedIds)
+
+    if (normalized.length) {
+      mergeImportedCompanies(normalized)
+      localStorage.setItem(SEED_IDS_KEY, JSON.stringify(normalized.map((c) => c.id)))
+    }
   } catch {
     seedError.value = 'Beispieldaten konnten nicht geladen werden. Du kannst trotzdem loslegen und Firmen manuell eintragen.'
   }

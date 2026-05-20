@@ -259,6 +259,11 @@ export const useCompanies = () => {
     companies.value = companies.value.filter((company) => company.id !== id)
   }
 
+  const removeCompaniesById = (ids: string[]) => {
+    const idSet = new Set(ids)
+    companies.value = companies.value.filter((company) => !idSet.has(company.id))
+  }
+
   const updateRating = (id: string, rating: CompanyRating) => {
     companies.value = companies.value.map((company) => {
       if (company.id !== id) return company
@@ -310,6 +315,7 @@ export const useCompanies = () => {
     updateStatusAndPriority,
     updateRating,
     deleteCompany,
+    removeCompaniesById,
     addActivityEntry,
     importCompaniesFromJson,
     mergeImportedCompanies,

@@ -222,7 +222,7 @@ defineEmits<{ 'reset-training-type': [] }>()
       <p class="hilfe-note" style="margin-bottom: 0.9rem;">
         Beim ersten Start hast du einen Beruf ausgewählt, für den Beispieldaten geladen wurden (FIAE, FISI oder BÜMA).
         Falls du die Auswahl ändern möchtest, kannst du die Auswahl unten zurücksetzen.
-        Deine bestehenden Einträge bleiben erhalten – es werden nur neue Beispieldaten des gewählten Berufs hinzugefügt.
+        Die alten Beispieldaten werden dabei entfernt und durch die des neu gewählten Berufs ersetzt. Deine eigenen Einträge bleiben erhalten.
       </p>
       <button
         type="button"
