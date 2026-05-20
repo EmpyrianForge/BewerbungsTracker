@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Company } from '../types/company'
 import { encodeSharePayload } from '../utils/share'
 
@@ -41,7 +41,7 @@ const copy = async () => {
   }
 }
 
-onMounted(generate)
+watch(() => props.modelValue, (val) => { if (val) generate() })
 
 const close = () => emit('update:modelValue', false)
 </script>

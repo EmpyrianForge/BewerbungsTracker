@@ -406,8 +406,10 @@ onMounted(async () => {
     triggerNotifications()
   }
 
-  // Show onboarding only on a genuine first launch (no data and no type chosen yet)
-  if (!localStorage.getItem(COMPANY_STORAGE_KEY) && !localStorage.getItem(TRAINING_TYPE_KEY)) {
+  // Show onboarding only on a genuine first launch (no data and no type chosen yet).
+  // Skip when a share link is present — the visitor just wants to view shared data.
+  const isShareLink = window.location.hash.startsWith('#share=')
+  if (!isShareLink && !localStorage.getItem(COMPANY_STORAGE_KEY) && !localStorage.getItem(TRAINING_TYPE_KEY)) {
     showOnboarding.value = true
   }
 
