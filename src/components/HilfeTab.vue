@@ -63,8 +63,8 @@
           <span>Name des Unternehmens. Pflichtfeld – ohne Firma kann kein Eintrag gespeichert werden.</span>
         </div>
         <div class="field-row">
-          <span class="field-name">Stelle / Position <span class="req">*</span></span>
-          <span>Die ausgeschriebene Stelle, auf die du dich bewirbst. Pflichtfeld.</span>
+          <span class="field-name">Stelle / Position</span>
+          <span>Die ausgeschriebene Stelle, auf die du dich bewirbst.</span>
         </div>
         <div class="field-row">
           <span class="field-name">Ort</span>
@@ -80,11 +80,11 @@
         </div>
         <div class="field-row">
           <span class="field-name">Abgeschickt am</span>
-          <span>Das Datum, an dem du die Bewerbung tatsächlich abgeschickt hast. Dient als Nachweis.</span>
+          <span>Das Datum, an dem du die Bewerbung tatsächlich abgeschickt hast. Wird im WBS-Nachweis-Export verwendet.</span>
         </div>
         <div class="field-row">
           <span class="field-name">Bestätigungslink</span>
-          <span>Link zur Bewerbungsbestätigung im Jobportal (z. B. dein Profil auf Stepstone, Indeed, der Karriereseite der Firma). Als Nachweis einfügen.</span>
+          <span>Link zur Bewerbungsbestätigung im Jobportal oder der Karriereseite der Firma. Als Nachweis einfügen.</span>
         </div>
         <div class="field-row">
           <span class="field-name">Bestätigungsnotiz</span>
@@ -117,15 +117,98 @@
       </div>
     </section>
 
+    <!-- Nachweis & OneDrive -->
+    <section class="hilfe-section">
+      <h3>Nachweis für die WBS — wie funktioniert das?</h3>
+
+      <p class="hilfe-intro">
+        Die WBS braucht regelmäßig einen Nachweis deiner Bewerbungsaktivität. Dafür gibt es den
+        <strong>Nachweis-Export</strong> (PDF-Button oben oder „Teilen"-Funktion). Dieser enthält nur
+        die Pflichtdaten – keine privaten Notizen, keine vollständigen Unterlagen.
+      </p>
+
+      <div class="workflow-steps">
+        <div class="workflow-step">
+          <span class="step-num">1</span>
+          <div>
+            <strong>Daten pflegen</strong>
+            <p>Halte deinen Tracker aktuell: Status setzen, Datum eintragen, Nachweis-Feld ausfüllen sobald du eine Bewerbung abgeschickt hast.</p>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">2</span>
+          <div>
+            <strong>Nachweis exportieren</strong>
+            <p>Klicke oben auf das <strong>⋯-Menü → PDF exportieren</strong>. Die Datei enthält nur die für den Nachweis relevanten Felder.</p>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">3</span>
+          <div>
+            <strong>Datei hochladen</strong>
+            <p>Lade die Datei über den von der WBS bereitgestellten <strong>OneDrive-Upload-Link</strong> hoch. Du kannst dort nur hochladen – andere Teilnehmende sehen deine Daten nicht.</p>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">4</span>
+          <div>
+            <strong>Fertig</strong>
+            <p>Die Standortleitung sieht deine Datei im zentralen Ordner und kann deinen Nachweis prüfen.</p>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="hilfe-subhead">Was ist im Nachweis-Export enthalten?</h4>
+      <div class="two-col">
+        <div class="allowed-box">
+          <div class="box-label box-label--ok">✓ Enthalten</div>
+          <ul>
+            <li>Dein Name / Teilnehmer-ID</li>
+            <li>Firmenname</li>
+            <li>Datum der Bewerbung</li>
+            <li>Status der Bewerbung</li>
+            <li>Letztes Update</li>
+            <li>Nachweis vorhanden (ja/nein)</li>
+          </ul>
+        </div>
+        <div class="allowed-box">
+          <div class="box-label box-label--no">✗ Nicht enthalten</div>
+          <ul>
+            <li>Anschreiben / Lebenslauf</li>
+            <li>Zeugnisse</li>
+            <li>E-Mail-Inhalte</li>
+            <li>Gesprächsnotizen</li>
+            <li>Private Kontaktdaten</li>
+            <li>Freitextfelder</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 class="hilfe-subhead">Warum „Dateien anfordern" statt freigegebener Ordner?</h4>
+      <p class="hilfe-note">
+        Der WBS-Upload nutzt die OneDrive-Funktion <em>„Dateien anfordern"</em>. Das bedeutet: Du kannst
+        Dateien hochladen, aber den Inhalt des Ordners <strong>nicht sehen</strong>. Andere Teilnehmende
+        sehen deine Uploads ebenfalls nicht. Nur die Standortleitung hat Zugriff auf den Ordnerinhalt.
+        Das schützt die Daten aller Beteiligten.
+      </p>
+
+      <h4 class="hilfe-subhead">Alternative: Teilen-Link</h4>
+      <p class="hilfe-note">
+        Über <strong>⋯ → Ansicht teilen</strong> kannst du einen Link erzeugen, den du direkt per
+        E-Mail an deine Standortleitung schickst. Der Link öffnet eine schreibgeschützte Ansicht deiner
+        Einträge – ohne Anmeldung, ohne dass Daten auf fremden Servern gespeichert werden.
+      </p>
+    </section>
+
     <!-- Tipps -->
     <section class="hilfe-section">
       <h3>Tipps für den Alltag</h3>
       <ul class="tipps-list">
-        <li><strong>Täglich kurz reinschauen:</strong> Schau morgens kurz in den Tracker – gibt es überfällige Follow-ups? (rotes Glocken-Symbol oben rechts)</li>
-        <li><strong>Nachweis sofort ausfüllen:</strong> Wenn du eine Bewerbung abschickst, wechsle sofort den Status auf „Beworben" und trage das Datum ein.</li>
-        <li><strong>PDF für die Standortleitung:</strong> Mit dem „PDF"-Button oben kannst du jederzeit eine druckfertige Übersicht aller Bewerbungen erstellen.</li>
-        <li><strong>Teilen-Link:</strong> Mit „Teilen" erzeugst du einen Link, den du per E-Mail an deine Standortleitung schicken kannst – ohne Anmeldung, keine Daten auf fremden Servern.</li>
+        <li><strong>Täglich kurz reinschauen:</strong> Gibt es überfällige Follow-ups? Das rote Glocken-Symbol oben rechts zeigt die Anzahl an.</li>
+        <li><strong>Nachweis sofort ausfüllen:</strong> Wenn du eine Bewerbung abschickst, wechsle den Status auf „Beworben" und trage Datum und Bestätigungslink ein – am besten sofort, solange du noch im Browser bist.</li>
         <li><strong>Kanban-Ansicht:</strong> Im Kanban-Modus kannst du Karten per Drag &amp; Drop zwischen den Spalten verschieben, um den Status schnell zu ändern.</li>
+        <li><strong>Daten bleiben lokal:</strong> Alle deine Einträge werden nur in deinem Browser gespeichert (localStorage). Es gibt keinen Server und keine Cloud-Synchronisation – nur du hast Zugriff.</li>
+        <li><strong>Backup:</strong> Über <strong>⋯ → Daten exportieren</strong> kannst du jederzeit alle Einträge als JSON-Datei sichern und auf einem anderen Gerät wieder importieren.</li>
       </ul>
     </section>
   </div>
@@ -156,6 +239,27 @@
   border-bottom: 2px solid var(--border);
 }
 
+.hilfe-subhead {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.5rem;
+  color: var(--text);
+}
+
+.hilfe-intro {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 1.1rem;
+  line-height: 1.6;
+}
+
+.hilfe-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* Status grid */
 .status-grid {
   display: grid;
@@ -175,12 +279,12 @@
   flex-shrink: 0;
   margin-top: 3px;
 }
-.status-dot[data-status="Interested"] { background: #3b82f6; }
-.status-dot[data-status="Applied"]    { background: #8b5cf6; }
-.status-dot[data-status="Interviewing"] { background: #f59e0b; }
-.status-dot[data-status="Offer"]      { background: #10b981; }
-.status-dot[data-status="Rejected"]   { background: #ef4444; }
-.status-dot[data-status="Archived"]   { background: #9ca3af; }
+.status-dot[data-status="Interested"]  { background: #3b82f6; }
+.status-dot[data-status="Applied"]     { background: #8b5cf6; }
+.status-dot[data-status="Interviewing"]{ background: #f59e0b; }
+.status-dot[data-status="Offer"]       { background: #10b981; }
+.status-dot[data-status="Rejected"]    { background: #ef4444; }
+.status-dot[data-status="Archived"]    { background: #9ca3af; }
 
 .status-item strong {
   display: block;
@@ -231,6 +335,110 @@
 
 .req {
   color: #ef4444;
+}
+
+/* Workflow steps */
+.workflow-steps {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.workflow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface-muted, rgba(0,0,0,0.02));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent, #3b82f6);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.workflow-step strong {
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 0.2rem;
+}
+
+.workflow-step p {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Two-column allowed/not-allowed */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 520px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.allowed-box {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.83rem;
+}
+
+.box-label {
+  padding: 0.4rem 0.75rem;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+.box-label--ok {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.box-label--no {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+[data-theme="dark"] .box-label--ok {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+}
+
+[data-theme="dark"] .box-label--no {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+}
+
+.allowed-box ul {
+  margin: 0;
+  padding: 0.5rem 0.75rem 0.6rem 1.4rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.allowed-box li {
+  line-height: 1.4;
+  color: var(--text-muted);
 }
 
 /* Tips */
