@@ -1131,7 +1131,6 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
             <th>Priorität</th>
             <th>Tags</th>
             <th>Deadline</th>
-            <th>Follow-up</th>
             <th>Aktionen</th>
           </tr>
         </thead>
@@ -1179,7 +1178,6 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
               >{{ company.applicationDeadline }}</span>
               <span v-else class="text-muted">—</span>
             </td>
-            <td>{{ company.nextFollowUpDate || '—' }}</td>
             <td>
               <button type="button" class="ghost" @click="openDetailModal(company)">Details</button>
             </td>
