@@ -22,7 +22,7 @@ const DAYS_OPTIONS = [
   { value: 100, label: 'Alle' },
 ] as const
 
-const was = ref('Praktikum')
+const was = ref('Fachinformatiker')
 const wo = ref('')
 const umkreis = ref<number>(25)
 const angebotsart = ref<number>(34)
