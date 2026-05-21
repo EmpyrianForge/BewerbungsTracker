@@ -1,1 +1,1892 @@
-[]
+[
+  {
+    "id": "906044d5-7f65-4c14-8fda-0f00e9f4fff2",
+    "name": "Alexander Klusch",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 6466850 | alexander.klusch@axa.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Keßlergasse 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "3251db28-3b69-4f88-bff1-40b0a5f5c486",
+    "name": "Augen-MVZ-Mainfranken Überörtliche BAG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 4742390 | sarahmrt@web.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Oberen Marienbach 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "ffd25865-4fae-4894-8aeb-29838723a7a9",
+    "name": "bb-net media GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 6469431 | bewerbung@bb-net.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Lissabonstr. 4 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "6136c240-7cbf-4516-b21b-2498a7597b4a",
+    "name": "BRZ Deutschland GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 789117 | ausbildung@baugruppe.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Athenstr. 8 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "44266ce8-b624-4b6f-87b4-9526172820d1",
+    "name": "Diakonisches Werk Schweinfurt e.V.",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 2087140 | geschaeftsstelle@diakonie-schweinfurt.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Gymnasiumstr. 16 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "acb61141-0422-46f6-9043-4c84b7f80448",
+    "name": "Extreme Bowling GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "l.heym@extreme-bowling.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Adolf-Ley-Str. 6 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "babbbfc2-450f-4f54-89c1-58a89080c51f",
+    "name": "GE Sport-Trade GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 7384684 | bewerbung@ge-sporttrade.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Lissabonstr. 7 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "835dfe78-fd1d-45ab-9bef-81e1df82d112",
+    "name": "GPSoverIP GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 79697333",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hauptbahnhofstr. 2 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "90640473-1ffd-46fa-952a-8135fbf15320",
+    "name": "Ing.-Büro Bopp GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 789011 | ls@ib-bopp.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Sand 3 a | 97422 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "19171241-4952-4a48-bc81-9b68871fa85c",
+    "name": "Johanniter-Unfall-Hilfe e. V.",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 7037-23 | olaf.mauer@johanniter.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Unteren Marienbach 10 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "4468f785-703b-4a1d-87f2-9ec9f3ceb084",
+    "name": "Kost und Partner mbB Steuerberater",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 6751822 | info@kostundpartner.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Rudolf-Diesel-Str. 22 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "fffdaba9-5c30-4daa-b05d-7b44151a4d01",
+    "name": "Krankenhaus St. Josef",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Ludwigstr. 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "e700de94-6c62-42ec-8ac0-c347098aeeff",
+    "name": "Lebenshilfe für Behinderte e.V., Schweinfurt",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 646450 | groove@lebenshilfe-schweinfurt.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Oberen Marienbach 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "55eed8b2-ba0e-4876-8eba-ee747919faba",
+    "name": "MENTOR IMMOBILIEN GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 71940 | immobilien@mentor-sw.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Kornmarkt 18 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "6771d5e5-762e-413b-8c1d-f15367e0ccd0",
+    "name": "MLF Mercator-Leasing GmbH & Co. Finanz-KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 47470 | personal@mercator-leasing.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Londonstr. 1 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "680a4973-91da-458d-bdb1-d23e25ac02a1",
+    "name": "MTC Maintronic GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 60055 | info@maintronic.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Carl-Zeiß-Str. 10 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "e0939453-cb56-4af8-9cb7-6f5e222894c1",
+    "name": "Opti-Wohnwelt Föst GmbH & Co KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "personal@opti-wohnwelt.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Heini-Dittmar-Str. 3 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "c0e928c4-ed32-40bc-9921-50119ac43b43",
+    "name": "P.A.C. GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 75975101 | bewerbung@pac-original.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Dublinstraße 2 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "2a44b738-26ab-4c97-81b1-b585d0f71643",
+    "name": "PLUSpoint GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Franz-Schubert-Str. 32 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "89d68f9b-dcbe-487c-a528-1c22b67d67b9",
+    "name": "ProAssec Versicherungsmakler GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 9780420 | info@proassec.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Heckenweg 9 | 97422 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "8446e415-6e69-433b-af7c-e28553f42394",
+    "name": "R + P Gesellschaft für Rehabilitation und",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 70340 | info@rehacentrum.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Gretel-Baumbach-Str. 16 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "35826193-7476-4fb8-8d48-50067292010e",
+    "name": "Reha City Park GmbH & Co. KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 70340",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Robert-Koch-Str. 10 | 97422 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "3101a08d-c9c3-4375-ab12-55341b8f30de",
+    "name": "Reha-Team Traub GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 804100 | info@sanitaetshaus-traub.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Karl-Götz-Str. 25 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "9fdfc718-64ad-48b0-87a5-a8da496000ba",
+    "name": "Reifen Feser GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 7307200 | info@reifen-feser.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Alois-Türk-Str. 7 - 9 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "e6bcb3e5-4e0d-4a89-9cda-f78aa80db1e4",
+    "name": "SANITÄR-HEINZE GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 77450",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Rudolf-Diesel-Str. 28 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "ddd888d4-7320-4407-ab5b-2f89e1a8a739",
+    "name": "Sanitätshaus Otto Traub GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 72950 | info@sanitaetshaus-traub.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Wilhelmstr. 8 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "e455241c-8741-48bc-9309-f434e3a4bc55",
+    "name": "SENERTEC Kraft-Wärme- Energiesysteme GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 651-212 | mstegner@senertec.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Carl-Zeiß-Str. 18 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "d8b4354e-c602-416b-99ad-e79783d6db4b",
+    "name": "SF-Vertriebs-GmbH & Co. KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 94194171224",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Amsterdamstr. 7 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "7f623787-568f-4de3-b36d-d135824c6559",
+    "name": "Sozialdienst kath. Frauen e.V.",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 209583",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Friedrich-Stein-Str. 28 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "c9692803-62f3-4d2c-9e44-a338664c8071",
+    "name": "Steuerbüro Jochem Serrand",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 388710 | mail@steuerbuero-jochem-serrand.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Oberen Marienbach 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "ff8453a2-2bfc-456e-b850-ffef66d49978",
+    "name": "Wolf Möbel GmbH & Co. KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 6055560 | info@wolf-moebel.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Spitalstr. 15 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "c895e5da-963d-402a-b17f-3eb4de9e8eb8",
+    "name": "Wütschner Fahrzeugteile GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 658672 | info@wuetschner.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Rudolf-Diesel-Str. 12 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "6d7b4567-5efe-43f0-9d5c-9c8eabbcc8dc",
+    "name": "Abel & Käufl Mobilfunkhandels GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Kolitzheim",
+    "url": "",
+    "contact": "+49 9723 985920 | bewerbung@abel-kaeufl.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Raiffeisenplatz 2 | 97509 Kolitzheim",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "4574f040-2407-41d6-bb02-2c7f9cae566b",
+    "name": "a² Jürgen Unser Architekt BDB",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Donnersdorf",
+    "url": "",
+    "contact": "+49 9721 9429570 | info@unser-a2.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Falkenstein 2 | 97499 Donnersdorf",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "47abcff5-0f15-4d87-9c46-607007531479",
+    "name": "Baumann Recycling GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Donnersdorf",
+    "url": "",
+    "contact": "+49 9528 922580 | kontakt@baumann-recycling.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Rödertor 7 | 97499 Donnersdorf",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "8b1d7c2e-373f-4865-995a-0c53aebe517d",
+    "name": "BayWa Aktiengesellschaft",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Röthlein",
+    "url": "",
+    "contact": "+49 9721 770860",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Etzberg 20 | 97520 Röthlein",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "70af29b2-8392-4c18-8f95-f7283f502f09",
+    "name": "BELECTRIC GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Kolitzheim",
+    "url": "",
+    "contact": "+49 9385 980410",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Wadenbrunner Str. 10 | 97509 Kolitzheim",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "80203779-ac5e-4149-877c-57f7051c9fd3",
+    "name": "Christos Didis e.K.",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Gochsheim",
+    "url": "",
+    "contact": "+49 9721 4754897",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Schweinfurter Str. 93 | 97469 Gochsheim",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "c81a685e-a0ac-4f71-9bd1-68d6748b83a0",
+    "name": "Das Hausarztzentrum",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schwebheim",
+    "url": "",
+    "contact": "nbauer.hausarztzentrum@web.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Schweinfurter Straße 31 | 97525 Schwebheim",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "474abbb7-9bd2-4b1c-8e38-27b476f8e8f4",
+    "name": "Erich Löb GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Werneck",
+    "url": "",
+    "contact": "+49 9722 91200 | info@loeb-werneck.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Auf der Höhe 1 | 97440 Werneck",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "9ec8669e-d1ba-4d5b-aaf1-683ec784a480",
+    "name": "FIS-ASP Application Service Providing und",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Grafenrheinfeld",
+    "url": "",
+    "contact": "+49 9723 9188583 | personal@fis-asp.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Röthleiner Weg 4 | 97506 Grafenrheinfeld",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "f674e766-e650-429e-b9c5-5eb24a252cda",
+    "name": "HIESTAND DEUTSCHLAND GMBH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "degero.ausbildung@aryzta.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Albert-Einstein-Str. 1 | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "d2adf00b-9252-414e-b17a-30a16b310f5a",
+    "name": "HORNA GmbH Verpackungen",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Grafenrheinfeld",
+    "url": "",
+    "contact": "+49 9723 91460 | info@horna.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hohe Heide 11 | 97506 Grafenrheinfeld",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "8e45cbbb-6972-4837-95a1-2f4dab8da19a",
+    "name": "Ingram Dinkel",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Werneck",
+    "url": "",
+    "contact": "+49 9722 94710 | fachagentur.dinkel@allianz.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Balthasar-Neumann-Str. 13 | 97440 Werneck",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "b8df4161-55f8-4f3d-9ba7-925a5b6fe73a",
+    "name": "K & K Software Aktiengesellschaft",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "+49 9382 31020 | info@kk-software.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Bürgermeister-Weigand-Str. 8 | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "50678560-b8b3-4b41-bc74-cefd2bbc93d4",
+    "name": "KAKO Kälte Konzept GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Werneck",
+    "url": "",
+    "contact": "+49 9722 947880 | bewerbung@kakokaelte.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Eschenbach 12 | 97440 Werneck",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "b9726676-153b-4a65-b232-08899508d121",
+    "name": "Kilic Feintechnik GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schwebheim",
+    "url": "",
+    "contact": "+49 9723 938050",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Heidenfelder Str. 1 | 97525 Schwebheim",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "5f8ff741-0f3c-4a0e-9e35-1a112e15478a",
+    "name": "Koch-Mannes Maschinen-Handels GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Sennfeld",
+    "url": "",
+    "contact": "+49 9721 69042",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Felix-Wankel-Str. 3 | 97526 Sennfeld",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "406ed0bf-8cca-469d-b344-15df92e5235e",
+    "name": "Krug Holzsystembinder GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Stadtlauringen",
+    "url": "",
+    "contact": "+49 9724 97410 | info@krug-holzbau.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Oberlauringer Str. 2 | 97488 Stadtlauringen",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "f7c0ae3c-4cd6-4f89-b2d4-e50ecb54cdd2",
+    "name": "Landbäckerei Wehner GmbH & Co. KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Waigolshausen",
+    "url": "",
+    "contact": "+49 9722 91990",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hauptstr. 17 | 97534 Waigolshausen",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "994ccf63-012f-46f9-a533-be272f25bfd4",
+    "name": "Ludwig Metz GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Sennfeld",
+    "url": "",
+    "contact": "+49 9721 77300 | thomas.metz@ludwigmetz.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Gottlieb-Daimler-Str. 1 | 97526 Sennfeld",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "28bb4a18-5cd1-490e-b5fb-38ee3f96c84b",
+    "name": "Madinger GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Euerbach",
+    "url": "",
+    "contact": "+49 9726 906636 | melissa.helmerich@madinger.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Oberwerrner Weg 18 | 97502 Euerbach",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "14f5c2e9-bfe7-4c96-9526-bca9e8d2cc34",
+    "name": "Nelli Kozlow",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Dr.-Georg-Schäfer-Str. 3 | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "7d5ed10c-9250-43ae-83e4-f513d02668e9",
+    "name": "Norma Lebensmittelfilialbetrieb Stiftung & Co. KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "Geo.Ausbildung@norma-online.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Alten Weg 1 | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "cd729bc6-042a-47e0-acd5-e7be79609efe",
+    "name": "Pabst Transport GmbH & Co. KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Gochsheim",
+    "url": "",
+    "contact": "+49 9721 7630803 | ausbildung@pabst-transport.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Industriestr. 15 | 97469 Gochsheim",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "6c1a3270-7f37-4b8f-ba27-443c989cd5fb",
+    "name": "PUNITEC Oberflächentechnik GmbH & Co. KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Gochsheim",
+    "url": "",
+    "contact": "personal@PUNITEC.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Lindestr. 6 | 97469 Gochsheim",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "161bf943-88fc-4f86-8112-da9d7834c7a1",
+    "name": "Saalfrank Qualitätswerbe- artikel GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Sennfeld",
+    "url": "",
+    "contact": "+49 9721 677121 | mail@saalfrank.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Felix-Wankel-Str. 2 a | 97526 Sennfeld",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "bc07aee3-2d10-4411-8424-d5e8d077cd2f",
+    "name": "Schäflein Truck Service GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Röthlein",
+    "url": "",
+    "contact": "+49 9723 91020 | werkstatt@schaeflein.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Etzberg 5 | 97520 Röthlein",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "7006683f-7e3a-434b-adce-60f68e49b395",
+    "name": "Veolia Umweltservice Süd GmbH & Co. KG",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Bergrheinfeld",
+    "url": "",
+    "contact": "+49 9721 7917065 | anja.marotta@veolia.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Richtbergstr. 3 + 4 | 97493 Bergrheinfeld",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "4e23aa5a-31a3-4e70-a774-016621a3cecb",
+    "name": "Volkmar Maschinenbau GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Sennfeld",
+    "url": "",
+    "contact": "info@volkmar-gmbh.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Handwerkerstr. 11 | 97526 Sennfeld",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "27c3a376-5b28-4ad4-aef4-fa7ff29e032c",
+    "name": "wm meyer Fahrzeugbau Aktiengesellschaft",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Werneck",
+    "url": "",
+    "contact": "+49 9722 91000 | info@wm-meyer.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Robert-Bosch-Str. 4 | 97440 Werneck",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "d86919e0-e1ba-4df8-9807-3e2b58b9775f",
+    "name": "Wolf Tabakwaren e.K.",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "+49 9382 975612",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: An der Mönchstockheimer Str. 5 a | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "759ce60b-cd3a-43ca-8bc8-e5fdd918348d",
+    "name": "P.A.C. GmbH",
+    "role": "Kaufmann/-frau für Büromanagement",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 75975163 | bewerbung@pac-original.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Dublinstraße 2 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "BUMA"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  }
+]

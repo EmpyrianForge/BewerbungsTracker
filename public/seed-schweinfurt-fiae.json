@@ -1,1 +1,872 @@
-[]
+[
+  {
+    "id": "44874779-102d-4d80-86ff-d53344adebc2",
+    "name": "APICON GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 4779012 | bewerbung@apicon.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Karl-Götz-Str. 5 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "49561ec3-76de-415b-87b1-f98ba4773092",
+    "name": "GE Sport-Trade GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 7384684 | bewerbung@ge-sporttrade.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Lissabonstr. 7 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "9b9bc6ae-a29b-43a4-a9c5-d46cb383d28a",
+    "name": "GPSoverIP GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 79697333",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hauptbahnhofstr. 2 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "42bc069f-9e95-4a22-820e-38c86c83b957",
+    "name": "netlands edv consulting GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 9469960 | jobs@netlands.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Londonstr. 15 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "4d51b96c-f150-4648-8700-4160b9911b32",
+    "name": "Schaeffler Technologies AG & Co. KG",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 912694 | ausbildung-sw@schaeffler.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Georg-Schäfer-Str. 30 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "fa3a799d-3b59-41b6-80e8-921ff79cf9e8",
+    "name": "SENERTEC Kraft-Wärme- Energiesysteme GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 651-212 | hfuhl@senertec.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Carl-Zeiß-Str. 18 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "95a5e873-0095-4ea1-a61f-03452a3ce574",
+    "name": "enthus Group GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Sennfeld",
+    "url": "",
+    "contact": "people@enthus.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Felix-Wankel-Str. 4 | 97526 Sennfeld",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "45b7d81e-1c81-4f66-97df-c34688568b4d",
+    "name": "enthus Managed Services GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Sennfeld",
+    "url": "",
+    "contact": "+49 9721 67594160 | people@enthus.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Felix-Wankel-Str. 4 | 97526 Sennfeld",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "24528047-3677-4383-986e-6e6c9a8dbc7c",
+    "name": "FIS Informationssysteme und Consulting GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Grafenrheinfeld",
+    "url": "",
+    "contact": "+49 9723 91880 | personal@fis-gmbh.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Röthleiner Weg 1 | 97506 Grafenrheinfeld",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "1fca481b-ddb6-42dd-acb9-08c6dbb9c7fe",
+    "name": "InnoSenT GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Donnersdorf",
+    "url": "",
+    "contact": "+49 9528 95180 | info@innosent.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Rödertor 30 | 97499 Donnersdorf",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "1b648245-b58e-4b79-857f-7d78f2bb8ce4",
+    "name": "K & K Software Aktiengesellschaft",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "+49 9382 31020 | info@kk-software.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Bürgermeister-Weigand-Str. 8 | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "42e8525a-3d73-49c5-8446-f3040ca71111",
+    "name": "Kummert Inspektionssysteme e.K.",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "+49 9382 97270 | info@kummert.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Albert-Einstein-Str. 8 | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "df84dea3-6c72-401a-8d4e-aa47e15d306a",
+    "name": "P.A.C. GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 75975163 | bewerbung@pac-original.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Dublinstraße 2 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "b516eaf4-86d5-4ec1-b802-990919822965",
+    "name": "Dominic Braunreuter",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Haßfurt",
+    "url": "",
+    "contact": "+49 9521 952455 | info@inovanet.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Philipp-Reis-Str. 8 | 97437 Haßfurt",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "fa73dd30-8847-4783-b451-78e937a7798b",
+    "name": "EWC-EasyWareComputer GmbH & Co. KG",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Rentweinsdorf",
+    "url": "",
+    "contact": "+49 9531 4123 | frank.gagel@ewc-web.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Türkei 10 | 96184 Rentweinsdorf",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "8b83283f-91d3-4016-8375-994822319c04",
+    "name": "marcapo GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Ebern",
+    "url": "",
+    "contact": "+49 9531 92200 | jobs@marcapo.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Bahnhofstr. 4 | 96106 Ebern",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "6f05dd4b-54ae-4d28-b5f4-b930aee3b53a",
+    "name": "PID GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Sand a. Main",
+    "url": "",
+    "contact": "+49 9524 2961 210 | info@pid-gmbh.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Obere Länge 26 | 97522 Sand a. Main",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "9521ac1f-aad4-49da-bb7a-9a9946015c83",
+    "name": "tricoma AG",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Zeil a. Main",
+    "url": "",
+    "contact": "+49 9521 7031310 | bewerbung@tricoma.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Mühlbach 1 | 97475 Zeil a. Main",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "25bc4689-b47e-42a2-b92f-7c4894c7a04a",
+    "name": "DT&SHOP GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Bad Bocklet",
+    "url": "",
+    "contact": "+49 9708 909285 | jobs@dt-shop.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Mangelsfeld 11 - 15 | 97708 Bad Bocklet",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "61c51d0d-00a8-4d24-9f67-7d1d3d90fb5a",
+    "name": "Hanse Haus GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Oberleichtersbach",
+    "url": "",
+    "contact": "+49 9741 808151 | bewerbung@hanse-haus.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Ludwig-Weber-Str. 18 | 97789 Oberleichtersbach",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "4fd4336e-8e93-4193-a342-5a812fa4d954",
+    "name": "LABOklin Labor für klinische Diagnostik GmbH & Co. KG",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "0971 72020 | jobs@laboklin.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Steubenstr. 4 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "efb2c2a9-fde6-441b-a92f-dcdb0f1a4107",
+    "name": "Paul & Co GmbH & Co KG",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Wildflecken",
+    "url": "",
+    "contact": "+49 9745 370 | raphael.stoll@paulundco.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Sudetenstr. 10 | 97772 Wildflecken",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "01b9f743-8a9a-4bd3-8daa-7c133bbe5e12",
+    "name": "perma-tec GmbH & Co. KG",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Euerdorf",
+    "url": "",
+    "contact": "+49 9704 6090 | bewerbung@perma-tec.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hammelburger Str. 21 | 97717 Euerdorf",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "cfe3c575-d292-47a9-894c-980b737e6e19",
+    "name": "Pro Care Management GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "+49 971 7854870 | karriere@p-c-m.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Theresienstr. 17 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "8fc2defd-5e17-450e-812f-6818d6961d04",
+    "name": "Swaags GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Bad Brückenau",
+    "url": "",
+    "contact": "+49 9741 6098168",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Alter Schlachthofweg 22 | 97769 Bad Brückenau",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "b8ec4d2b-a4bb-4848-b712-c201b6af38f3",
+    "name": "ZMI GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Elfershausen",
+    "url": "",
+    "contact": "+49 9704 60392150 | info@zmi.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Adolf-Kolping-Str. 11 | 97725 Elfershausen",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "35cf3b31-75e9-4768-b1d4-995238829eb9",
+    "name": "Fertigungsgerätebau Adolf Steinbach GmbH & Co. KG",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Salz",
+    "url": "",
+    "contact": "+49 9771 68877500 | personal@steinbach-gruppe.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Strahlunger Str. 18 | 97616 Salz",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "80a046c2-c6f7-4694-853d-552962f55214",
+    "name": "Hans Geis GmbH + Co KG Internationale Spedition",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Bad Neustadt a.d.Saale",
+    "url": "",
+    "contact": "+49 9771 603454 | yvonne.weise@geis-group.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Rudolf-Diesel-Ring 24 | 97616 Bad Neustadt a.d.Saale",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "6a6f0079-a491-4e06-87d6-b1293348303c",
+    "name": "offizium next GmbH",
+    "role": "Fachinformatiker/in Anwendungsentwicklung",
+    "location": "Bad Neustadt a.d.Saale",
+    "url": "",
+    "contact": "+49 9771 6009100 | kontakt@offizium.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Schulstr. 10 | 97616 Bad Neustadt a.d.Saale",
+    "tags": [
+      "Schweinfurt",
+      "FIAE"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  }
+]

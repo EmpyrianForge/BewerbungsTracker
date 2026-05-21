@@ -1,1 +1,1622 @@
-[]
+[
+  {
+    "id": "7259ccd9-83e0-4b18-87c3-a310c1c77bba",
+    "name": "APICON GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 4779012 | gerhard.neubert@apicon.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Karl-Götz-Str. 5 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "1629f31f-0416-4503-b8a6-f2e6a79f0acf",
+    "name": "Diakonisches Werk Schweinfurt e.V.",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 2087140 | geschaeftsstelle@diakonie-schweinfurt.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Gymnasiumstr. 16 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "a88279c4-bd79-4d7e-9134-3884a65eee95",
+    "name": "DRAI Consult GmbH & Co. KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 49989812 | info@draiconsult.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Rückertstr. 30 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "0a673fba-e7be-4079-ac6e-03211f7c3212",
+    "name": "GPSoverIP GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 79697333",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hauptbahnhofstr. 2 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "d7b12947-532d-45d7-87ac-6cec77b3aead",
+    "name": "Krankenhaus St. Josef",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Ludwigstr. 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "24ce710c-5373-4fe3-ad31-e965a18333f3",
+    "name": "Landratsamt Schweinfurt",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 55-653",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Schrammstr. 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "319dcf20-6089-4b63-90e0-5cf0c5bc4415",
+    "name": "Leopoldina-Krankenhaus der Stadt Schweinfurt GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 7200 | ausbildung@leopoldina.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Gustav-Adolf-Str. 8 | 97422 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "2cc0f147-348f-4d8f-8baa-4115d2b6d368",
+    "name": "netlands edv consulting GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 9469960 | jobs@netlands.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Londonstr. 15 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "4f008fa0-1933-4086-9a3e-09f064fcbb10",
+    "name": "Netzwerk GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 50995511 | info@netzwerk-sw.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Friedrich-Gauß-Str. 1 | 97424 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "62f092b0-4cfd-4e46-b7da-e8a2d4f3126d",
+    "name": "Stadt Schweinfurt",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 510 | stephanie.link@schweinfurt.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Markt 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "1374c0da-44ea-465a-8e72-4a58ba20b731",
+    "name": "Stadtwerke Schweinfurt GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schweinfurt",
+    "url": "",
+    "contact": "+49 9721 931216 | personal@stadtwerke-sw.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Bodelschwinghstr. 1 | 97421 Schweinfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "ab9864fa-2e78-4a50-ae49-1bd0a8207a16",
+    "name": "enthus Group GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Sennfeld",
+    "url": "",
+    "contact": "people@enthus.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Felix-Wankel-Str. 4 | 97526 Sennfeld",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "5f015ae1-2a7c-4e2f-9732-b5425309fb15",
+    "name": "enthus Managed Services GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Sennfeld",
+    "url": "",
+    "contact": "+49 9721 67594160 | people@enthus.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Felix-Wankel-Str. 4 | 97526 Sennfeld",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "62cdba97-5d20-4f17-b436-daa4789c401f",
+    "name": "FIS-ASP Application Service Providing und IT-Outsourcing GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Grafenrheinfeld",
+    "url": "",
+    "contact": "+49 9723 9188583 | personal@fis-asp.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Röthleiner Weg 4 | 97506 Grafenrheinfeld",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "8cff5f0c-c0c2-4e1f-9144-45c28facca7d",
+    "name": "FPS InformationsSysteme GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Grettstadt",
+    "url": "",
+    "contact": "+49 9729 907990",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Weyerer Str. 7 - 8 | 97508 Grettstadt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "fc7e0566-af0f-42bd-9de1-5d3d8eb08ac3",
+    "name": "hoch.rein IT Solutions GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Kolitzheim",
+    "url": "",
+    "contact": "+49 9385 98040 | jobs@hoch-rein.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Gräsleinsgasse 1 | 97509 Kolitzheim",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "55318521-4062-4ddb-a1d8-4fea709e013a",
+    "name": "InnoSenT GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Donnersdorf",
+    "url": "",
+    "contact": "+49 9528 95180 | info@innosent.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Rödertor 30 | 97499 Donnersdorf",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "20006f12-d589-4d1a-bc00-9e51c7c44e03",
+    "name": "K & K Software Aktiengesellschaft",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "+49 9382 31020 | info@kk-software.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Bürgermeister-Weigand-Str. 8 | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "edbab4ea-6ed6-4fac-b93d-68cc249d7d56",
+    "name": "Schäflein AG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Röthlein",
+    "url": "",
+    "contact": "+49 9723 90690 | dana.hofmann@schaeflein.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Etzberg 7 | 97520 Röthlein",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "c2a0d61c-1c2f-49ee-80e2-be1337683e67",
+    "name": "Trips GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Grafenrheinfeld",
+    "url": "",
+    "contact": "+49 9723 91970 | info@trips-group.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hohe Heide 8 - 10 | 97506 Grafenrheinfeld",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "e19a0960-40f4-437b-85d3-1d3bf69febaa",
+    "name": "VR-MainBank eG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Gerolzhofen",
+    "url": "",
+    "contact": "+49 9382 9710105 | personal@vr-mb.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Breslauer Str. 6 | 97447 Gerolzhofen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "fa5a9d51-9f48-4915-85f9-39a53cec0026",
+    "name": "Fränkische Rohrwerke Gebr. Kirchner GmbH & Co. KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Königsberg i.Bay.",
+    "url": "",
+    "contact": "+49 9525 882598 | tamara.mueller@fraenkische.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hellinger Str. 1 | 97486 Königsberg i.Bay.",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "c7f2f4d7-2304-4c55-a70b-7cec2068e4c6",
+    "name": "marcapo GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Ebern",
+    "url": "",
+    "contact": "+49 9531 92200 | jobs@marcapo.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Bahnhofstr. 4 | 96106 Ebern",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "5d8f8082-8f53-4feb-adac-cf0fdbf80307",
+    "name": "PID GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Sand a. Main",
+    "url": "",
+    "contact": "+49 9524 2961 210 | info@pid-gmbh.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Obere Länge 26 | 97522 Sand a. Main",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "e37beaeb-b28f-4908-a674-f51634e9c8e4",
+    "name": "PVS Fashion-Service GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Haßfurt",
+    "url": "",
+    "contact": "+49 9521 952900 | bewerbung-hassfurt@pvs-europe.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Walter-Tron-Str. 5 | 97437 Haßfurt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "08e026a2-4153-4fcf-8101-0323015a8112",
+    "name": "Rösler Oberflächentechnik GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Untermerzbach",
+    "url": "",
+    "contact": "+49 9533 924442 | a.sueppel@rosler.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Vorstadt 1 | 96190 Untermerzbach",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "fc08e76b-b703-4044-8215-78b4fb84b076",
+    "name": "tricoma AG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Zeil a. Main",
+    "url": "",
+    "contact": "+49 9521 7031310 | bewerbung@tricoma.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Mühlbach 1 | 97475 Zeil a. Main",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "805cab3a-7cb7-41ef-a404-2bf388f936e2",
+    "name": "AH Computerbusiness GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Elfershausen",
+    "url": "",
+    "contact": "+49 9704 9250 | dagmar.lutz@ahgmbh.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Ziegeleistr. 3 | 97725 Elfershausen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "08ac38b8-6aea-46ee-989d-7efdf9c7f625",
+    "name": "Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Prinzregentenstr. 6 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "203a6ddf-cfd7-49df-9301-a56f99f4c9d0",
+    "name": "Hanse Haus GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Oberleichtersbach",
+    "url": "",
+    "contact": "+49 9741 808151 | bewerbung@hanse-haus.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Ludwig-Weber-Str. 18 | 97789 Oberleichtersbach",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "3431136c-3973-475b-9f2b-9c85c4dc46b6",
+    "name": "Joyson PlasTec GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "09736 900 | thomas.kropp@joysonsafety.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Häuser Schlag 1 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "438fdc19-5b4e-4f20-be0a-44f23ae7655e",
+    "name": "Klinik Bavaria GmbH & Co. KG Rehabilitationsklinik Bad Kissingen",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "+49 971 8291153 | vierheilig.l@klinik-bavaria.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Von-der-Tann-Str. 18 - 22 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "4576c3d7-7592-4a6d-b24b-faa847269ca0",
+    "name": "Kliniken Bad Bocklet AG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Bocklet",
+    "url": "",
+    "contact": "personalabteilung@hescuro.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Frankenstr. 36 | 97708 Bad Bocklet",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "088fc02e-aa91-4e03-bb1d-ea323518547c",
+    "name": "LABOklin Labor für klinische Diagnostik GmbH & Co. KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "0971 72020 | jobs@laboklin.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Steubenstr. 4 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "2d757c38-6e01-4f3a-8201-24797f7c49c9",
+    "name": "Labor LS SE & Co. KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Bocklet",
+    "url": "",
+    "contact": "+49 9708 9100664 | labor@labor-ls.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Mangelsfeld 4 ,5,6 | 97708 Bad Bocklet",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "dc71cdf1-e1ae-4133-99af-8bc54194a9de",
+    "name": "MERKUR PRIVATBANK KGaA",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Hammelburg",
+    "url": "",
+    "contact": "+49 9732 904204 | bewerbung@merkur-privatbank.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Marktplatz 10 | 97762 Hammelburg",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "1eb91e96-d829-4677-a6cf-1d80be20e3a1",
+    "name": "Otto Heil Hoch- Tief- Ingenieurbau u. Umwelttechnik GmbH & Co. KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Oerlenbach",
+    "url": "",
+    "contact": "+49 9738 880 | kissingen@ottoheil.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Gründlein 1 | 97714 Oerlenbach",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "7cf23baf-91da-4c28-99a2-c24013e066f0",
+    "name": "Paul & Co GmbH & Co KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Wildflecken",
+    "url": "",
+    "contact": "+49 9745 370 | info@paulundco.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Sudetenstr. 10 | 97772 Wildflecken",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "96f53659-2148-44d2-9899-6e6473a05130",
+    "name": "perma-tec GmbH & Co. KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Euerdorf",
+    "url": "",
+    "contact": "+49 9704 6090 | bewerbung@perma-tec.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Hammelburger Str. 21 | 97717 Euerdorf",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "f18589b0-77a9-43ba-a5c9-5d2179cfea4d",
+    "name": "Peter Hartmann",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Burkardroth",
+    "url": "",
+    "contact": "+49 9734 5000 | info@csph.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Forstmeisterstr. 53 a | 97705 Burkardroth",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "caf1b9eb-d706-4dc4-b969-bcb5c5a2f7f5",
+    "name": "Pro Care Management GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "+49 971 7854870 | karriere@p-c-m.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Theresienstr. 17 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "25123826-b527-4272-ba4b-59e02113ff7a",
+    "name": "Schmitter Hydraulik GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Hammelburg",
+    "url": "",
+    "contact": "bewerbung@schmitter-hydraulik.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Stöckleinsbrunnen 1 | 97762 Hammelburg",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "e8d55c05-3d0c-4758-9c92-a8525b939c35",
+    "name": "Stadt Bad Kissingen",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "+49 971 8071211 | personalmanagement@stadt.badkissingen.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Rathausplatz 1 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "d39f921c-0d6e-4732-b24d-4a036a97d843",
+    "name": "TON Tyres Over Night Trading GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Schondra",
+    "url": "",
+    "contact": "+49 9747 941118 | s.back@ton24.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Industriestr. 2 | 97795 Schondra",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "585dfd7c-177d-499b-8d99-afcd97cafa51",
+    "name": "ZTM Bad Kissingen GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Kissingen",
+    "url": "",
+    "contact": "+49 971 785529100 | dresbach@ztm-badkissingen.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Münchner Str. 5 | 97688 Bad Kissingen",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "4e176f13-4716-4bd8-9cff-d25d0f31be81",
+    "name": "Caravan Messezentrum Grabfeld AG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Sulzfeld",
+    "url": "",
+    "contact": "",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Langfeld 10 | 97633 Sulzfeld",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "10b23e5a-d953-41cc-8f30-8936592962f0",
+    "name": "Ganshorn Medizin Electronic GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Niederlauer",
+    "url": "",
+    "contact": "+49 9771 62220 | info@ganshorn.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Industriestr. 6 - 8 | 97618 Niederlauer",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "6dc3743a-63a9-438e-9026-ac5d562952d4",
+    "name": "Glaswarenfabrik Karl Hecht GmbH & Co KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Sondheim v.d.Rhön",
+    "url": "",
+    "contact": "+49 9779 808-0 | td@assistent.eu",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Stettener Str. 22 - 24 | 97647 Sondheim v.d.Rhön",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "ff70147c-6014-4647-8c2b-bcee73ef51c2",
+    "name": "Hans Geis GmbH + Co KG Internationale Spedition",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Neustadt a.d.Saale",
+    "url": "",
+    "contact": "+49 9771 603454 | yvonne.weise@geis-group.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Rudolf-Diesel-Ring 24 | 97616 Bad Neustadt a.d.Saale",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "5b68849e-52a0-4254-a16d-ec33835403ce",
+    "name": "Interkomm-IT Rhön-Grabfeld GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Neustadt a.d.Saale",
+    "url": "",
+    "contact": "+49 9771 94525",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Spörleinstr. 11 | 97616 Bad Neustadt a.d.Saale",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "16871912-bf41-4a99-a30d-964e8dc53342",
+    "name": "JOPP Holding GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Neustadt a.d.Saale",
+    "url": "",
+    "contact": "+49 9771 91050 | www.jopp.com",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Donsenhaug 3 - 6 | 97616 Bad Neustadt a.d.Saale",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "63e775f8-3dc4-4291-9994-dcf4668345b1",
+    "name": "Stadt Bad Neustadt a.d.Saale",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Neustadt a.d.Saale",
+    "url": "",
+    "contact": "+49 9771 9106-0 | info@bad-neustadt.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Rathausgasse 2 | 97616 Bad Neustadt a.d.Saale",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "f7f5abd3-8dbe-4a79-8aa7-f3cc8064882b",
+    "name": "Überlandwerk Rhön GmbH",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Mellrichstadt",
+    "url": "",
+    "contact": "+49 9776 610 | info@uew-rhoen.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Sondheimer Str. 5 | 97638 Mellrichstadt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  },
+  {
+    "id": "19eb9445-6325-4dda-b5c7-cbe8b1b5e9f8",
+    "name": "ullmer GmbH & Co. KG",
+    "role": "Fachinformatiker/in Systemintegration",
+    "location": "Bad Neustadt",
+    "url": "",
+    "contact": "+49 9771 61130 | karriere@wirsindullmer.de",
+    "salaryRange": "",
+    "source": "WBS Schweinfurt Betriebsliste",
+    "status": "Interested",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "notes": "Adresse: Am Dolzbach 5 | 97616 Bad Neustadt",
+    "tags": [
+      "Schweinfurt",
+      "FISI"
+    ],
+    "lastActionNote": "",
+    "priority": "Medium",
+    "applicationType": "Stellenanzeige",
+    "documents": {
+      "cv": false,
+      "coverLetter": false,
+      "motivationLetter": false,
+      "certificates": false,
+      "portfolio": false,
+      "github": false
+    },
+    "activityLog": []
+  }
+]
