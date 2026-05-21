@@ -135,11 +135,11 @@ const jobUrl = (job: JobListing) => `https://www.arbeitsagentur.de/jobsuche/jobd
     <form class="job-search-form" @submit.prevent="search(true)">
       <label>
         Stichwort
-        <input v-model="was" placeholder="z.B. Praktikum Informatik" />
+        <input v-model="was" placeholder="z.B. Fachinformatiker" />
       </label>
       <label>
         Ort
-        <input v-model="wo" placeholder="z.B. Berlin, 80331" />
+        <input v-model="wo" placeholder="z.B. Würzburg, 97070" />
       </label>
       <label>
         Umkreis
