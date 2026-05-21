@@ -82,7 +82,6 @@ const emptyForm = (): CompanyInput => ({
 const form = reactive<CompanyInput>(emptyForm());
 const showDetails = ref(false);
 const nameError = ref(false);
-const roleError = ref(false);
 
 const tagInput = computed({
   get: () => form.tags.join(", "),
@@ -99,7 +98,6 @@ watch(
   (isOpen) => {
     if (!isOpen) return;
     nameError.value = false;
-    roleError.value = false;
     showDetails.value = false;
 
     const source = props.company;
@@ -138,8 +136,7 @@ const close = () => emit("update:modelValue", false);
 
 const submit = () => {
   nameError.value = !form.name.trim();
-  roleError.value = !form.role.trim();
-  if (nameError.value || roleError.value) return;
+  if (nameError.value) return;
 
   emit("save", {
     ...form,
@@ -186,10 +183,9 @@ const submit = () => {
             <span v-if="nameError" class="field-error-msg">Bitte Firma angeben</span>
           </label>
 
-          <label :class="{ 'has-error': roleError }">
-            Stelle / Position <span class="required-star">*</span>
-            <input v-model="form.role" maxlength="120" @input="roleError = false" />
-            <span v-if="roleError" class="field-error-msg">Bitte Stelle angeben</span>
+          <label>
+            Stelle / Position
+            <input v-model="form.role" maxlength="120" />
           </label>
 
           <label>
