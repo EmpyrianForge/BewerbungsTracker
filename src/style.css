@@ -2148,3 +2148,178 @@ a {
     width: 100%;
   }
 }
+
+/* ── Ampel (Outreach-Status) ────────────────────────────────── */
+.col-ampel {
+  width: 36px;
+  text-align: center;
+  padding: 0;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.ampel-cell {
+  text-align: center;
+  padding: 0;
+}
+
+.ampel-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  transition: transform 0.12s, box-shadow 0.12s;
+  background: #d1d5db;
+}
+
+.ampel-dot:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+.ampel-dot.green  { background: #22c55e; }
+.ampel-dot.yellow { background: #eab308; }
+.ampel-dot.red    { background: #ef4444; }
+
+.ampel-popup {
+  position: fixed;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  padding: 0.55rem;
+  z-index: 9999;
+  min-width: 160px;
+}
+
+.ampel-popup-colors {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-bottom: 0.25rem;
+}
+
+.ampel-popup-reasons {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 0.5rem;
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ampel-popup-reasons-label {
+  margin: 0 0 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.ampel-popup-reason {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.ampel-popup-reason input[type="radio"] {
+  width: auto;
+}
+
+.ampel-popup-confirm {
+  margin-top: 0.25rem;
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 6px;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.12s;
+}
+
+.ampel-popup-confirm:hover {
+  background: #dc2626;
+}
+
+/* ── What's New modal ───────────────────────────────────────── */
+.whats-new-modal {
+  max-width: 480px;
+}
+
+.whats-new-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.25rem 0 0.75rem;
+}
+
+.whats-new-feature {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.whats-new-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+
+.whats-new-feature strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+}
+
+.whats-new-feature p {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.whats-new-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+/* ── Topbar save button ─────────────────────────────────────── */
+.save-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-elevated);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.save-btn:hover:not(:disabled) {
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--accent);
+}
+
+.save-btn--saving,
+.save-btn:disabled {
+  opacity: 0.65;
+  cursor: default;
+}

@@ -38,6 +38,15 @@ export interface CompanyRating {
   comment: string
 }
 
+export type OutreachStatus = 'green' | 'yellow' | 'red'
+export type RedReason = 'kein-ausbilder' | 'absage-generell' | 'absage-kapazitaet'
+
+export const RED_REASON_LABELS: Record<RedReason, { short: string; description: string }> = {
+  'kein-ausbilder': { short: 'Kein Ausbilder', description: 'Firma bietet keine Ausbildungsplätze an' },
+  'absage-generell': { short: 'Absage generell', description: 'Firma nimmt grundsätzlich keine Bewerber an' },
+  'absage-kapazitaet': { short: 'Absage Kapazität', description: 'Nur dieses Mal abgesagt — andere TN können schreiben' },
+}
+
 export interface Company {
   id: string
   name: string
@@ -65,6 +74,8 @@ export interface Company {
   proofSentAt?: string
   proofUrl?: string
   proofNote?: string
+  outreachStatus: OutreachStatus
+  redReason?: RedReason
 }
 
 export interface CompanyInput {
@@ -89,4 +100,6 @@ export interface CompanyInput {
   proofSentAt?: string
   proofUrl?: string
   proofNote?: string
+  outreachStatus: OutreachStatus
+  redReason?: RedReason
 }

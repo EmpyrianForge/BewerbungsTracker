@@ -4,12 +4,14 @@ import {
   STATUSES,
   PRIORITIES,
   APPLICATION_TYPES,
+  RED_REASON_LABELS,
   type Company,
   type CompanyInput,
   type CompanyStatus,
   type Priority,
   type ApplicationType,
   type DocumentChecklist,
+  type OutreachStatus,
 } from "../types/company";
 
 const STATUS_LABELS: Record<CompanyStatus, string> = {
@@ -77,6 +79,8 @@ const emptyForm = (): CompanyInput => ({
   proofSentAt: undefined,
   proofUrl: "",
   proofNote: "",
+  outreachStatus: "yellow" as OutreachStatus,
+  redReason: undefined,
 });
 
 const form = reactive<CompanyInput>(emptyForm());
@@ -128,6 +132,8 @@ watch(
       proofSentAt: source.proofSentAt,
       proofUrl: source.proofUrl ?? "",
       proofNote: source.proofNote ?? "",
+      outreachStatus: source.outreachStatus,
+      redReason: source.redReason,
     });
   },
 );
@@ -156,6 +162,7 @@ const submit = () => {
     proofSentAt: form.proofSentAt || undefined,
     proofUrl: form.proofUrl?.trim() || undefined,
     proofNote: form.proofNote?.trim() || undefined,
+    redReason: form.outreachStatus === "red" ? form.redReason : undefined,
   });
   close();
 };
@@ -201,6 +208,49 @@ const submit = () => {
               </option>
             </select>
           </label>
+
+          <!-- ── Ampel-Status ── -->
+          <div style="grid-column: 1 / -1;">
+            <div class="form-section-label" style="margin-bottom: 0.5rem;">
+              Erreichbarkeit der Firma
+              <span class="form-section-hint">Kann diese Firma angeschrieben werden?</span>
+            </div>
+            <div class="ampel-btn-group">
+              <button
+                type="button"
+                class="ampel-btn ampel-btn--green"
+                :class="{ active: form.outreachStatus === 'green' }"
+                @click="form.outreachStatus = 'green'; form.redReason = undefined"
+              >● Grün — Anschreiben</button>
+              <button
+                type="button"
+                class="ampel-btn ampel-btn--yellow"
+                :class="{ active: form.outreachStatus === 'yellow' }"
+                @click="form.outreachStatus = 'yellow'; form.redReason = undefined"
+              >● Gelb — Keine Info</button>
+              <button
+                type="button"
+                class="ampel-btn ampel-btn--red"
+                :class="{ active: form.outreachStatus === 'red' }"
+                @click="form.outreachStatus = 'red'"
+              >● Rot — Nicht anschreiben</button>
+            </div>
+            <div v-if="form.outreachStatus === 'red'" class="ampel-red-reasons">
+              <p class="ampel-red-reasons-label">Grund (Pflichtfeld)</p>
+              <div
+                v-for="(info, key) in RED_REASON_LABELS"
+                :key="key"
+                class="ampel-reason-option"
+                @click="form.redReason = key"
+              >
+                <input type="radio" :value="key" v-model="form.redReason" @click.stop />
+                <div class="ampel-reason-text">
+                  <strong>{{ info.short }}</strong>
+                  <span>{{ info.description }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <label>
             Priorität
@@ -435,5 +485,81 @@ const submit = () => {
 .actions-right {
   display: flex;
   gap: 0.5rem;
+}
+
+.ampel-btn-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ampel-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.ampel-btn--green.active  { border-color: #22c55e; background: #f0fdf4; color: #15803d; }
+.ampel-btn--yellow.active { border-color: #eab308; background: #fefce8; color: #a16207; }
+.ampel-btn--red.active    { border-color: #ef4444; background: #fef2f2; color: #b91c1c; }
+
+.ampel-btn--green:not(.active):hover  { border-color: #86efac; }
+.ampel-btn--yellow:not(.active):hover { border-color: #fde047; }
+.ampel-btn--red:not(.active):hover    { border-color: #fca5a5; }
+
+.ampel-red-reasons {
+  margin-top: 0.6rem;
+  padding: 0.75rem;
+  background: color-mix(in srgb, #ef4444 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, #ef4444 30%, transparent);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ampel-red-reasons-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--danger);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ampel-reason-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.15rem 0;
+}
+
+.ampel-reason-option input[type="radio"] {
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  width: auto;
+  cursor: pointer;
+}
+
+.ampel-reason-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.ampel-reason-text strong {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.ampel-reason-text span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
 }
 </style>

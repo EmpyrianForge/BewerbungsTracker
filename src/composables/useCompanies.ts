@@ -11,6 +11,8 @@ import {
   type ApplicationType,
   type DocumentChecklist,
   type ActivityEntry,
+  type OutreachStatus,
+  type RedReason,
 } from '../types/company'
 
 const STORAGE_KEY = 'apply-tracker.companies.v1'
@@ -37,6 +39,14 @@ const isPriority = (value: unknown): value is Priority => {
 
 const isApplicationType = (value: unknown): value is ApplicationType => {
   return typeof value === 'string' && APPLICATION_TYPES.includes(value as ApplicationType)
+}
+
+const isOutreachStatus = (value: unknown): value is OutreachStatus => {
+  return value === 'green' || value === 'yellow' || value === 'red'
+}
+
+const isRedReason = (value: unknown): value is RedReason => {
+  return value === 'kein-ausbilder' || value === 'absage-generell' || value === 'absage-kapazitaet'
 }
 
 const normalizeString = (value: unknown): string => {
@@ -136,6 +146,8 @@ const toCompany = (item: unknown): Company | null => {
     proofSentAt: normalizeDateField(item['proofSentAt']),
     proofUrl: normalizeString(item['proofUrl']),
     proofNote: normalizeString(item['proofNote']),
+    outreachStatus: isOutreachStatus(item['outreachStatus']) ? item['outreachStatus'] : 'yellow',
+    redReason: isRedReason(item['redReason']) ? item['redReason'] : undefined,
   }
 }
 
@@ -234,6 +246,18 @@ export const useCompanies = () => {
     })
   }
 
+  const updateCompanyOutreach = (id: string, outreachStatus: OutreachStatus, redReason?: RedReason) => {
+    companies.value = companies.value.map((company) => {
+      if (company.id !== id) return company
+      return {
+        ...company,
+        outreachStatus,
+        redReason: outreachStatus === 'red' ? redReason : undefined,
+        updatedAt: new Date().toISOString(),
+      }
+    })
+  }
+
   const updateCompanyStatus = (id: string, status: CompanyStatus) => {
     companies.value = companies.value.map((company) => {
       if (company.id !== id) {
@@ -312,6 +336,7 @@ export const useCompanies = () => {
     addCompany,
     updateCompany,
     updateCompanyStatus,
+    updateCompanyOutreach,
     updateStatusAndPriority,
     updateRating,
     deleteCompany,

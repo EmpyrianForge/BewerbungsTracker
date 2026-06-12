@@ -12,7 +12,7 @@ import ShareModal from './components/ShareModal.vue'
 import { decodeSharePayload, type SharePayload } from './utils/share'
 import { useCompanies } from './composables/useCompanies'
 import { useFileSave } from './composables/useFileSave'
-import { STATUSES, PRIORITIES, type Company, type CompanyInput, type CompanyRating, type CompanyStatus, type Priority } from './types/company'
+import { STATUSES, PRIORITIES, RED_REASON_LABELS, type Company, type CompanyInput, type CompanyRating, type CompanyStatus, type Priority, type OutreachStatus, type RedReason } from './types/company'
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>
@@ -75,6 +75,7 @@ const {
   addCompany,
   updateCompany,
   updateCompanyStatus,
+  updateCompanyOutreach,
   updateStatusAndPriority,
   updateRating,
   deleteCompany,
@@ -202,6 +203,59 @@ const showMoreMenu = ref(false)
 const moreMenuEl = ref<HTMLElement | null>(null)
 const showFilterPanel = ref(false)
 const showCompareMode = ref(false)
+
+// ── Ampel popup ─────────────────────────────────────────────────
+const ampelPopupId = ref<string | null>(null)
+const ampelPopupSelectingRed = ref(false)
+const ampelPopupPendingReason = ref<RedReason | undefined>(undefined)
+const ampelPopupElRef = ref<HTMLElement | null>(null)
+const ampelPopupPos = ref({ top: 0, left: 0 })
+
+const openAmpelPopup = (company: Company, event: MouseEvent) => {
+  if (ampelPopupId.value === company.id) {
+    closeAmpelPopup()
+    return
+  }
+  const btn = event.currentTarget as HTMLElement
+  const rect = btn.getBoundingClientRect()
+  ampelPopupPos.value = { top: rect.bottom + 6, left: rect.left + rect.width / 2 }
+  ampelPopupId.value = company.id
+  ampelPopupSelectingRed.value = company.outreachStatus === 'red'
+  ampelPopupPendingReason.value = company.redReason
+}
+
+const closeAmpelPopup = () => {
+  ampelPopupId.value = null
+  ampelPopupSelectingRed.value = false
+  ampelPopupPendingReason.value = undefined
+}
+
+const commitAmpelChange = (id: string, status: OutreachStatus, reason?: RedReason) => {
+  updateCompanyOutreach(id, status, reason)
+  closeAmpelPopup()
+}
+
+const handleAmpelClickOutside = (e: MouseEvent) => {
+  const target = e.target as HTMLElement
+  if (ampelPopupElRef.value?.contains(target)) return
+  if (target.closest('[data-ampel-trigger]')) return
+  closeAmpelPopup()
+}
+
+watch(ampelPopupId, (val) => {
+  if (val) document.addEventListener('click', handleAmpelClickOutside)
+  else document.removeEventListener('click', handleAmpelClickOutside)
+})
+
+// ── What's New (version detection) ──────────────────────────────
+const APP_VERSION = 'v2'
+const VERSION_STORAGE_KEY = 'apply-tracker.version'
+const showWhatsNew = ref(false)
+
+const closeWhatsNew = () => {
+  showWhatsNew.value = false
+  localStorage.setItem(VERSION_STORAGE_KEY, APP_VERSION)
+}
 
 const activeFilterCount = computed(() => {
   let n = 0
@@ -452,6 +506,10 @@ onMounted(async () => {
 
   await fsInit()
 
+  if (!isShareLink && localStorage.getItem(VERSION_STORAGE_KEY) !== APP_VERSION) {
+    showWhatsNew.value = true
+  }
+
   const hash = window.location.hash
   if (hash.startsWith('#share=')) {
     try {
@@ -469,6 +527,8 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleOnboardingKeydown, true)
   removeThemeListener?.()
   document.removeEventListener('click', handleMoreMenuOutside)
+  document.removeEventListener('click', handleAmpelClickOutside)
+  if (ampelPopupId.value) closeAmpelPopup()
   if (autoSaveTimer !== null) clearTimeout(autoSaveTimer)
 })
 
@@ -974,6 +1034,19 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
 
         <button v-if="installPrompt && !isInstalled" type="button" class="ghost" style="font-size:0.82rem;white-space:nowrap" title="App installieren" @click="installApp">⬇ Installieren</button>
 
+        <button
+          v-if="fsHasPermission"
+          type="button"
+          class="save-btn"
+          :class="{ 'save-btn--saving': fsIsSaving }"
+          :title="`Speichern in: ${activeFileName}`"
+          :disabled="fsIsSaving"
+          @click="void saveNow(exportCompaniesJson())"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          {{ fsIsSaving ? 'Speichert…' : 'Speichern' }}
+        </button>
+
         <button type="button" class="primary" @click="openCreateModal">+ Bewerbung</button>
       </div>
     </header>
@@ -1124,6 +1197,7 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
         <thead>
           <tr>
             <th v-if="showCompareMode" class="compare-col" title="Für Vergleich auswählen">Vgl.</th>
+            <th class="col-ampel" title="Erreichbarkeit der Firma">●</th>
             <th>Firma</th>
             <th>Stelle</th>
             <th>Ort</th>
@@ -1147,6 +1221,16 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
                 :disabled="!compareSelection.includes(company.id) && compareSelection.length >= 3"
                 :aria-label="`${company.name} für Vergleich auswählen`"
                 @change="toggleCompare(company.id)"
+              />
+            </td>
+            <td class="ampel-cell">
+              <button
+                type="button"
+                class="ampel-dot"
+                :class="company.outreachStatus"
+                :title="company.outreachStatus === 'red' && company.redReason ? RED_REASON_LABELS[company.redReason].short : undefined"
+                data-ampel-trigger
+                @click.stop="openAmpelPopup(company, $event)"
               />
             </td>
             <td>
@@ -1398,6 +1482,78 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
     />
 
     <OnboardingModal v-if="showOnboarding" @select="selectOnboarding" />
+
+    <!-- Ampel popup — teleported to body to escape table stacking context -->
+    <Teleport to="body">
+      <div
+        v-if="ampelPopupId"
+        ref="ampelPopupElRef"
+        class="ampel-popup"
+        :style="{ top: ampelPopupPos.top + 'px', left: ampelPopupPos.left + 'px' }"
+        @click.stop
+      >
+        <div class="ampel-popup-colors">
+          <button type="button" class="ampel-dot green" title="Grün — Anschreiben"
+            @click="ampelPopupId && commitAmpelChange(ampelPopupId, 'green')" />
+          <button type="button" class="ampel-dot yellow" title="Gelb — Keine Info"
+            @click="ampelPopupId && commitAmpelChange(ampelPopupId, 'yellow')" />
+          <button type="button" class="ampel-dot red" title="Rot — Nicht anschreiben"
+            @click="ampelPopupSelectingRed = true" />
+        </div>
+        <div v-if="ampelPopupSelectingRed" class="ampel-popup-reasons">
+          <p class="ampel-popup-reasons-label">Grund wählen:</p>
+          <label v-for="(info, key) in RED_REASON_LABELS" :key="key" class="ampel-popup-reason">
+            <input type="radio" :value="key" v-model="ampelPopupPendingReason" />
+            {{ info.short }}
+          </label>
+          <button
+            type="button"
+            class="ampel-popup-confirm"
+            @click="ampelPopupId && commitAmpelChange(ampelPopupId, 'red', ampelPopupPendingReason)"
+          >Rot setzen</button>
+        </div>
+      </div>
+    </Teleport>
+
+    <!-- What's New v2 modal -->
+    <Teleport to="body">
+      <Transition name="fade-slide">
+        <div v-if="showWhatsNew" class="overlay" @click.self="closeWhatsNew">
+          <div class="modal whats-new-modal" role="dialog" aria-modal="true" aria-labelledby="whats-new-title">
+            <header class="modal-header">
+              <h2 id="whats-new-title">Neu in dieser Version</h2>
+              <button type="button" class="ghost" @click="closeWhatsNew">Schließen</button>
+            </header>
+            <div class="whats-new-body">
+              <div class="whats-new-feature">
+                <span class="whats-new-icon">🟢</span>
+                <div>
+                  <strong>Ampel-System</strong>
+                  <p>Jede Firma bekommt einen Erreichbarkeits-Status: Grün (kann angeschrieben werden), Gelb (keine Info, Standard) oder Rot (nicht anschreiben). In der Listenansicht direkt per Klick auf den Punkt änderbar.</p>
+                </div>
+              </div>
+              <div class="whats-new-feature">
+                <span class="whats-new-icon">🔴</span>
+                <div>
+                  <strong>Rot-Gründe</strong>
+                  <p>Wenn eine Firma rot markiert wird, muss ein Grund angegeben werden: <em>Kein Ausbilder</em>, <em>Absage generell</em> oder <em>Absage Kapazität</em> (nur dieses Mal abgesagt — andere TN können schreiben).</p>
+                </div>
+              </div>
+              <div class="whats-new-feature">
+                <span class="whats-new-icon">💾</span>
+                <div>
+                  <strong>Automatisches Speichern</strong>
+                  <p>Über das ··· Menü kannst du einen Speicherort wählen. Danach werden deine Daten bei jeder Änderung automatisch in die Datei gespeichert.</p>
+                </div>
+              </div>
+            </div>
+            <div class="whats-new-actions">
+              <button type="button" class="primary" @click="closeWhatsNew">Verstanden</button>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
 
     <!-- Share-View Banner -->
     <Transition name="fade-slide">

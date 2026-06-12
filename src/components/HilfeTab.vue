@@ -204,14 +204,107 @@ defineEmits<{ 'reset-training-type': [] }>()
       </p>
     </section>
 
+    <!-- Ampel -->
+    <section class="hilfe-section">
+      <h3>Ampel-System — Erreichbarkeit der Firma</h3>
+      <p class="hilfe-intro">
+        Das Ampel-System zeigt auf einen Blick, ob eine Firma grundsätzlich angeschrieben werden kann.
+        Es bezieht sich auf die <em>Firma</em>, nicht auf eine einzelne Bewerbung.
+        In der Listenansicht erscheint ganz links ein farbiger Punkt – ein Klick öffnet ein Schnell-Menü zum Ändern.
+        Im Formular (Anlegen / Bearbeiten) gibt es dafür einen eigenen Abschnitt „Erreichbarkeit der Firma".
+      </p>
+      <div class="status-grid">
+        <div class="status-item">
+          <span class="status-dot" style="background:#22c55e"></span>
+          <div>
+            <strong>Grün — Anschreiben</strong>
+            <p>Die Firma kann kontaktiert werden. Kein Grund bekannt, der dagegen spricht.</p>
+          </div>
+        </div>
+        <div class="status-item">
+          <span class="status-dot" style="background:#eab308"></span>
+          <div>
+            <strong>Gelb — Keine Info (Standard)</strong>
+            <p>Noch kein eindeutiges Signal. Jede neue Firma startet auf Gelb – solange keine Info vorliegt.</p>
+          </div>
+        </div>
+        <div class="status-item">
+          <span class="status-dot" style="background:#ef4444"></span>
+          <div>
+            <strong>Rot — Nicht anschreiben</strong>
+            <p>Die Firma soll <em>nicht</em> kontaktiert werden. Bei Rot muss immer ein Grund angegeben werden (siehe unten).</p>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="hilfe-subhead">Rot-Gründe</h4>
+      <p class="hilfe-note" style="margin-bottom:0.75rem">
+        Wenn du eine Firma auf Rot setzt, wählst du einen von drei Gründen aus. Das hilft euch als Gruppe,
+        den Unterschied zwischen „grundsätzlich nicht" und „nur dieses Mal" festzuhalten:
+      </p>
+      <div class="field-table">
+        <div class="field-row field-row--header"><span>Grund</span><span>Bedeutung</span></div>
+        <div class="field-row">
+          <span class="field-name">Kein Ausbilder</span>
+          <span>Die Firma bietet keine Ausbildungsplätze an. Kann von keinem TN angeschrieben werden.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-name">Absage generell</span>
+          <span>Die Firma nimmt grundsätzlich keine Bewerber an (z. B. aktuell eingestellt). Kann von keinem TN angeschrieben werden.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-name">Absage Kapazität</span>
+          <span>Die Firma hat <em>diesem</em> TN abgesagt, weil gerade kein Platz frei ist – andere TN dürfen trotzdem schreiben.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Speichern -->
+    <section class="hilfe-section">
+      <h3>Daten speichern</h3>
+      <p class="hilfe-intro">
+        Deine Einträge werden automatisch im Browser (localStorage) gespeichert. Zusätzlich kannst du
+        eine <strong>Speicherdatei</strong> auf deinem Gerät festlegen – dann werden Änderungen sekunden­genau
+        dorthin geschrieben, ohne dass du etwas tun musst.
+      </p>
+      <div class="workflow-steps">
+        <div class="workflow-step">
+          <span class="step-num">1</span>
+          <div>
+            <strong>Speicherort einmalig wählen</strong>
+            <p>Klicke auf <strong>⋯ → Speicherort wählen</strong> und speichere eine <code>.json</code>-Datei an einem Ort deiner Wahl (z. B. Desktop oder OneDrive-Ordner). Der Browser merkt sich die Datei.</p>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">2</span>
+          <div>
+            <strong>Ab jetzt: automatisch</strong>
+            <p>Bei jeder Änderung wird die Datei innerhalb einer Sekunde überschrieben. Oben rechts erscheint ein <strong>Speichern</strong>-Button – ein Klick speichert sofort manuell.</p>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <span class="step-num">3</span>
+          <div>
+            <strong>Auf anderem Gerät laden</strong>
+            <p>Über <strong>⋯ → Laden</strong> kannst du eine gespeicherte Datei öffnen und die Einträge importieren. Gleiche IDs werden dabei zusammengeführt, keine Daten gehen verloren.</p>
+          </div>
+        </div>
+      </div>
+      <p class="hilfe-note">
+        <strong>Hinweis:</strong> Die automatische Speicherfunktion (File System Access API) ist nur in Chrome und Edge verfügbar.
+        In Firefox oder Safari kannst du weiterhin über <strong>⋯ → Daten exportieren / importieren</strong> sichern.
+      </p>
+    </section>
+
     <!-- Tipps -->
     <section class="hilfe-section">
       <h3>Tipps für den Alltag</h3>
       <ul class="tipps-list">
         <li><strong>Täglich kurz reinschauen:</strong> Gibt es überfällige Follow-ups? Das rote Glocken-Symbol oben rechts zeigt die Anzahl an.</li>
         <li><strong>Nachweis sofort ausfüllen:</strong> Wenn du eine Bewerbung abschickst, wechsle den Status auf „Beworben" und trage Datum und Bestätigungslink ein – am besten sofort, solange du noch im Browser bist.</li>
+        <li><strong>Ampel aktuell halten:</strong> Wenn du von einer Firma eine Absage bekommst, setze die Ampel auf Rot und wähle den passenden Grund – so wissen alle TN Bescheid.</li>
         <li><strong>Kanban-Ansicht:</strong> Im Kanban-Modus kannst du Karten per Drag &amp; Drop zwischen den Spalten verschieben, um den Status schnell zu ändern.</li>
-        <li><strong>Daten bleiben lokal:</strong> Alle deine Einträge werden nur in deinem Browser gespeichert (localStorage). Es gibt keinen Server und keine Cloud-Synchronisation – nur du hast Zugriff.</li>
+        <li><strong>Daten bleiben lokal:</strong> Alle deine Einträge werden nur in deinem Browser gespeichert. Es gibt keinen Server und keine Cloud-Synchronisation – nur du hast Zugriff.</li>
         <li><strong>Backup:</strong> Über <strong>⋯ → Daten exportieren</strong> kannst du jederzeit alle Einträge als JSON-Datei sichern und auf einem anderen Gerät wieder importieren.</li>
       </ul>
     </section>
