@@ -263,36 +263,35 @@ defineEmits<{ 'reset-training-type': [] }>()
     <section class="hilfe-section">
       <h3>Daten speichern</h3>
       <p class="hilfe-intro">
-        Deine Einträge werden automatisch im Browser (localStorage) gespeichert. Zusätzlich kannst du
-        eine <strong>Speicherdatei</strong> auf deinem Gerät festlegen – dann werden Änderungen sekunden­genau
-        dorthin geschrieben, ohne dass du etwas tun musst.
+        <strong>Du musst nichts tun.</strong> Jede Änderung wird sofort automatisch gespeichert. Oben rechts zeigt
+        <strong>✓ Gespeichert</strong>, dass alles sicher ist. Du kannst den Browser jederzeit schließen.
       </p>
       <div class="workflow-steps">
         <div class="workflow-step">
           <span class="step-num">1</span>
           <div>
-            <strong>Speicherort einmalig wählen</strong>
-            <p>Klicke auf <strong>⋯ → Speicherort wählen</strong> und speichere eine <code>.json</code>-Datei an einem Ort deiner Wahl (z. B. Desktop oder OneDrive-Ordner). Der Browser merkt sich die Datei.</p>
+            <strong>Formular aus Versehen geschlossen?</strong>
+            <p>Kein Problem: Halb ausgefüllte Formulare werden gemerkt. Öffnest du das Formular wieder, ist deine Eingabe noch da. Beim Schließen fragt die App nach, ob du speichern möchtest.</p>
           </div>
         </div>
         <div class="workflow-step">
           <span class="step-num">2</span>
           <div>
-            <strong>Ab jetzt: automatisch</strong>
-            <p>Bei jeder Änderung wird die Datei innerhalb einer Sekunde überschrieben. Oben rechts erscheint ein <strong>Speichern</strong>-Button – ein Klick speichert sofort manuell.</p>
+            <strong>Aus Versehen gelöscht?</strong>
+            <p>Direkt nach dem Löschen erscheint unten ein <strong>Rückgängig</strong>-Knopf. Außerdem legt die App automatisch Sicherungen an: Klicke auf <strong>✓ Gespeichert</strong> und wähle einen früheren Stand aus.</p>
           </div>
         </div>
         <div class="workflow-step">
           <span class="step-num">3</span>
           <div>
-            <strong>Auf anderem Gerät laden</strong>
-            <p>Über <strong>⋯ → Laden</strong> kannst du eine gespeicherte Datei öffnen und die Einträge importieren. Gleiche IDs werden dabei zusammengeführt, keine Daten gehen verloren.</p>
+            <strong>Sicherungskopie auf dem PC</strong>
+            <p>Die Daten liegen nur in diesem Browser. Klicke ab und zu auf <strong>✓ Gespeichert → Sicherungskopie herunterladen</strong>, z. B. bevor du den Browser-Verlauf löschst oder den PC wechselst. Über <strong>⋯ → Daten importieren</strong> holst du sie zurück.</p>
           </div>
         </div>
       </div>
       <p class="hilfe-note">
-        <strong>Hinweis:</strong> Die automatische Speicherfunktion (File System Access API) ist nur in Chrome und Edge verfügbar.
-        In Firefox oder Safari kannst du weiterhin über <strong>⋯ → Daten exportieren / importieren</strong> sichern.
+        <strong>Für Fortgeschrittene:</strong> In Chrome und Edge kann die App jede Änderung zusätzlich in eine Datei schreiben
+        (<strong>⋯ → Speicherort wählen</strong>). Nach einem Neustart fragt der Browser einmal per Klick, ob die Datei wieder verwendet werden darf.
       </p>
     </section>
 

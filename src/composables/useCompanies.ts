@@ -1,4 +1,4 @@
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import {
   STATUSES,
   PRIORITIES,
@@ -189,19 +189,44 @@ export const useCompanies = () => {
   const raw = parseCompaniesFromJson(localStorage.getItem(STORAGE_KEY))
   const companies = ref<Company[]>(migrateCompanies(raw))
   const storageError = ref<string | null>(null)
+  const lastSavedAt = ref<Date | null>(null)
+
+  // Ask the browser not to evict our data under storage pressure
+  if (typeof navigator !== 'undefined' && navigator.storage?.persist) {
+    void navigator.storage.persist().catch(() => undefined)
+  }
+
+  // Set while applying a change that came from another tab, so we don't write it back
+  let applyingExternal = false
 
   watch(
     companies,
     (value) => {
+      if (applyingExternal) return
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
         storageError.value = null
+        lastSavedAt.value = new Date()
       } catch {
         storageError.value = 'Lokaler Speicher ist voll — Änderungen wurden nicht gespeichert. Bitte exportiere deine Daten und lösche ältere Einträge.'
       }
     },
     { deep: true },
   )
+
+  // Keep several open tabs in sync instead of letting them overwrite each other
+  const handleStorageEvent = (event: StorageEvent) => {
+    if (event.key !== STORAGE_KEY || event.newValue === null) return
+    applyingExternal = true
+    companies.value = parseCompaniesFromJson(event.newValue)
+    lastSavedAt.value = new Date()
+    void nextTick(() => {
+      applyingExternal = false
+    })
+  }
+  if (typeof window !== 'undefined') {
+    window.addEventListener('storage', handleStorageEvent)
+  }
 
   const sortedCompanies = computed(() => {
     return [...companies.value].sort((a, b) => {
@@ -279,8 +304,21 @@ export const useCompanies = () => {
     })
   }
 
-  const deleteCompany = (id: string) => {
+  /** Removes the company and returns it so the deletion can be undone */
+  const deleteCompany = (id: string): Company | undefined => {
+    const removed = companies.value.find((company) => company.id === id)
     companies.value = companies.value.filter((company) => company.id !== id)
+    return removed
+  }
+
+  const restoreCompany = (company: Company) => {
+    if (companies.value.some((c) => c.id === company.id)) return
+    companies.value = [...companies.value, company]
+  }
+
+  /** Replace everything, e.g. when restoring an automatic backup */
+  const replaceAllCompanies = (list: Company[]) => {
+    companies.value = list
   }
 
   const removeCompaniesById = (ids: string[]) => {
@@ -332,7 +370,9 @@ export const useCompanies = () => {
 
   return {
     companies: sortedCompanies,
+    allCompanies: companies,
     storageError,
+    lastSavedAt,
     addCompany,
     updateCompany,
     updateCompanyStatus,
@@ -340,6 +380,8 @@ export const useCompanies = () => {
     updateStatusAndPriority,
     updateRating,
     deleteCompany,
+    restoreCompany,
+    replaceAllCompanies,
     removeCompaniesById,
     addActivityEntry,
     importCompaniesFromJson,

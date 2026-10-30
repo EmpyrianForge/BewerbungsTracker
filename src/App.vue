@@ -9,9 +9,11 @@ import JobSearchTab from './components/JobSearchTab.vue'
 import HilfeTab from './components/HilfeTab.vue'
 import OnboardingModal from './components/OnboardingModal.vue'
 import ShareModal from './components/ShareModal.vue'
+import SaveCenterModal from './components/SaveCenterModal.vue'
 import { decodeSharePayload, type SharePayload } from './utils/share'
 import { useCompanies } from './composables/useCompanies'
 import { useFileSave } from './composables/useFileSave'
+import { useBackups } from './composables/useBackups'
 import { STATUSES, PRIORITIES, RED_REASON_LABELS, type Company, type CompanyInput, type CompanyRating, type CompanyStatus, type Priority, type OutreachStatus, type RedReason } from './types/company'
 
 interface BeforeInstallPromptEvent extends Event {
@@ -71,7 +73,9 @@ const SEED_URLS: Record<string, Record<string, string>> = {
 
 const {
   companies,
+  allCompanies,
   storageError,
+  lastSavedAt,
   addCompany,
   updateCompany,
   updateCompanyStatus,
@@ -79,6 +83,8 @@ const {
   updateStatusAndPriority,
   updateRating,
   deleteCompany,
+  restoreCompany,
+  replaceAllCompanies,
   removeCompaniesById,
   addActivityEntry,
   importCompaniesFromJson,
@@ -100,7 +106,10 @@ const {
   activeFileName,
   hasPermission: fsHasPermission,
   isSaving: fsIsSaving,
+  pendingHandle: fsPendingHandle,
+  saveFailed: fsSaveFailed,
   init: fsInit,
+  reconnect: fsReconnect,
   chooseSaveLocation,
   saveNow,
   loadFromFile,
@@ -122,6 +131,88 @@ watch(
   { deep: true },
 )
 
+// Flush a pending file save when the tab is closed or hidden
+const flushFileSave = () => {
+  if (autoSaveTimer === null) return
+  clearTimeout(autoSaveTimer)
+  autoSaveTimer = null
+  void saveNow(exportCompaniesJson())
+}
+
+const handleVisibilityChange = () => {
+  if (document.visibilityState === 'hidden') flushFileSave()
+}
+
+// ── Automatic backups ───────────────────────────────────────────
+const { backups, refresh: refreshBackups, snapshot, getData: getBackupData, latestNonEmpty } = useBackups()
+const showSaveCenter = ref(false)
+const recoveryBackup = ref<{ id: number; createdAt: string; count: number } | null>(null)
+
+const backupNow = (reason: string, force = false) =>
+  snapshot(exportCompaniesJson(), allCompanies.value.length, reason, force)
+
+let backupTimer: ReturnType<typeof setTimeout> | null = null
+watch(
+  companies,
+  () => {
+    if (backupTimer !== null) clearTimeout(backupTimer)
+    backupTimer = setTimeout(() => {
+      backupTimer = null
+      void backupNow('Automatisch')
+    }, 5000)
+  },
+  { deep: true },
+)
+
+const restoreBackup = async (id: number) => {
+  const raw = await getBackupData(id)
+  if (!raw) return
+  const list = importCompaniesFromJson(raw)
+  const confirmed = window.confirm(
+    `Diesen Stand wiederherstellen (${list.length} Bewerbungen)?\n\n` +
+      'Dein jetziger Stand wird vorher automatisch gesichert – du kannst also jederzeit wieder zurück.',
+  )
+  if (!confirmed) return
+  if (allCompanies.value.length) await backupNow('Vor dem Wiederherstellen', true)
+  replaceAllCompanies(list)
+  recoveryBackup.value = null
+  showSaveCenter.value = false
+  showOnboarding.value = false
+}
+
+const handleReconnectFile = async () => {
+  const ok = await fsReconnect()
+  if (ok) void saveNow(exportCompaniesJson())
+}
+
+const handleChooseFile = async () => {
+  const ok = await chooseSaveLocation()
+  if (ok) void saveNow(exportCompaniesJson())
+}
+
+const saveStatus = computed<'error' | 'saved'>(() => (storageError.value ? 'error' : 'saved'))
+
+// ── Undo after delete ───────────────────────────────────────────
+const undoCompany = ref<Company | null>(null)
+let undoTimer: ReturnType<typeof setTimeout> | null = null
+
+const offerUndo = (company: Company) => {
+  undoCompany.value = company
+  if (undoTimer !== null) clearTimeout(undoTimer)
+  undoTimer = setTimeout(() => {
+    undoTimer = null
+    undoCompany.value = null
+  }, 15000)
+}
+
+const undoDelete = () => {
+  if (!undoCompany.value) return
+  restoreCompany(undoCompany.value)
+  undoCompany.value = null
+  if (undoTimer !== null) clearTimeout(undoTimer)
+  undoTimer = null
+}
+
 const handleLoadFromFile = async () => {
   const raw = await loadFromFile()
   if (!raw) return
@@ -135,6 +226,7 @@ const handleLoadFromFile = async () => {
       'Einträge werden mit den aktuellen Daten zusammengeführt (gleiche IDs werden überschrieben).',
   )
   if (!confirmed) return
+  await backupNow('Vor dem Laden einer Datei', true)
   mergeImportedCompanies(imported)
 }
 
@@ -403,8 +495,16 @@ const selectedLocations = ref<string[]>(
 const seedForLocationsAndType = async (locs: string[], track: string) => {
   const now = new Date().toISOString()
 
+  await backupNow('Vor dem Laden neuer Beispieldaten', true)
+
+  // Only remove example companies the user never touched — edited ones (status,
+  // notes, activity …) are real work and must survive a profession change.
   const prevSeedIds: string[] = JSON.parse(localStorage.getItem(SEED_IDS_KEY) ?? '[]')
-  if (prevSeedIds.length) removeCompaniesById(prevSeedIds)
+  const prevSeedSet = new Set(prevSeedIds)
+  const untouchedSeedIds = allCompanies.value
+    .filter((c) => prevSeedSet.has(c.id) && c.updatedAt === c.createdAt)
+    .map((c) => c.id)
+  if (untouchedSeedIds.length) removeCompaniesById(untouchedSeedIds)
 
   const allNewIds: string[] = []
 
@@ -418,7 +518,11 @@ const seedForLocationsAndType = async (locs: string[], track: string) => {
         continue
       }
       const imported = importCompaniesFromJson(await resp.text())
-      const normalized = imported.map((c) => ({ ...c, createdAt: now, updatedAt: now }))
+      // Never overwrite an entry that is still there (e.g. an edited example company)
+      const existingIds = new Set(allCompanies.value.map((c) => c.id))
+      const normalized = imported
+        .filter((c) => !existingIds.has(c.id))
+        .map((c) => ({ ...c, createdAt: now, updatedAt: now }))
       if (normalized.length) {
         mergeImportedCompanies(normalized)
         allNewIds.push(...normalized.map((c) => c.id))
@@ -499,8 +603,21 @@ onMounted(async () => {
     selectedLocations.value = ['WÜRZBURG']
   }
 
+  window.addEventListener('pagehide', flushFileSave)
+  document.addEventListener('visibilitychange', handleVisibilityChange)
+
   const isShareLink = window.location.hash.startsWith('#share=')
-  if (!isShareLink && !localStorage.getItem(COMPANY_STORAGE_KEY) && !localStorage.getItem(TRAINING_TYPE_KEY)) {
+
+  // Data gone (browser cleaned up, storage full …)? Offer the newest automatic backup.
+  await refreshBackups()
+  if (!isShareLink && allCompanies.value.length === 0) {
+    const found = await latestNonEmpty()
+    if (found) recoveryBackup.value = { id: found.id, createdAt: found.createdAt, count: found.count }
+  }
+
+  if (!isShareLink && allCompanies.value.length) void backupNow('Beim Öffnen der App')
+
+  if (!isShareLink && !recoveryBackup.value && !localStorage.getItem(COMPANY_STORAGE_KEY) && !localStorage.getItem(TRAINING_TYPE_KEY)) {
     showOnboarding.value = true
   }
 
@@ -529,7 +646,11 @@ onUnmounted(() => {
   document.removeEventListener('click', handleMoreMenuOutside)
   document.removeEventListener('click', handleAmpelClickOutside)
   if (ampelPopupId.value) closeAmpelPopup()
-  if (autoSaveTimer !== null) clearTimeout(autoSaveTimer)
+  window.removeEventListener('pagehide', flushFileSave)
+  document.removeEventListener('visibilitychange', handleVisibilityChange)
+  flushFileSave()
+  if (backupTimer !== null) clearTimeout(backupTimer)
+  if (undoTimer !== null) clearTimeout(undoTimer)
 })
 
 watch(
@@ -683,7 +804,8 @@ const removeCompany = () => {
     return
   }
 
-  deleteCompany(selectedCompany.value.id)
+  const removed = deleteCompany(selectedCompany.value.id)
+  if (removed) offerUndo(removed)
   showDetailModal.value = false
   selectedCompany.value = undefined
 }
@@ -810,7 +932,7 @@ const exportData = () => {
   const link = document.createElement('a')
   const stamp = new Date().toISOString().replace(/[:.]/g, '-')
   link.href = url
-  link.download = `company-tracker-${stamp}.json`
+  link.download = `bewerbungen-sicherung-${stamp}.json`
   link.click()
   URL.revokeObjectURL(url)
 }
@@ -850,6 +972,7 @@ const importData = async (event: Event) => {
       return
     }
 
+    await backupNow('Vor dem Import', true)
     mergeImportedCompanies(imported)
     window.alert(`Import abgeschlossen. Neu: ${newCount}, überschrieben: ${overwriteCount}.`)
   } catch {
@@ -935,6 +1058,30 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
       </div>
     </Transition>
     <Transition name="fade-slide">
+      <div v-if="recoveryBackup" class="app-error-banner app-error-banner--info" role="alert">
+        <span>
+          ℹ Hier sind gerade keine Bewerbungen. Wir haben eine automatische Sicherung vom
+          <strong>{{ new Date(recoveryBackup.createdAt).toLocaleString('de-DE', { dateStyle: 'medium', timeStyle: 'short' }) }} Uhr</strong>
+          mit <strong>{{ recoveryBackup.count }} Bewerbungen</strong> gefunden.
+        </span>
+        <span class="banner-actions">
+          <button type="button" class="primary" @click="recoveryBackup && restoreBackup(recoveryBackup.id)">Wiederherstellen</button>
+          <button type="button" class="banner-close" @click="recoveryBackup = null; showOnboarding = !trainingType" aria-label="Schließen">✕</button>
+        </span>
+      </div>
+    </Transition>
+    <Transition name="fade-slide">
+      <div v-if="fsSupported && fsPendingHandle && !fsHasPermission" class="app-error-banner app-error-banner--info" role="alert">
+        <span>
+          ℹ {{ fsSaveFailed ? 'Die Speicherdatei konnte nicht beschrieben werden.' : 'Deine Speicherdatei ist nach dem Neustart noch nicht verbunden.' }}
+          Deine Daten sind trotzdem im Browser gespeichert.
+        </span>
+        <span class="banner-actions">
+          <button type="button" class="primary" @click="handleReconnectFile">„{{ activeFileName }}“ wieder verbinden</button>
+        </span>
+      </div>
+    </Transition>
+    <Transition name="fade-slide">
       <div v-if="seedError" class="app-error-banner app-error-banner--info" role="alert">
         <span>ℹ {{ seedError }}</span>
         <button type="button" class="banner-close" @click="seedError = null" aria-label="Schließen">✕</button>
@@ -994,13 +1141,18 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
           </button>
           <Transition name="dropdown">
             <div v-if="showMoreMenu" class="dropdown-menu" role="menu">
+              <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; showSaveCenter = true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Speichern &amp; Sicherungen
+              </button>
+              <div class="dropdown-divider" />
               <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; showShareModal = true">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                 Ansicht teilen
               </button>
               <div class="dropdown-divider" />
               <template v-if="fsSupported">
-                <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; chooseSaveLocation()">
+                <button role="menuitem" type="button" class="dropdown-item" @click="showMoreMenu = false; handleChooseFile()">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
                   Speicherort wählen
                 </button>
@@ -1033,6 +1185,17 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
         <input ref="importInput" type="file" accept="application/json" class="hidden-input" @change="importData" />
 
         <button v-if="installPrompt && !isInstalled" type="button" class="ghost" style="font-size:0.82rem;white-space:nowrap" title="App installieren" @click="installApp">⬇ Installieren</button>
+
+        <button
+          type="button"
+          class="save-status"
+          :class="`save-status--${saveStatus}`"
+          :title="saveStatus === 'error' ? 'Nicht gespeichert – klicken für Hilfe' : 'Alles wird automatisch gespeichert – klicken für Sicherungen'"
+          @click="showSaveCenter = true"
+        >
+          <template v-if="saveStatus === 'error'">⚠ Nicht gespeichert!</template>
+          <template v-else>✓ Gespeichert</template>
+        </button>
 
         <button
           v-if="fsHasPermission"
@@ -1482,6 +1645,29 @@ const isSwimlaneOver = (cell: SwimlaneCell) =>
     />
 
     <OnboardingModal v-if="showOnboarding" @select="selectOnboarding" />
+
+    <SaveCenterModal
+      v-model="showSaveCenter"
+      :last-saved-at="lastSavedAt"
+      :storage-error="storageError"
+      :backups="backups"
+      :fs-supported="fsSupported"
+      :file-name="activeFileName"
+      :file-connected="fsHasPermission"
+      :file-needs-reconnect="!!fsPendingHandle && !fsHasPermission"
+      @restore="restoreBackup"
+      @download="exportData"
+      @choose-file="handleChooseFile"
+      @reconnect-file="handleReconnectFile"
+    />
+
+    <Transition name="fade-slide">
+      <div v-if="undoCompany" class="undo-toast" role="status">
+        <span>„{{ undoCompany.name }}“ wurde gelöscht.</span>
+        <button type="button" class="primary" @click="undoDelete">Rückgängig</button>
+        <button type="button" class="banner-close" aria-label="Schließen" @click="undoCompany = null">✕</button>
+      </div>
+    </Transition>
 
     <!-- Ampel popup — teleported to body to escape table stacking context -->
     <Teleport to="body">
