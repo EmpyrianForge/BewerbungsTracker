@@ -4,6 +4,7 @@ import { ref } from 'vue'
 declare global {
   interface FileSystemHandle {
     requestPermission(descriptor?: { mode?: 'read' | 'readwrite' }): Promise<PermissionState>
+    queryPermission(descriptor?: { mode?: 'read' | 'readwrite' }): Promise<PermissionState>
   }
 }
 
@@ -64,6 +65,9 @@ export const useFileSave = () => {
   const activeFileName = ref('')
   const hasPermission = ref(false)
   const isSaving = ref(false)
+  // A file was chosen earlier, but the browser needs one click to allow writing again
+  const pendingHandle = ref<FileSystemFileHandle | null>(null)
+  const saveFailed = ref(false)
 
   /** Grant readwrite permission and activate the handle */
   const activate = async (handle: FileSystemFileHandle): Promise<boolean> => {
@@ -76,14 +80,37 @@ export const useFileSave = () => {
     activeHandle.value = handle
     activeFileName.value = handle.name
     hasPermission.value = true
+    pendingHandle.value = null
+    saveFailed.value = false
     return true
   }
 
-  /** Call on app mount — silently restores the last-used handle */
+  /**
+   * Call on app mount — restores the last-used file. Browsers only allow the
+   * permission prompt after a click, so if it isn't granted yet we remember the
+   * file and let the UI offer a one-click "reconnect" instead of failing silently.
+   */
   const init = async (): Promise<void> => {
     if (!IS_SUPPORTED) return
     const handle = await idbGet()
-    if (handle) await activate(handle)
+    if (!handle) return
+    activeFileName.value = handle.name
+    try {
+      const perm = await handle.queryPermission({ mode: 'readwrite' })
+      if (perm === 'granted') {
+        await activate(handle)
+        return
+      }
+    } catch {
+      /* fall through to reconnect */
+    }
+    pendingHandle.value = handle
+  }
+
+  /** Must be called from a click handler */
+  const reconnect = async (): Promise<boolean> => {
+    if (!pendingHandle.value) return false
+    return activate(pendingHandle.value)
   }
 
   /** Show OS "Save As" dialog and remember the chosen file */
@@ -109,8 +136,12 @@ export const useFileSave = () => {
       const writable = await activeHandle.value.createWritable()
       await writable.write(content)
       await writable.close()
+      saveFailed.value = false
     } catch {
-      hasPermission.value = false // permission was revoked
+      // Permission was revoked or the file is gone — offer to reconnect
+      hasPermission.value = false
+      saveFailed.value = true
+      pendingHandle.value = activeHandle.value
     } finally {
       isSaving.value = false
     }
@@ -139,7 +170,10 @@ export const useFileSave = () => {
     activeFileName,
     hasPermission,
     isSaving,
+    pendingHandle,
+    saveFailed,
     init,
+    reconnect,
     chooseSaveLocation,
     saveNow,
     loadFromFile,

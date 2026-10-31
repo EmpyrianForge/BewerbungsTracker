@@ -15,7 +15,9 @@ A small single-page app for tracking company applications, interview progress, a
 - Import companies from JSON with best-effort validation and merge-by-id confirmation (imported records win on id conflicts)
 - List and Kanban views (drag and drop cards between status columns)
 - Overdue follow-ups highlighted in list and Kanban cards
-- Local persistence via `localStorage`
+- Local persistence via `localStorage` with visible "✓ Gespeichert" status, persistent-storage request and multi-tab sync
+- Automatic rolling backups in IndexedDB with one-click restore ("Speichern & Sicherungen"), recovery offer when data is missing
+- Unsaved form input is kept as a draft; closing asks before discarding; undo after delete
 - Light/Dark theme toggle in header
 - Theme preference persisted in `localStorage` with system-theme default (`prefers-color-scheme`)
 

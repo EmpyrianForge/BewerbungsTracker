@@ -2323,3 +2323,58 @@ a {
   opacity: 0.65;
   cursor: default;
 }
+
+/* ── Save status pill, banner actions, undo toast ───────────── */
+.save-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.save-status--saved {
+  background: color-mix(in srgb, #22c55e 14%, transparent);
+  border-color: color-mix(in srgb, #22c55e 40%, transparent);
+  color: #15803d;
+}
+
+[data-theme="dark"] .save-status--saved {
+  color: #86efac;
+}
+
+.save-status--error {
+  background: #dc2626;
+  color: #fff;
+  animation: dot-pulse 1.2s ease-in-out infinite;
+}
+
+.banner-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.undo-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  background: var(--surface-elevated, var(--surface));
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font-size: 0.9rem;
+}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from "vue";
+import { computed, onUnmounted, reactive, ref, watch } from "vue";
 import {
   STATUSES,
   PRIORITIES,
@@ -87,6 +87,93 @@ const form = reactive<CompanyInput>(emptyForm());
 const showDetails = ref(false);
 const nameError = ref(false);
 
+// ── Drafts: unsaved input survives accidental closing, reloads and crashes ──
+const DRAFT_KEY = "apply-tracker.form-draft.v1";
+
+interface FormDraft {
+  mode: "create" | "edit";
+  companyId: string | null;
+  form: CompanyInput;
+  savedAt: string;
+}
+
+const initialJson = ref("");
+const draftRestored = ref(false);
+const showLeaveConfirm = ref(false);
+
+const draftTarget = () => ({ mode: props.mode, companyId: props.company?.id ?? null });
+
+const readDraft = (): FormDraft | null => {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return null;
+    const draft = JSON.parse(raw) as FormDraft;
+    const target = draftTarget();
+    if (draft.mode !== target.mode || draft.companyId !== target.companyId) return null;
+    return draft;
+  } catch {
+    return null;
+  }
+};
+
+const clearDraft = () => {
+  try {
+    localStorage.removeItem(DRAFT_KEY);
+  } catch {
+    /* ignore */
+  }
+};
+
+const isDirty = computed(() => props.modelValue && JSON.stringify(form) !== initialJson.value);
+
+let draftTimer: ReturnType<typeof setTimeout> | null = null;
+
+const writeDraft = () => {
+  if (!props.modelValue) return;
+  if (!isDirty.value) {
+    // Only drop a draft that belongs to this form
+    if (readDraft()) clearDraft();
+    return;
+  }
+  try {
+    const draft: FormDraft = { ...draftTarget(), form: JSON.parse(JSON.stringify(form)), savedAt: new Date().toISOString() };
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  } catch {
+    /* storage full — the main data still has priority */
+  }
+};
+
+watch(
+  form,
+  () => {
+    if (draftTimer !== null) clearTimeout(draftTimer);
+    draftTimer = setTimeout(() => {
+      draftTimer = null;
+      writeDraft();
+    }, 300);
+  },
+  { deep: true },
+);
+
+const flushDraft = () => {
+  if (draftTimer === null) return;
+  clearTimeout(draftTimer);
+  draftTimer = null;
+  writeDraft();
+};
+
+window.addEventListener("pagehide", flushDraft);
+onUnmounted(() => {
+  window.removeEventListener("pagehide", flushDraft);
+  flushDraft();
+});
+
+const discardDraftChanges = () => {
+  clearDraft();
+  Object.assign(form, JSON.parse(initialJson.value));
+  draftRestored.value = false;
+};
+
 const tagInput = computed({
   get: () => form.tags.join(", "),
   set: (value: string) => {
@@ -103,42 +190,75 @@ watch(
     if (!isOpen) return;
     nameError.value = false;
     showDetails.value = false;
+    showLeaveConfirm.value = false;
+    draftRestored.value = false;
 
-    const source = props.company;
-    if (!source) {
-      Object.assign(form, { ...emptyForm(), ...(props.preset ?? {}) });
-      return;
+    loadForm();
+    initialJson.value = JSON.stringify(form);
+
+    // A preset (e.g. from the job search) is a new, different entry — don't mix in an old draft
+    const draft = props.preset ? null : readDraft();
+    if (draft && JSON.stringify(draft.form) !== initialJson.value) {
+      Object.assign(form, draft.form);
+      draftRestored.value = true;
     }
-
-    Object.assign(form, {
-      name: source.name,
-      role: source.role,
-      location: source.location,
-      url: source.url,
-      contact: source.contact,
-      salaryRange: source.salaryRange,
-      source: source.source,
-      status: source.status,
-      notes: source.notes,
-      tags: [...source.tags],
-      nextFollowUpDate: source.nextFollowUpDate,
-      interviewAt: source.interviewAt,
-      lastActionAt: source.lastActionAt,
-      lastActionNote: source.lastActionNote,
-      applicationDeadline: source.applicationDeadline,
-      priority: source.priority,
-      applicationType: source.applicationType,
-      documents: { ...source.documents },
-      proofSentAt: source.proofSentAt,
-      proofUrl: source.proofUrl ?? "",
-      proofNote: source.proofNote ?? "",
-      outreachStatus: source.outreachStatus,
-      redReason: source.redReason,
-    });
   },
 );
 
-const close = () => emit("update:modelValue", false);
+const loadForm = () => {
+  const source = props.company;
+  if (!source) {
+    Object.assign(form, { ...emptyForm(), ...(props.preset ?? {}) });
+    return;
+  }
+
+  Object.assign(form, {
+    name: source.name,
+    role: source.role,
+    location: source.location,
+    url: source.url,
+    contact: source.contact,
+    salaryRange: source.salaryRange,
+    source: source.source,
+    status: source.status,
+    notes: source.notes,
+    tags: [...source.tags],
+    nextFollowUpDate: source.nextFollowUpDate,
+    interviewAt: source.interviewAt,
+    lastActionAt: source.lastActionAt,
+    lastActionNote: source.lastActionNote,
+    applicationDeadline: source.applicationDeadline,
+    priority: source.priority,
+    applicationType: source.applicationType,
+    documents: { ...source.documents },
+    proofSentAt: source.proofSentAt,
+    proofUrl: source.proofUrl ?? "",
+    proofNote: source.proofNote ?? "",
+    outreachStatus: source.outreachStatus,
+    redReason: source.redReason,
+  });
+};
+
+const close = () => {
+  showLeaveConfirm.value = false;
+  emit("update:modelValue", false);
+};
+
+/** Closing with unsaved input asks first instead of silently throwing it away */
+const requestClose = () => {
+  if (isDirty.value) {
+    showLeaveConfirm.value = true;
+    return;
+  }
+  close();
+};
+
+const discardAndClose = () => {
+  if (draftTimer !== null) clearTimeout(draftTimer);
+  draftTimer = null;
+  clearDraft();
+  close();
+};
 
 const submit = () => {
   nameError.value = !form.name.trim();
@@ -164,20 +284,40 @@ const submit = () => {
     proofNote: form.proofNote?.trim() || undefined,
     redReason: form.outreachStatus === "red" ? form.redReason : undefined,
   });
-  close();
+  discardAndClose();
+};
+
+const saveFromLeaveConfirm = () => {
+  showLeaveConfirm.value = false;
+  submit();
 };
 </script>
 
 <template>
   <Transition name="fade-slide">
-    <div v-if="modelValue" class="overlay" @click.self="close">
+    <div v-if="modelValue" class="overlay" @click.self="requestClose" @keydown.esc="requestClose">
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="form-modal-title">
         <header class="modal-header">
           <h2 id="form-modal-title">
             {{ mode === "create" ? "Bewerbung hinzufügen" : "Bewerbung bearbeiten" }}
           </h2>
-          <button type="button" class="ghost" @click="close">Schließen</button>
+          <button type="button" class="ghost" @click="requestClose">Schließen</button>
         </header>
+
+        <div v-if="showLeaveConfirm" class="leave-confirm" role="alertdialog" aria-labelledby="leave-confirm-title">
+          <strong id="leave-confirm-title">Deine Eingaben sind noch nicht gespeichert.</strong>
+          <p>Möchtest du sie speichern, bevor du das Fenster schließt?</p>
+          <div class="leave-confirm-actions">
+            <button type="button" class="primary" @click="saveFromLeaveConfirm">Ja, speichern</button>
+            <button type="button" class="ghost" @click="showLeaveConfirm = false">Weiter bearbeiten</button>
+            <button type="button" class="ghost danger-text" @click="discardAndClose">Nein, verwerfen</button>
+          </div>
+        </div>
+
+        <div v-if="draftRestored" class="draft-hint" role="status">
+          <span>Wir haben deine letzte, noch nicht gespeicherte Eingabe wiederhergestellt.</span>
+          <button type="button" class="ghost" @click="discardDraftChanges">Verwerfen</button>
+        </div>
 
         <form class="form" @submit.prevent="submit">
 
@@ -387,7 +527,7 @@ const submit = () => {
           <div class="actions" style="grid-column: 1 / -1;">
             <span class="required-hint">* Pflichtfelder</span>
             <div class="actions-right">
-              <button type="button" class="ghost" @click="close">Abbrechen</button>
+              <button type="button" class="ghost" @click="requestClose">Abbrechen</button>
               <button type="submit" class="primary">
                 {{ mode === "create" ? "Anlegen" : "Speichern" }}
               </button>
@@ -401,6 +541,41 @@ const submit = () => {
 </template>
 
 <style scoped>
+.leave-confirm {
+  margin-bottom: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #f59e0b;
+  background: color-mix(in srgb, #f59e0b 12%, var(--surface-elevated));
+}
+
+.leave-confirm p {
+  margin: 0.3rem 0 0.7rem;
+}
+
+.leave-confirm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.danger-text {
+  color: #dc2626;
+}
+
+.draft-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  border: 1px solid #93c5fd;
+  background: color-mix(in srgb, #3b82f6 10%, var(--surface-elevated));
+}
+
 .form-section-label {
   grid-column: 1 / -1;
   font-size: 0.78rem;
